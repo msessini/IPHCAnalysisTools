@@ -484,6 +484,15 @@ class HCPTauTau : public Selection {
   std::vector<TH1D> DeltaPtau2GEF;
   std::vector<TH1D> DeltaEtau2GEF;
   //
+  std::vector<TH1D> DeltaPhitauPiGEF;
+  std::vector<TH1D> DeltaEtatauPiGEF;
+  std::vector<TH1D> DeltaPtauPiGEF;
+  std::vector<TH1D> DeltaEtauPiGEF;
+  std::vector<TH1D> DeltaPhitauHGEF;
+  std::vector<TH1D> DeltaEtatauHGEF;
+  std::vector<TH1D> DeltaPtauHGEF;
+  std::vector<TH1D> DeltaEtauHGEF;
+  //
   std::vector<TH1D> Fraction1;
   std::vector<TH1D> Fraction2;
 
