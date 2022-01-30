@@ -120,6 +120,16 @@ ifdef USE_msessini
 	DEFS += -DUSE_msessini=1
 endif
 
+ifdef USE_laureen
+        TARGETS += HCPTauTau
+        DEFS += -DUSE_laureen=1
+endif
+
+ifdef USE_tabatha
+        TARGETS += HCPTauTau
+        DEFS += -DUSE_tabatha=1
+endif
+
 
 
 HDRS          = $(TARGETS:=.h) 		
@@ -165,6 +175,15 @@ ifdef USE_msessini
 	vpath %.h msessini
 endif
 
+ifdef USE_laureen
+        vpath %.cxx laureen
+        vpath %.h laureen
+endif
+
+ifdef USE_tabatha
+        vpath %.cxx tabatha
+        vpath %.h tabatha
+endif
 
 vpath %.cxx CommonFiles
 vpath %.h CommonFiles

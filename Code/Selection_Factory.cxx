@@ -46,6 +46,19 @@
 
 #endif
 
+#ifdef USE_laureen
+
+#include "laureen/HCPTauTau.h"
+
+#endif
+
+#ifdef USE_tabatha
+
+#include "tabatha/HCPTauTau.h"
+
+#endif
+
+
 Selection_Factory::Selection_Factory(){
 }
 
@@ -102,6 +115,19 @@ Selection_Base* Selection_Factory::Factory(TString Analysis, TString UncertType,
   else if(Analysis.Contains("hcptautau"))s=new HCPTauTau(Analysis,UncertType);
 
 #endif
+
+#ifdef USE_laureen
+
+  else if(Analysis.Contains("hcptautau"))s=new HCPTauTau(Analysis,UncertType);
+
+#endif
+
+#ifdef USE_tabatha
+
+  else if(Analysis.Contains("hcptautau"))s=new HCPTauTau(Analysis,UncertType);
+
+#endif
+
 
   else{
 	Logger(Logger::Error)<< "Invalid Analysis type \"" << Analysis << "\". Using default <Example.h> " << std::endl;
