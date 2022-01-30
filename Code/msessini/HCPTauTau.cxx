@@ -1112,11 +1112,19 @@ void  HCPTauTau::doEvent()  { //  Method called on every event
 	      if(TauMinusTruth!=TauPlusTruth && TauMinusTruth!=zeroLV && TauPlusTruth!=zeroLV){
 		if(a1a1truth && ScalcPVTruth.isOk("a1", "a1", TauMinusTruth, HadPionsTruth_minus, HadPionsChargeTruth_minus, TauPlusTruth, HadPionsTruth_plus, HadPionsChargeTruth_plus)==true){
 		  Acop_PVTruth = ScalcPVTruth.AcopAngle("a1", "a1", TauMinusTruth, HadPionsTruth_minus, HadPionsChargeTruth_minus, TauPlusTruth, HadPionsTruth_plus, HadPionsChargeTruth_plus);
-		  Acop_DPTruth = ScalcDPTruth.AcopAngle_DP("a1", "a1", HadPionsTruth_minus, HadPionsChargeTruth_minus, HadPionsTruth_plus, HadPionsChargeTruth_plus);
+
+		  //PLACER LA METHODE ICI POUR LE NIVEAU TRUTH CANAL A1A1//
+		  
+		  
+		  /////////////////////////////////////////////////////////
 		}
 		if(rhorhotruth && ScalcPVTruth.isOk("rho", "rho", TauMinusTruth, HadPionsTruth_minus, HadPionsChargeTruth_minus, TauPlusTruth, HadPionsTruth_plus, HadPionsChargeTruth_plus)==true){
 		  Acop_PVTruth = ScalcPVTruth.AcopAngle("rho", "rho", TauMinusTruth, HadPionsTruth_minus, HadPionsChargeTruth_minus, TauPlusTruth, HadPionsTruth_plus, HadPionsChargeTruth_plus);
-		  Acop_DPTruth = ScalcDPTruth.AcopAngle_DP("rho", "rho", HadPionsTruth_minus, HadPionsChargeTruth_minus, HadPionsTruth_plus, HadPionsChargeTruth_plus);
+
+                  //PLACER LA METHODE ICI POUR LE NIVEAU TRUTH CANAL RHORHO//
+                  
+                  
+                  ///////////////////////////////////////////////////////////
 		}
 		if(pionpiontruth && ScalcPVTruth.isOk("pion", "pion", TauMinusTruth, HadPionsTruth_minus, HadPionsChargeTruth_minus, TauPlusTruth, HadPionsTruth_plus, HadPionsChargeTruth_plus)==true){
 		  Acop_PVTruth = ScalcPVTruth.AcopAngle("pion", "pion", TauMinusTruth, HadPionsTruth_minus, HadPionsChargeTruth_minus, TauPlusTruth, HadPionsTruth_plus, HadPionsChargeTruth_plus);
@@ -1181,11 +1189,19 @@ void  HCPTauTau::doEvent()  { //  Method called on every event
 	      if(TauMinusMixed!=TauPlusMixed && TauMinusMixed!=zeroLV && TauPlusMixed!=zeroLV){
 		if(a1a1 && ScalcPV.isOk("a1", "a1", TauMinusMixed, HadRefitPions_minus, HadRefitPionsCharge_minus, TauPlusMixed, HadRefitPions_plus, HadRefitPionsCharge_plus)==true){
 		  Acop_PV = ScalcPV.AcopAngle("a1", "a1", TauMinusMixed, HadRefitPions_minus, HadRefitPionsCharge_minus, TauPlusMixed, HadRefitPions_plus, HadRefitPionsCharge_plus);
-		  Acop_DP = ScalcDP.AcopAngle_DP("a1", "a1", HadRefitPions_minus, HadRefitPionsCharge_minus, HadRefitPions_plus, HadRefitPionsCharge_plus);
+
+		//PLACER LA METHODE ICI POUR LE NIVEAU RECO CANAL A1A1//
+
+
+		////////////////////////////////////////////////////////
 		}
 		if(rhorho && ScalcPV.isOk("rho", "rho", TauMinusMixed, HadRefitPions_minus, HadRefitPionsCharge_minus, TauPlusMixed, HadRefitPions_plus, HadRefitPionsCharge_plus)==true){
 		  Acop_PV = ScalcPV.AcopAngle("rho", "rho", TauMinusMixed, HadRefitPions_minus, HadRefitPionsCharge_minus, TauPlusMixed, HadRefitPions_plus, HadRefitPionsCharge_plus);
-		  Acop_DP = ScalcDP.AcopAngle_DP("rho", "rho", HadRefitPions_minus, HadRefitPionsCharge_minus, HadRefitPions_plus, HadRefitPionsCharge_plus);
+
+                //PLACER LA METHODE ICI POUR LE NIVEAU RECO CANAL RHORHO//
+               
+                
+                //////////////////////////////////////////////////////////
 		}
 		if(pionpion && ScalcPV.isOk("pion", "pion", TauMinusMixed, HadRefitPions_minus, HadRefitPionsCharge_minus, TauPlusMixed, HadRefitPions_plus, HadRefitPionsCharge_plus)==true){
 		  Acop_PV = ScalcPV.AcopAngle("pion", "pion", TauMinusMixed, HadRefitPions_minus, HadRefitPionsCharge_minus, TauPlusMixed, HadRefitPions_plus, HadRefitPionsCharge_plus);
