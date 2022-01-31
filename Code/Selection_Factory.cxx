@@ -46,15 +46,15 @@
 
 #endif
 
-#ifdef USE_laureen
+#ifdef USE_lbarbich
 
-#include "laureen/HCPTauTau.h"
+#include "lbarbich/HCPTauTau.h"
 
 #endif
 
-#ifdef USE_tabatha
+#ifdef USE_tadufour
 
-#include "tabatha/HCPTauTau.h"
+#include "tadufour/HCPTauTau.h"
 
 #endif
 
@@ -116,13 +116,13 @@ Selection_Base* Selection_Factory::Factory(TString Analysis, TString UncertType,
 
 #endif
 
-#ifdef USE_laureen
+#ifdef USE_lbarbich
 
   else if(Analysis.Contains("hcptautau"))s=new HCPTauTau(Analysis,UncertType);
 
 #endif
 
-#ifdef USE_tabatha
+#ifdef USE_tadufour
 
   else if(Analysis.Contains("hcptautau"))s=new HCPTauTau(Analysis,UncertType);
 

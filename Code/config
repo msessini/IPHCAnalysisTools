@@ -12,8 +12,8 @@ if [ "${1}"  == "--help" ]; then
     echo "--gbourgat                Configures the make file to compile files in the directory gbourgat"
     echo "--cgrimault               Configures the make file to compile files in the directory cgrimault"
     echo "--msessini                Configures the make file to compile files in the directory msessini"
-    echo "--laureen                Configures the make file to compile files in the directory laureen"
-    echo "--tabatha                Configures the make file to compile files in the directory tabatha"
+    echo "--lbarbich                Configures the make file to compile files in the directory lbarbich"
+    echo "--tadufour                Configures the make file to compile files in the directory tadufour"
 
 
 
@@ -111,13 +111,13 @@ else
 		echo "Configuring Code to use directory msessini"
 		echo "USE_msessini=1" >> make.inc
 	    fi
-            if [ "${var}" == "--laureen" ]; then
-                echo "Configuring Code to use directory laureen"
-                echo "USE_laureen=1" >> make.inc
+            if [ "${var}" == "--lbarbich" ]; then
+                echo "Configuring Code to use directory lbarbich"
+                echo "USE_lbarbich=1" >> make.inc
             fi
-            if [ "${var}" == "--tabatha" ]; then
-                echo "Configuring Code to use directory tabatha"
-                echo "USE_tabatha=1" >> make.inc
+            if [ "${var}" == "--tadufour" ]; then
+                echo "Configuring Code to use directory tadufour"
+                echo "USE_tadufour=1" >> make.inc
             fi
 	done
     fi

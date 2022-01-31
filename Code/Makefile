@@ -120,14 +120,14 @@ ifdef USE_msessini
 	DEFS += -DUSE_msessini=1
 endif
 
-ifdef USE_laureen
+ifdef USE_lbarbich
         TARGETS += HCPTauTau
-        DEFS += -DUSE_laureen=1
+        DEFS += -DUSE_lbarbich=1
 endif
 
-ifdef USE_tabatha
+ifdef USE_tadufour
         TARGETS += HCPTauTau
-        DEFS += -DUSE_tabatha=1
+        DEFS += -DUSE_tadufour=1
 endif
 
 
@@ -175,14 +175,14 @@ ifdef USE_msessini
 	vpath %.h msessini
 endif
 
-ifdef USE_laureen
-        vpath %.cxx laureen
-        vpath %.h laureen
+ifdef USE_lbarbich
+        vpath %.cxx lbarbich
+        vpath %.h lbarbich
 endif
 
-ifdef USE_tabatha
-        vpath %.cxx tabatha
-        vpath %.h tabatha
+ifdef USE_tadufour
+        vpath %.cxx tadufour
+        vpath %.h tadufour
 endif
 
 vpath %.cxx CommonFiles

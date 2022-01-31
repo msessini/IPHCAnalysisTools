@@ -47,15 +47,15 @@ if($UserID eq "msessini"){
     $UserName="Mario";
 }
 
-if($UserID eq "laureen"){
-    $UserIDCern="laureen";
-    $UserDir="--laureen";
+if($UserID eq "lbarbich"){
+    $UserIDCern="lbarbich";
+    $UserDir="--lbarbich";
     $UserName="Laureen";
 }
 
-if($UserID eq "tabatha"){
-    $UserIDCern="tabatha";
-    $UserDir="--tabatha";
+if($UserID eq "tadufour"){
+    $UserIDCern="tadufour";
+    $UserDir="--tadufour";
     $UserName="Tabatha";
 }
 
