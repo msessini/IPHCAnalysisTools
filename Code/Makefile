@@ -45,10 +45,8 @@ TARGETS       =	Ntuple_Controller \
 		HistoConfig \
 		Example \
 		TauSolver \
-		TauSpinExample \
 		TauSpinerInterface \
 		ReferenceScaleFactors \
-		Objects \
 		DataMCCorrections \
 		PUReweight \
 		ScaleFactor \
@@ -58,7 +56,9 @@ TARGETS       =	Ntuple_Controller \
 		RecoilCorrector \
 		MEtSys \
 		TauIDSFTool \
-		BDTClassification
+		BDTClassification \
+                FakeFactors \
+		ImpactParameter
 		#IpCorrection
 
 CINTTARGETS = 
@@ -67,7 +67,7 @@ CINTTARGETS =
 
 # now include conditional options set by flags in make.inc
 ifdef USE_TauSpinner
-	SUBDIRS += TauSpiner/ CommonUtils/TauPolSoftware/TauDecaysInterface/
+	SUBDIRS += CommonUtils/TauPolSoftware/TauDecaysInterface/
 	SHAREDLIBFLAGS +=	-L./TauSpiner/lhapdf/lib -lLHAPDF \
 				-L./TauSpiner/TAUOLA/lib -lTauolaCxxInterface -lTauolaFortran -lTauolaTauSpinner \
 				-L./TauSpiner/hepmc/install/lib -lHepMC
@@ -116,7 +116,7 @@ ifdef USE_cgrimault
 endif
 
 ifdef USE_msessini
-	TARGETS += HCPTauTau HCPMuTau
+	TARGETS += HCPMuTau
 	DEFS += -DUSE_msessini=1
 endif
 

@@ -112,11 +112,6 @@ else
     fi
     
     ## now downloading required code from github
-    
-    LegacyCorrectionsWorkspace=$(ls | grep LegacyCorrectionsWorkspace | wc -l)
-    if [ $LegacyCorrectionsWorkspace == 0 ]; then
-	git clone -b legacy_newrepo https://github.com/danielwinterbottom/LegacyCorrectionsWorkspace.git LegacyCorrectionsWorkspace
-    fi
 
     cd CommonUtils
     CommonUtils=$(ls | grep SimpleFits | wc -l)
@@ -129,7 +124,7 @@ else
 	
 	#git clone https://github.com/cherepan/TauDataFormat.git TauDataFormat
 	
-	git clone https://github.com/msessini/TauDecaysInterface.git TauPolSoftware/TauDecaysInterface
+	git clone --branch run2_MuTau https://github.com/msessini/TauDecaysInterface.git TauPolSoftware/TauDecaysInterface
 
 	if [ $UseSVfit == 1 ]; then
 	#	git clone -b svFit_2015Apr03  https://github.com/veelken/SVfit_standalone.git TauAnalysis/SVfitStandalone

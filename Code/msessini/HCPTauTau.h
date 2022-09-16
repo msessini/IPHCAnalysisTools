@@ -77,17 +77,6 @@ class HCPTauTau : public Selection {
   
   //DataMCCorrections DataMC_Corr;
   //tauTrigSFreader tauTrgSF;
-
-  TString InputNtuplePath=Ntp->GetInputNtuplePath();
-  bool isDY1050=(InputNtuplePath.Contains("10to50"));
-
-  TFile *WorkSpaceFF2016;
-  RooWorkspace *wFF2016;
-  TFile *WorkSpaceFF2017;
-  RooWorkspace *wFF2017;
-  TFile *WorkSpaceFF2018;
-  RooWorkspace *wFF2018;
-  
   //Int_t year;
   BDTClassification *BDT;
   

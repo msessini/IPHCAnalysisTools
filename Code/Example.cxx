@@ -80,13 +80,13 @@ void  Example::Store_ExtraDist(){
 
 void  Example::doEvent(){
   unsigned int t;
-  int id(Ntp->GetMCID());
-  if(!HConfig.GetHisto(Ntp->isData(),id,t)){ Logger(Logger::Error) << "failed to find id" <<std::endl; return;}
+  //int id(Ntp->GetMCID());
+  //if(!HConfig.GetHisto(Ntp->isData(),id,t)){ Logger(Logger::Error) << "failed to find id" <<std::endl; return;}
   
   // Apply Selection
 
 
-  value.at(PrimeVtx)=Ntp->NVtx();
+  //value.at(PrimeVtx)=Ntp->NVtx();
   pass.at(PrimeVtx)=(value.at(PrimeVtx)>=cut.at(PrimeVtx));
   
   value.at(TriggerOk)=(Ntp->EventNumber()%1000)==1;
@@ -94,8 +94,8 @@ void  Example::doEvent(){
   
   double wobs=1;
   double w;
-  if(!Ntp->isData()){/*w = Ntp->PUReweight(Ntp->year())*/;}
-  else{w=1;}
+  //if(!Ntp->isData()){/*w = Ntp->PUReweight(Ntp->year())*/;}
+  //else{w=1;}
 
 
 

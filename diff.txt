@@ -1,0 +1,27 @@
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/: Analysis.exe
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/CommonUtils: SimpleFits
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/CommonUtils: TauAnalysis
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/CommonUtils/TauDataFormat/TauNtuple/src: DataMCType.o
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/CommonUtils/TauDataFormat/TauNtuple/src: TauDecay.o
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/CommonUtils: TauPolSoftware
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/CommonUtils: lib
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/DataFormats: MyDict.cxx
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/DataFormats: MyDict.o
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/DataFormats/lib: MyDict_rdict.pcm
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/DataFormats/lib: libDataFormats.so
+Only in Code/InputData: HistoHCPMuTauInclusive_2016.txt
+Only in Code/InputData: HistoHCPMuTauInclusive_2017.txt
+Only in Code/InputData: HistoHCPMuTauInclusive_2018.txt
+Only in Code/InputData: SkimSummary_Z.log
+Files Code/Makefile and /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/Makefile differ
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/TauSpiner: HepMC-2.06.11
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/TauSpiner: LHAPDF-6.2.1
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/TauSpiner: TAUOLA
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/TauSpiner: hepmc
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/TauSpiner: lhapdf
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/TauSpiner: pythia8303
+Files Code/diff.txt and /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/diff.txt differ
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/: i386_linux
+Only in /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/: make.inc
+Files Code/msessini/HCPMuTau.cxx and /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/msessini/HCPMuTau.cxx differ
+Files Code/msessini/HCPTauTau.cxx and /home-pbs/msessini/Test/workdirMuHad_Feb_18_2022/Code/msessini/HCPTauTau.cxx differ

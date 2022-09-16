@@ -60,7 +60,7 @@ Selection_Base* Selection_Factory::Factory(TString Analysis, TString UncertType,
   // ensuring code will compile independently of user code
   // WARNING: be aware of the consequences of "Contains". Make sure that Class "foo" is put after "foobar".
   if(Analysis.Contains("example"))s=new Example(Analysis,UncertType,Channel,CPstate);
-  else if(Analysis.Contains("tauspin"))s=new TauSpinExample(Analysis,UncertType,Channel,CPstate);
+  //else if(Analysis.Contains("tauspin"))s=new TauSpinExample(Analysis,UncertType,Channel,CPstate);
 #ifdef USE_cherepanov
   /*else if(Analysis.Contains("mytest"))s=new MyTest(Analysis,UncertType);
   else if(Analysis.Contains("ztauhtauh"))s=new ZTauHTauH(Analysis,UncertType);
@@ -100,7 +100,7 @@ Selection_Base* Selection_Factory::Factory(TString Analysis, TString UncertType,
 
 #ifdef USE_msessini
 
-  else if(Analysis.Contains("hcptautau"))s=new HCPTauTau(Analysis,UncertType,Channel,CPstate);
+  //else if(Analysis.Contains("hcptautau"))s=new HCPTauTau(Analysis,UncertType,Channel,CPstate);
   else if(Analysis.Contains("hcpmutau"))s=new HCPMuTau(Analysis,UncertType,Channel,CPstate);
 
 

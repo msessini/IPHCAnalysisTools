@@ -141,8 +141,9 @@ int main(int argc, char* argv[]) {
   string InputName="";
   string OutputPath="";
   if (mode == Selection_Base::ANALYSIS) {
+for(unsigned int j =0; j<selections.size(); j++){
     Logger(Logger::Info) << "Setuping up Ntuple control" << endl;
-    Ntuple_Controller Ntp(Files);
+    Ntuple_Controller Ntp(Files,selections[j]->Get_SysType());
     if(skim) {
       DPM_PATH = "/dpm/in2p3.fr/home/cms/phedex/store/user/gbourgat/";
       SkimDirectory="Skim2016_180220/";
@@ -180,9 +181,9 @@ int main(int argc, char* argv[]) {
       last_index = basetemp.find_last_not_of("0123456789");
       Set = basetemp.substr(last_index + 1);
       Ntp.CloneTree(OutputPath+"SKIMMED_NTUP_"+Set);}
-    for (unsigned int j = 0; j < selections.size(); j++) {
+    //for (unsigned int j = 0; j < selections.size(); j++) {
       selections[j]->Set_Ntuple(&Ntp);
-    }
+    //}
 
     //////////////////////////////////////
     // Event Loop
@@ -223,11 +224,11 @@ int main(int argc, char* argv[]) {
       }
       bool passed = false;
 
-      for (unsigned int j = 0; j < selections.size(); j++) {
+      //for (unsigned int j = 0; j < selections.size(); j++) {
 	selections.at(j)->Event();
 	if (selections.at(j)->Passed())
 	  passed = true;
-      }
+      //}
       if (skim && passed) {
 
 	Ntp.AddEventToCloneTree();
@@ -256,6 +257,7 @@ int main(int argc, char* argv[]) {
       Logger(Logger::Verbose) << "Number of events: " << EventsReadFromFile[k] << " from file: " << ListOfFilesRead[k] << endl;
     }
     Logger(Logger::Info) << "Event Loop done" << endl;
+  } //sys loop
   }
   ///////////////////////////////////////////
   // Reconstruct Analysis from Stored Histograms
@@ -270,7 +272,7 @@ int main(int argc, char* argv[]) {
     if (runtype == Selection_Base::Local) {
       Selection_Factory SF;
       for (unsigned int j = 0; j < selections.size(); j++) {
-	if (selections.at(j)->Get_SysType() == "default") {
+	if (selections.at(j)->Get_SysType() == "Nominal") {
 	  for (unsigned int i = 0; i < UncertList.size(); i++) {
 	    TString n = selections.at(j)->Get_Name();
 	    Logger(Logger::Info) << "Adding Systematic Uncertainty " << UncertType.at(i) << endl;

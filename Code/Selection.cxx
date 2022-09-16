@@ -14,6 +14,7 @@
 
 Selection::Selection(TString Name_, TString id_) :
 		Selection_Base(Name_, id_), HConfig(), NGoodFiles(0), NBadFiles(0), histsAreScaled(false), isStored(false), data(0) {
+	std::cout<<"////////////"<<id_<<std::endl;
 	if (Name_)
 		ListofBadFiles.clear();
 }
@@ -227,7 +228,7 @@ void Selection::Finish(char* Channel, char* CPstate) {
 	}
 
 	// For local jobs produce pdf file
-	if (runtype != GRID) {
+	/*if (runtype != GRID) {
 		Tables T(Name);
 		//Check that the correct number of events are run over and make Table
 		SC.CheckNEvents(types, nevents_noweight_default);
@@ -287,7 +288,7 @@ void Selection::Finish(char* Channel, char* CPstate) {
 		T.AddPlots(title);
 		T.GeneratePDF();
 		Logger(Logger::Info) << "Plots and Tables Complete" << std::endl;
-	}
+	}*/
 
 }
 
