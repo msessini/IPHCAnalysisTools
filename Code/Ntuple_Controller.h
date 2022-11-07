@@ -7,6 +7,7 @@
 // Root include files
 #include "TROOT.h"
 #include "TFile.h"
+#include "TString.h"
 #include "TChain.h"
 #include "TMath.h"
 #include "TObject.h"
@@ -38,8 +39,6 @@
 #ifdef USE_TauSpinner
 #include "TauSpinerInterface.h"
 #endif
-#include "SimpleFits/FitSoftware/interface/PDGInfo.h"
-#include "TauDataFormat/TauNtuple/interface/TauDecay.h"
 
 #ifdef USE_SVfit
 #include "DataFormats/SVFitObject.h"
@@ -47,20 +46,9 @@
 #include "SVfitProvider.h"
 #endif
 
-
-#include "SimpleFits/FitSoftware/interface/TrackParticle.h"
-#include "SimpleFits/FitSoftware/interface/LorentzVectorParticle.h"
-#include "SimpleFits/FitSoftware/interface/MultiProngTauSolver.h"
-#include "SimpleFits/FitSoftware/interface/ErrorMatrixPropagator.h"
-#include "SimpleFits/FitSoftware/interface/TauA1NuConstrainedFitter.h"
-
-#include "PileUp.h"
 //#include "TauTriggerSFs/interface/TauTriggerSFs2017.h"
 //#include "TauTriggerSFs/interface/SFProvider.h"
-#include "TauIDSFs/interface/TauIDSFTool.h"
 //#include "TauIDSFTool.h"
-#include "RecoilCorrector.h"
-#include "MEtSys.h"
 
 #include "RooWorkspace.h"
 #include "RooFunctor.h"
@@ -156,8 +144,6 @@ class Ntuple_Controller{
   HistoConfig HistoC;
 
   // Fit Variables
-  LorentzVectorParticle               theTau;
-  std::vector<LorentzVectorParticle>  daughter;
   double                              LC_chi2;
   double                              ndof;
   bool                                fitStatus;
@@ -169,15 +155,6 @@ class Ntuple_Controller{
   void           CorrectMuonP4();
   bool           Muon_isCorrected;
 
-  // helpers for SVFit
-#ifdef USE_SVfit
-  // create SVFitObject from standard muon and standard tau_h
-  void runAndSaveSVFit_MuTauh(SVFitObject* svfObj, SVFitStorage& svFitStor, const TString& metType, unsigned muIdx, unsigned tauIdx, double scaleMu, double scaleTau, bool save = true);
-  // create SVFitObject from standard muon and fully reconstructed 3prong tau
-  void runAndSaveSVFit_MuTau3p(SVFitObject* svfObj, SVFitStorage& svFitStor, const TString& metType, unsigned muIdx, TLorentzVector tauLV, LorentzVectorParticle neutrino, double scaleMu, double scaleTau, bool save = true);
-  // create SVFitObject from standard tau_h and standard tau_h
-  void runAndSaveSVFit_TauhTauh(SVFitObject* svfObj, SVFitStorage& svFitStor, const TString& metType, unsigned tauIdx1, unsigned tauIdx2, double scaleTau1, double scaleTau2, bool save = false);
-#endif
 
  public:
   // Constructor
@@ -190,7 +167,7 @@ class Ntuple_Controller{
   void InitEvent();
 
   //TauSpiner function
-  double TauSpinerGet(int SpinType,char* CPstate);
+  double TauSpinerGet(int SpinType);
   void TauSpinerSetSignal(int signalcharge){
 #ifdef USE_TauSpinner
     TauSpinerInt.SetTauSignalCharge(signalcharge);
@@ -347,14 +324,6 @@ class Ntuple_Controller{
 
   typedef std::vector<float> tauPair_t; // pt1 - iso1 - idx1 - pt2 - iso2 - idx2 - idxoriginalPair
   typedef std::tuple <float, float, int, float, float, int, int> tauPair_tuple; // pt1 - iso1 - idx1 - pt2 - iso2 - idx2 - idxoriginalPair
-  // access to SVFit
-#ifdef USE_SVfit
-  SVFitObject* getSVFitResult_MuTauh(SVFitStorage& svFitStor, TString metType, unsigned muIdx, unsigned tauIdx, unsigned rerunEvery = 5000, TString suffix = "", double scaleMu = 1 , double scaleTau = 1);
-  SVFitObject* getSVFitResult_MuTau3p(SVFitStorage& svFitStor, TString metType, unsigned muIdx, TLorentzVector tauLV, LorentzVectorParticle neutrino, TString suffix = "", double scaleMu = 1, double scaleTau = 1);
-  SVFitObject* getSVFitResult_TauhTauh(SVFitStorage& svFitStor, TString metType, unsigned tauIdx1, unsigned tauIdx2, unsigned rerunEvery  = 5000 , TString suffix  ="" , double scaleTau1  =1 , double scaleTau2  =1 );
-
-
-#endif
 
 
   // Ntuple Access Functions
@@ -419,6 +388,13 @@ class Ntuple_Controller{
   float tauIPy()            {return Ntp->_tauIPy;}
   float tauIPz()            {return Ntp->_tauIPz;}
   float tauIPsignificance() {return Ntp->_tauIPsignificance;}
+  float tauSVx()	    {return Ntp->_tauSVx;}
+  float tauSVy()            {return Ntp->_tauSVy;}
+  float tauSVz()            {return Ntp->_tauSVz;}
+  float GEFtauE()	    {return Ntp->_GEFtauE;}
+  float GEFtauPt()          {return Ntp->_GEFtauPt;}
+  float GEFtauPhi()         {return Ntp->_GEFtauPhi;}
+  float GEFtauEta()         {return Ntp->_GEFtauEta;}
   int muIndex()	            {return Ntp->_muIndex;}
   int muGenMatch()	    {return Ntp->_muGenMatch;}
   Double_t muPt()           {return Ntp->_muPt;}
@@ -430,8 +406,25 @@ class Ntuple_Controller{
   float muIPy()		    {return Ntp->_muIPy;}
   float muIPz()		    {return Ntp->_muIPz;}
   float muIPsignificance()  {return Ntp->_muIPsignificance;}
+  float genTaupx()          {return Ntp->_genTaupx;}
+  float genTaupy()          {return Ntp->_genTaupy;}
+  float genTaupz()          {return Ntp->_genTaupz;}
+  float genTauE()           {return Ntp->_genTauE;}
+  float genTauSVx()         {return Ntp->_genTauSVx;}
+  float genTauSVy()         {return Ntp->_genTauSVy;}
+  float genTauSVz()         {return Ntp->_genTauSVz;}
+  float genMuonpx()         {return Ntp->_genMuonpx;}
+  float genMuonpy()         {return Ntp->_genMuonpy;}
+  float genMuonpz()         {return Ntp->_genMuonpz;}
+  float genMuonE()          {return Ntp->_genMuonE;}
+  float genPVx()	    {return Ntp->_genPVx;}
+  float genPVy()            {return Ntp->_genPVy;}
+  float genPVz()            {return Ntp->_genPVz;}
+  double genpvPhiCP()	    {return Ntp->_genpvPhiCP;}
+  double gendpPhiCP()       {return Ntp->_gendpPhiCP;}
   bool isOSpair()	    {return Ntp->_isOSpair;}
   bool isIso()		    {return Ntp->_isIso;}
+  bool isMediumID()	    {return Ntp->_isMediumID;}
   double pairvisMass()      {return Ntp->_pairvisMass;}
   int Njets()		    {return Ntp->_Njets;}
   int Nbjets()		    {return Ntp->_Nbjets;}

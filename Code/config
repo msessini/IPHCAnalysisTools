@@ -18,15 +18,23 @@ if [ "${1}"  == "--help" ]; then
 else
 
     echo "Configuring Environment...."
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/CommonUtils/lib
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/DataFormats/lib
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/DataFormats
-    export DATAFORMATS_LIB=$PWD/DataFormats/lib/libDataFormats.so
-    export codedir=$PWD
+    
+    #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/CommonUtils/lib
+    #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/DataFormats/lib
+    #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/DataFormats
+    #export DATAFORMATS_LIB=$PWD/DataFormats/lib/libDataFormats.so
+    #export codedir=$PWD
     ## setup variables for make files
+    #export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc700/cms/cmssw/CMSSW_10_2_23/external/slc7_amd64_gcc700/lib/
+    #export ROOTSYS=/cvmfs/cms.cern.ch/slc7_amd64_gcc700/lcg/root/6.12.07-gnimlf7/
     #export ROOTSYS=/libcern/root/5.34.30/sl6.6-x86_64
     #export ROOTSYS=/libcern/root/5.34.18/sl6.3-x86_64
-    export ROOTSYS=/libcern/root/6.24.06/centos7.6-x86_64
+    #export ROOTSYS=/libcern/root/6.24.06/centos7.6-x86_64
+
+    export LD_LIBRARY_PATH=/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/gcc/7.0.0-omkpbe2/lib64/
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/gcc/7.0.0-omkpbe2/lib/
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/cvmfs/cms.cern.ch/slc7_amd64_gcc700/cms/cmssw/CMSSW_10_2_23/external/slc7_amd64_gcc700/lib/
+
     #source /libcern/gcc/4.9.3/sl6.5-x86_64/setup.sh
     #source /libcern/gcc/4.9.3/centos7.6-x86_64/setup.sh
     #cernlib-use --version 6.14.06 root
@@ -44,7 +52,7 @@ else
         export ROOTSYS=${2}
         ROOT="$PWD/../root/"
     fi
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ROOTSYS/lib/
+    #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ROOTSYS/lib/
     export PATH=$PATH:$ROOTSYS/bin/
     
     UseSVfit=0
@@ -120,11 +128,11 @@ else
 	cd CommonUtils
 	mkdir lib
 	
-	git clone https://github.com/msessini/SimpleFits.git SimpleFits
+	#git clone https://github.com/msessini/SimpleFits.git SimpleFits
 	
 	#git clone https://github.com/cherepan/TauDataFormat.git TauDataFormat
 	
-	git clone --branch run2_MuTau https://github.com/msessini/TauDecaysInterface.git TauPolSoftware/TauDecaysInterface
+	#git clone --branch run2_MuTau https://github.com/msessini/TauDecaysInterface.git TauPolSoftware/TauDecaysInterface
 
 	if [ $UseSVfit == 1 ]; then
 	#	git clone -b svFit_2015Apr03  https://github.com/veelken/SVfit_standalone.git TauAnalysis/SVfitStandalone

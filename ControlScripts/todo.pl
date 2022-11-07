@@ -509,16 +509,6 @@ if( $ARGV[0] eq "--Local" ){
     system(sprintf("mkdir $OutputDir/workdir$set/EPS "));
     system(sprintf("ln -s $OutputDir/workdir$set/Code/InputData $OutputDir/workdir$set/InputData "));
     
-    # generate first setup script
-    system(sprintf("touch $OutputDir/workdir$set/firstsetup"));
-    system(sprintf("chmod 744 $OutputDir/workdir$set/firstsetup"));
-    system(sprintf("echo \"#! /bin/bash\" >> $OutputDir/workdir$set/firstsetup "));
-    system(sprintf("echo \"sed -i 's;+= TauSpiner/;+=;g' $OutputDir/workdir$set/Code/Makefile\" >> $OutputDir/workdir$set/firstsetup "));
-    system(sprintf("echo \"cd $OutputDir/workdir$set/Code/DataFormats\" >> $OutputDir/workdir$set/firstsetup "));
-    system(sprintf("echo \"mv MyDict_rdict.pcm lib/. \" >> $OutputDir/workdir$set/firstsetup "));
-    system(sprintf("echo \"cd $OutputDir/workdir$set/ \" >> $OutputDir/workdir$set/firstsetup"));
-    system(sprintf("echo \"rm firstsetup\" >> $OutputDir/workdir$set/firstsetup"));
-
     # generate compile script 
     system(sprintf("touch $OutputDir/workdir$set/compile"));
     system(sprintf("chmod 744 $OutputDir/workdir$set/compile")); 
@@ -527,9 +517,6 @@ if( $ARGV[0] eq "--Local" ){
     system(sprintf("echo \"source config \\\$\@ \"   >> $OutputDir/workdir$set/compile "));
     system(sprintf("echo \"gmake all\" >> $OutputDir/workdir$set/compile "));
     system(sprintf("echo \"cd $OutputDir/workdir$set/ \" >> $OutputDir/workdir$set/compile"));
-    system(sprintf("echo \"if test -f 'firstsetup'; then\" >> $OutputDir/workdir$set/compile"));
-    system(sprintf("echo \"  source firstsetup\" >> $OutputDir/workdir$set/compile"));
-    system(sprintf("echo \"fi\" >> $OutputDir/workdir$set/compile"));
 
     # Generate Combine script 
     system(sprintf("touch $OutputDir/workdir$set/Combine"));
@@ -538,7 +525,7 @@ if( $ARGV[0] eq "--Local" ){
     system(sprintf("echo \"export workdir=\\\"$OutputDir/workdir$set/\\\"\" >> $OutputDir/workdir$set/Combine"));
     system(sprintf("echo \"cd $OutputDir/workdir$set/Code/; source config \" >> $OutputDir/workdir$set/Combine"));
     system(sprintf("echo \"cd $OutputDir/workdir$set/ \" >> $OutputDir/workdir$set/Combine")) ; 
-    system(sprintf("echo \'$OutputDir/workdir$set/Code/Analysis.exe \"\${1}\" \"\${2}\" \' >> $OutputDir/workdir$set/Combine")) ;
+    system(sprintf("echo \'$OutputDir/workdir$set/Code/Analysis.exe \"\${1}\" \' >> $OutputDir/workdir$set/Combine")) ;
 
     # Generate Combine Input
     system(sprintf("cp $InputFile $OutputDir/workdir$set/Input.txt "));
@@ -744,7 +731,7 @@ if( $ARGV[0] eq "--Local" ){
 			# Add Set information to Combining scripts and Input.txt
 			system(sprintf("echo \"File: $OutputDir/workdir$set/Set_$B/ \" >>  $OutputDir/workdir$set/Input.txt ")) ;
 			system(sprintf("echo \"cd $OutputDir/workdir$set/Set_$B \" >> $OutputDir/workdir$set/Submit")) ;
-			system(sprintf("echo \'source  Qsub_Set_$B \"\${1}\" \"\${2}\"\' >> $OutputDir/workdir$set/Submit")) ;
+			system(sprintf("echo \'source  Qsub_Set_$B \"\${1}\"\' >> $OutputDir/workdir$set/Submit")) ;
 
 
 			# Create and configure Set_$B dir
@@ -765,7 +752,7 @@ if( $ARGV[0] eq "--Local" ){
 			system(sprintf("echo \"mkdir $RemoteDir/workdir$set-Set_$B  \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
 			system(sprintf("echo \"cp -r *    $RemoteDir/workdir$set-Set_$B  \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
 			system(sprintf("echo \"cd  $RemoteDir/workdir$set-Set_$B  \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
-			system(sprintf("echo \'$OutputDir/workdir$set/Code/Analysis.exe \"\${1}\" \"\${2}\" 2>&1 | tee >(sed -r \"s/\\x1B\\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g\" > Set_$B.output) \' >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
+			system(sprintf("echo \'$OutputDir/workdir$set/Code/Analysis.exe \"\${1}\" 2>&1 | tee >(sed -r \"s/\\x1B\\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g\" > Set_$B.output) \' >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
 			system(sprintf("echo \"cp -r *  $OutputDir/workdir$set/Set_$B/ \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
 			system(sprintf("echo \"source $OutputDir/workdir$set/Set_$B/Set_$B-clean.sh \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
 			system(sprintf("echo \"rm -r   $RemoteDir/workdir$set-Set_$B  \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));	

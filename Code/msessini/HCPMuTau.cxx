@@ -4,45 +4,28 @@
 #include <cstdlib>
 #include "HistoConfig.h"
 #include <iostream>
-#include "SVFitObject.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
-//#include "SVfitProvider.h"
 #include <cstdlib>
 #include "HistoConfig.h"
 #include <iostream>
-#include "PDG_Var.h"
 #include "SkimConfig.h"
-#include "TauSpinerInterface.h"
+#include "Logger.h"
 
 
-#include "SimpleFits/FitSoftware/interface/PDGInfo.h"
 #include "TVector3.h"
 #include "TMath.h"
-#include "SimpleFits/FitSoftware/interface/TrackParticle.h"
-#include "SimpleFits/FitSoftware/interface/LorentzVectorParticle.h"
-#include "SimpleFits/FitSoftware/interface/MultiProngTauSolver.h"
-#include "SimpleFits/FitSoftware/interface/ErrorMatrixPropagator.h"
-#include "SimpleFits/FitSoftware/interface/TauA1NuConstrainedFitter.h"
-#include "SimpleFits/FitSoftware/interface/DiTauConstrainedFitter.h"
-#include "SimpleFits/FitSoftware/interface/GlobalEventFit.h"
 //#include "Objects.h"
-#include "TauAnalysis/ClassicSVfit/interface/MeasuredTauLepton.h"
-#include "TauAnalysis/ClassicSVfit/interface/FastMTT.h"
-#include "TauPolSoftware/TauDecaysInterface/interface/fonction_a1.h"
-#include "TauPolSoftware/TauDecaysInterface/interface/SCalculator.h"
 #include <algorithm>
 
-HCPMuTau::HCPMuTau(TString Name_, TString id_, char* Channel_, char* CPstate_):
+HCPMuTau::HCPMuTau(TString Name_, TString id_, char* Channel_):
   Selection(Name_,id_)
   //DataMC_Corr(true,true,false),
   //tauTrgSF("tight")
 {
   Channel = Channel_;
-  CPstate = CPstate_; 
   ChargeSumDummy = -999;
   selMuon_IsoDummy = 999.;
 
-  TFile *f_fracs=TFile::Open("/opt/sbg/cms/safe1/cms/msessini/IPHCAnalysisTools/Code/CommonFiles/FakeFactors/mva_fract_mt_2018.root", "READ");
+  /*TFile *f_fracs=TFile::Open("/opt/sbg/cms/safe1/cms/msessini/IPHCAnalysisTools/Code/CommonFiles/FakeFactors/mva_fract_mt_2018.root", "READ");
   ff_fracs_qcd_ = (TH2D*)f_fracs->Get("QCD");
   ff_fracs_wjets_ = (TH2D*)f_fracs->Get("W");
   ff_fracs_qcd_->SetDirectory(0);
@@ -74,10 +57,8 @@ HCPMuTau::HCPMuTau(TString Name_, TString id_, char* Channel_, char* CPstate_):
   ff_ws_ = std::shared_ptr<RooWorkspace>((RooWorkspace*)gDirectory->Get("w"));
   f->Close();
 
-  _FF = new FakeFactors(2018, ff_fracs_qcd_, ff_fracs_wjets_, ff_fracs_qcd_ss_, ff_fracs_wjets_ss_, ff_fracs_qcd_aiso_, ff_fracs_wjets_aiso_, ff_fracs_qcd_highmt_, ff_fracs_wjets_highmt_, ff_ws_);
+  _FF = new FakeFactors(2018, ff_fracs_qcd_, ff_fracs_wjets_, ff_fracs_qcd_ss_, ff_fracs_wjets_ss_, ff_fracs_qcd_aiso_, ff_fracs_wjets_aiso_, ff_fracs_qcd_highmt_, ff_fracs_wjets_highmt_, ff_ws_);*/
 
-  BDT=new BDTClassification();
-  BDT->PreAnalysis();
 }
 
 HCPMuTau::~HCPMuTau(){
@@ -219,7 +200,111 @@ void  HCPMuTau::Configure(){
   // Setup NPassed Histogams
   Npassed=HConfig.GetTH1D(Name+"_NPass","Cut Flow",NCuts+1,-1,NCuts,"Number of Accumulative Cuts Passed","Events");
 
-  polarimetricAcopAngle=HConfig.GetTH1D(Name+"_polarimetricAcopAngle"," ",5,0.,2*TMath::Pi()," "," ");
+  polarimetricAcopAngleEven=HConfig.GetTH1D(Name+"_polarimetricAcopAngleEven"," ",5,0.,2*TMath::Pi()," "," ");
+  polarimetricAcopAngleOdd=HConfig.GetTH1D(Name+"_polarimetricAcopAngleOdd"," ",5,0.,2*TMath::Pi()," "," ");
+  polarimetricAcopAngleMM=HConfig.GetTH1D(Name+"_polarimetricAcopAngleMM"," ",5,0.,2*TMath::Pi()," "," ");
+  AcopAngleEven=HConfig.GetTH1D(Name+"_AcopAngleEven"," ",5,0.,2*TMath::Pi()," "," ");
+  AcopAngleOdd=HConfig.GetTH1D(Name+"_AcopAngleOdd"," ",5,0.,2*TMath::Pi()," "," ");
+  AcopAngleMM=HConfig.GetTH1D(Name+"_AcopAngleMM"," ",5,0.,2*TMath::Pi()," "," ");
+  genpolarimetricAcopAngleEven=HConfig.GetTH1D(Name+"_genpolarimetricAcopAngleEven"," ",5,0.,2*TMath::Pi()," "," ");
+  genpolarimetricAcopAngleOdd=HConfig.GetTH1D(Name+"_genpolarimetricAcopAngleOdd"," ",5,0.,2*TMath::Pi()," "," ");
+  genpolarimetricAcopAngleMM=HConfig.GetTH1D(Name+"_genpolarimetricAcopAngleMM"," ",5,0.,2*TMath::Pi()," "," ");
+  genAcopAngleEven=HConfig.GetTH1D(Name+"_genAcopAngleEven"," ",5,0.,2*TMath::Pi()," "," ");
+  genAcopAngleOdd=HConfig.GetTH1D(Name+"_genAcopAngleOdd"," ",5,0.,2*TMath::Pi()," "," ");
+  genAcopAngleMM=HConfig.GetTH1D(Name+"_genAcopAngleMM"," ",5,0.,2*TMath::Pi()," "," ");
+  pullPVx=HConfig.GetTH1D(Name+"_pullPVx"," ",50,-1,1," "," ");
+  pullPVy=HConfig.GetTH1D(Name+"_pullPVy"," ",50,-1,1," "," ");
+  pullPVz=HConfig.GetTH1D(Name+"_pullPVz"," ",50,-1,1," "," ");
+  pullTauSVx=HConfig.GetTH1D(Name+"_pullTausVx"," ",50,-1,1," "," ");
+  pullTauSVy=HConfig.GetTH1D(Name+"_pullTauSVy"," ",50,-1,1," "," ");
+  pullTauSVz=HConfig.GetTH1D(Name+"_pullTauSVz"," ",50,-1,1," "," ");
+  pullTauE=HConfig.GetTH1D(Name+"_pullTauE"," ",50,-1,1," "," ");
+  pullTauPt=HConfig.GetTH1D(Name+"_pullTauPt"," ",50,-1,1," "," ");
+  pullTauPhi=HConfig.GetTH1D(Name+"_pullTauPhi"," ",50,-1,1," "," ");
+  pullTauEta=HConfig.GetTH1D(Name+"_pullTauEta"," ",50,-1,1," "," ");
+  pullMuonE=HConfig.GetTH1D(Name+"_pullMuonE"," ",50,-1,1," "," ");
+  pullMuonPt=HConfig.GetTH1D(Name+"_pullMuonPt"," ",50,-1,1," "," ");
+  pullMuonPhi=HConfig.GetTH1D(Name+"_pullMuonPhi"," ",50,-1,1," "," ");
+  pullMuonEta=HConfig.GetTH1D(Name+"_pullMuonEta"," ",50,-1,1," "," ");
+
+  //AcopAngle uncategorized
+  /*polarimetricAcopAngleEven=HConfig.GetTH1D(Name+"_polarimetricAcopAngleEven","PhiCP",60,0.,2*TMath::Pi(),"PhiCP","Events");
+  polarimetricAcopAngleMM=HConfig.GetTH1D(Name+"_polarimetricAcopAngleMM","PhiCP",60,0.,2*TMath::Pi(),"PhiCP","Events");
+  polarimetricAcopAngleOdd=HConfig.GetTH1D(Name+"_polarimetricAcopAngleOdd","PhiCP",60,0.,2*TMath::Pi(),"PhiCP","Events");
+  //
+  decayplaneAcopAngleEven=HConfig.GetTH1D(Name+"_decayplaneAcopAngleEven","PhiCP",60,0.,2*TMath::Pi(),"PhiCP","Events");
+  decayplaneAcopAngleMM=HConfig.GetTH1D(Name+"_decayplaneAcopAngleMM","PhiCP",60,0.,2*TMath::Pi(),"PhiCP","Events");
+  decayplaneAcopAngleOdd=HConfig.GetTH1D(Name+"_decayplaneAcopAngleOdd","PhiCP",60,0.,2*TMath::Pi(),"PhiCP","Events");
+  //AcopAngle uncategorized QCD
+  polarimetricAcopAngleEvenQCDMC=HConfig.GetTH1D(Name+"_polarimetricAcopAngleEvenQCDMC","QCDMC PhiCP",60,0.,2*TMath::Pi(),"PhiCP","Events");
+  //AcopAngle categorized
+  polarimetricAcopAngleEvenHiggs=HConfig.GetTH2D(Name+"_polarimetricAcopAngleEvenHiggs","Higgs BDT Score VS phiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","BDT score");
+  polarimetricAcopAngleEvenJetFakes=HConfig.GetTH2D(Name+"_polarimetricAcopAngleEvenJetFakes","JetFakes BDT Score VS phiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","BDT score");
+  polarimetricAcopAngleEvenZTT=HConfig.GetTH2D(Name+"_polarimetricAcopAngleEvenZTT","ZTT BDT Score VS phiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","BDT score");
+  //AcopAngle categorized QCD
+  polarimetricAcopAngleEvenHiggsQCDMC=HConfig.GetTH2D(Name+"_polarimetricAcopAngleEvenHiggsQCDMC","Higgs BDT Score VS phiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","BDT score");
+  polarimetricAcopAngleEvenJetFakesQCDMC=HConfig.GetTH2D(Name+"_polarimetricAcopAngleEvenJetFakesQCDMC","JetFakes BDT Score VS phiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","BDT score");
+  polarimetricAcopAngleEvenZTTQCDMC=HConfig.GetTH2D(Name+"_polarimetricAcopAngleEvenZTTQCDMC","ZTT BDT Score VS phiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","BDT score");
+  //AcopAngle categorized unrolled
+  polarimetricAcopAngleEvenHiggsUnrolled=HConfig.GetTH1D(Name+"_polarimetricAcopAngleEvenHiggsUnrolled","Higgs unrolled PhiCP Even",180,0.,3*2*TMath::Pi(),"PhiCP","Events");
+  polarimetricAcopAngleEvenJetFakesUnrolled=HConfig.GetTH1D(Name+"_polarimetricAcopAngleEvenJetFakesUnrolled","JetFakes unrolled PhiCP Even",180,0.,3*2*TMath::Pi(),"PhiCP","Events");
+  polarimetricAcopAngleEvenZTTUnrolled=HConfig.GetTH1D(Name+"_polarimetricAcopAngleEvenZTTUnrolled","ZTT unrolled PhiCP",180,0.,3*2*TMath::Pi(),"PhiCP","Events");
+  //AcopAngle categorized unrolled QCD
+  polarimetricAcopAngleEvenHiggsUnrolledQCDMC=HConfig.GetTH1D(Name+"_polarimetricAcopAngleEvenHiggsUnrolledQCDMC","Higgs unrolled PhiCP Even",180,0.,3*2*TMath::Pi(),"PhiCP","Events");
+  polarimetricAcopAngleEvenJetFakesUnrolledQCDMC=HConfig.GetTH1D(Name+"_polarimetricAcopAngleEvenJetFakesUnrolledQCDMC","JetFakes unrolled PhiCP Even",180,0.,3*2*TMath::Pi(),"PhiCP","Events");
+  polarimetricAcopAngleEvenZTTUnrolledQCDMC=HConfig.GetTH1D(Name+"_polarimetricAcopAngleEvenZTTUnrolledQCDMC","ZTT unrolled PhiCP",180,0.,3*2*TMath::Pi(),"PhiCP","Events");
+  //Wfakes
+  polarimetricWfakesHiggs=HConfig.GetTH2D(Name+"_polarimetricWfakesHiggs","WfakesHiggs",60,0.,2*TMath::Pi(),7,0.3,1,"Wfakes","Events");
+  polarimetricWfakesJetFakes=HConfig.GetTH2D(Name+"_polarimetricWfakesJetFakes","WfakesJetFakes",60,0.,2*TMath::Pi(),7,0.3,1,"Wfakes","Events");
+  polarimetricWfakesZTT=HConfig.GetTH2D(Name+"_polarimetricWfakesZTT","WfakesZTT",60,0.,2*TMath::Pi(),7,0.3,1,"Wfakes","Events");
+  //BDT scores
+  HiggsBDTScore=HConfig.GetTH1D(Name+"_HiggsBDTScore","HiggsBDTScore",7,0.3,1,"BDT Score","Events");
+  JetFakesBDTScore=HConfig.GetTH1D(Name+"_JetFakesBDTScore","JetFakesBDTScore",7,0.3,1,"BDT Score","Events");
+  ZTTBDTScore=HConfig.GetTH1D(Name+"_ZTTBDTScore","ZTTBDTScore",7,0.3,1,"BDT Score","Events");
+  //BDT scores QCD
+  HiggsBDTScoreQCDMC=HConfig.GetTH1D(Name+"_HiggsBDTScoreQCDMC","HiggsBDTScore",7,0.3,1,"BDT Score","Events");
+  JetFakesBDTScoreQCDMC=HConfig.GetTH1D(Name+"_JetFakesBDTScoreQCDMC","JetFakesBDTScore",7,0.3,1,"BDT Score","Events");
+  ZTTBDTScoreQCDMC=HConfig.GetTH1D(Name+"_ZTTBDTScoreQCDMC","ZTTBDTScore",7,0.3,1,"BDT Score","Events");
+  //
+  ShapeSystHiggs=HConfig.GetTH2D(Name+"_ShapeSystHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  //trg eff high pT
+  polarimetric_trgeff_highpT_mvadm10_UpEvenHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_highpT_mvadm10_UpEvenHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  polarimetric_trgeff_highpT_mvadm10_UpMMHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_highpT_mvadm10_UpMMHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  polarimetric_trgeff_highpT_mvadm10_UpOddHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_highpT_mvadm10_UpOddHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  //
+  decayplane_trgeff_highpT_mvadm10_UpEvenHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_highpT_mvadm10_UpEvenHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  decayplane_trgeff_highpT_mvadm10_UpMMHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_highpT_mvadm10_UpMMHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  decayplane_trgeff_highpT_mvadm10_UpOddHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_highpT_mvadm10_UpOddHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  ////
+  polarimetric_trgeff_highpT_mvadm10_DownEvenHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_highpT_mvadm10_DownEvenHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  polarimetric_trgeff_highpT_mvadm10_DownMMHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_highpT_mvadm10_DownMMHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  polarimetric_trgeff_highpT_mvadm10_DownOddHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_highpT_mvadm10_DownOddHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  //
+  decayplane_trgeff_highpT_mvadm10_DownEvenHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_highpT_mvadm10_DownEvenHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  decayplane_trgeff_highpT_mvadm10_DownMMHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_highpT_mvadm10_DownMMHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  decayplane_trgeff_highpT_mvadm10_DownOddHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_highpT_mvadm10_DownOddHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  //trg eff
+  polarimetric_trgeff_mvadm10_UpEvenHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_mvadm10_UpEvenHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  polarimetric_trgeff_mvadm10_UpMMHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_mvadm10_UpMMHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  polarimetric_trgeff_mvadm10_UpOddHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_mvadm10_UpOddHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  //
+  decayplane_trgeff_mvadm10_UpEvenHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_mvadm10_UpEvenHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  decayplane_trgeff_mvadm10_UpMMHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_mvadm10_UpMMHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  decayplane_trgeff_mvadm10_UpOddHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_mvadm10_UpOddHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  ////
+  polarimetric_trgeff_mvadm10_DownEvenHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_mvadm10_DownEvenHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  polarimetric_trgeff_mvadm10_DownMMHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_mvadm10_DownMMHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  polarimetric_trgeff_mvadm10_DownOddHiggs=HConfig.GetTH2D(Name+"_polarimetric_trgeff_mvadm10_DownOddHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  //
+  decayplane_trgeff_mvadm10_DownEvenHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_mvadm10_DownEvenHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  decayplane_trgeff_mvadm10_DownMMHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_mvadm10_DownMMHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  decayplane_trgeff_mvadm10_DownOddHiggs=HConfig.GetTH2D(Name+"_decayplane_trgeff_mvadm10_DownOddHiggs","PhiCP",60,0.,2*TMath::Pi(),7,0.3,1,"PhiCP","Events");
+  //
+  */
+  
+
+  
+
 
   Selection::ConfigureHistograms();   //   do not remove
   HConfig.GetHistoInfo(types,CrossSectionandAcceptance,legend,colour);  // do not remove
@@ -228,7 +313,33 @@ void  HCPMuTau::Configure(){
 
 void  HCPMuTau::Store_ExtraDist(){
 
-  Extradist1d.push_back(&polarimetricAcopAngle);
+  Extradist1d.push_back(&polarimetricAcopAngleEven);
+  Extradist1d.push_back(&polarimetricAcopAngleOdd);
+  Extradist1d.push_back(&polarimetricAcopAngleMM);
+  Extradist1d.push_back(&AcopAngleEven);
+  Extradist1d.push_back(&AcopAngleOdd);
+  Extradist1d.push_back(&AcopAngleMM);
+  Extradist1d.push_back(&genpolarimetricAcopAngleEven);
+  Extradist1d.push_back(&genpolarimetricAcopAngleOdd);
+  Extradist1d.push_back(&genpolarimetricAcopAngleMM);
+  Extradist1d.push_back(&genAcopAngleEven);
+  Extradist1d.push_back(&genAcopAngleOdd);
+  Extradist1d.push_back(&genAcopAngleMM);
+  Extradist1d.push_back(&pullPVx);
+  Extradist1d.push_back(&pullPVy);
+  Extradist1d.push_back(&pullPVz);
+  Extradist1d.push_back(&pullTauSVx);
+  Extradist1d.push_back(&pullTauSVy);
+  Extradist1d.push_back(&pullTauSVz);
+  Extradist1d.push_back(&pullTauE);
+  Extradist1d.push_back(&pullTauPt);
+  Extradist1d.push_back(&pullTauPhi);
+  Extradist1d.push_back(&pullTauEta);
+  Extradist1d.push_back(&pullMuonE);
+  Extradist1d.push_back(&pullMuonPt);
+  Extradist1d.push_back(&pullMuonPhi);
+  Extradist1d.push_back(&pullMuonEta);
+
 }
 
 void  HCPMuTau::doEvent()  { //  Method called on every event
@@ -243,17 +354,52 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
  
 
  if(!HConfig.GetHisto(Ntp->isData(),id,t)){ Logger(Logger::Error) << "failed to find id" <<std::endl; return;}  //  gives a warning if list of samples in Histo.txt  and SkimSummary.log do not coincide
+ 
+ if(Ntp->isOSpair() && Ntp->isMediumID() && Ntp->isIso()) {
+ polarimetricAcopAngleEven.at(t).Fill(Ntp->pvPhiCP(), Ntp->wEven());
+ polarimetricAcopAngleOdd.at(t).Fill(Ntp->pvPhiCP(), Ntp->wOdd());
+ polarimetricAcopAngleMM.at(t).Fill(Ntp->pvPhiCP(), Ntp->wMM());
+ AcopAngleEven.at(t).Fill(Ntp->dpPhiCP(), Ntp->wEven());
+ AcopAngleOdd.at(t).Fill(Ntp->dpPhiCP(), Ntp->wOdd());
+ AcopAngleMM.at(t).Fill(Ntp->dpPhiCP(), Ntp->wMM());
+ }
+ TLorentzVector gentaup4(Ntp->genTaupx(), Ntp->genTaupy(), Ntp->genTaupz(), Ntp->genTauE());
+ TLorentzVector genmuonp4(Ntp->genMuonpx(), Ntp->genMuonpy(), Ntp->genMuonpz(), Ntp->genMuonE());
 
- polarimetricAcopAngle.at(t).Fill(Ntp->pvPhiCP(), Ntp->wEven());
+ if(Selection::Get_SysType() == "default") {
+   genpolarimetricAcopAngleEven.at(t).Fill(Ntp->genpvPhiCP(), Ntp->wEven());
+   genpolarimetricAcopAngleOdd.at(t).Fill(Ntp->genpvPhiCP(), Ntp->wOdd());
+   genpolarimetricAcopAngleMM.at(t).Fill(Ntp->genpvPhiCP(), Ntp->wMM());
+   genAcopAngleEven.at(t).Fill(Ntp->gendpPhiCP(), Ntp->wEven());
+   genAcopAngleOdd.at(t).Fill(Ntp->gendpPhiCP(), Ntp->wOdd());
+   genAcopAngleMM.at(t).Fill(Ntp->gendpPhiCP(), Ntp->wMM());
+   pullPVx.at(t).Fill((Ntp->genPVx() - Ntp->pvx())/Ntp->genPVx());
+   pullPVy.at(t).Fill((Ntp->genPVy() - Ntp->pvy())/Ntp->genPVy());
+   pullPVz.at(t).Fill((Ntp->genPVz() - Ntp->pvz())/Ntp->genPVz());
+   pullTauSVx.at(t).Fill((Ntp->genTauSVx() - Ntp->tauSVx())/Ntp->genTauSVx());
+   pullTauSVy.at(t).Fill((Ntp->genTauSVy() - Ntp->tauSVy())/Ntp->genTauSVy());
+   pullTauSVz.at(t).Fill((Ntp->genTauSVz() - Ntp->tauSVz())/Ntp->genTauSVz());
+   pullTauE.at(t).Fill((gentaup4.E() - Ntp->GEFtauE())/gentaup4.E());
+   pullTauPt.at(t).Fill((gentaup4.Pt() - Ntp->GEFtauPt())/gentaup4.Pt());
+   pullTauPhi.at(t).Fill((gentaup4.Phi() - Ntp->GEFtauPhi())/gentaup4.Phi());
+   pullTauEta.at(t).Fill((gentaup4.Eta() - Ntp->GEFtauEta())/gentaup4.Eta());
+   pullMuonE.at(t).Fill((genmuonp4.E() - Ntp->muE())/genmuonp4.E());
+   pullMuonPt.at(t).Fill((genmuonp4.Pt() - Ntp->muPt())/genmuonp4.Pt());
+   pullMuonPhi.at(t).Fill((genmuonp4.Phi() - Ntp->muPhi())/genmuonp4.Phi());
+   pullMuonEta.at(t).Fill((genmuonp4.Eta() - Ntp->muEta())/genmuonp4.Eta());
+ }
 
+ TLorentzVector taup4, mup4, metp4;
+ taup4.SetPtEtaPhiE(Ntp->tauPt(), Ntp->tauEta(), Ntp->tauPhi(), Ntp->tauE());
+ mup4.SetPtEtaPhiE(Ntp->muPt(), Ntp->muEta(), Ntp->muPhi(), Ntp->muE());
+ metp4.SetPtEtaPhiE(Ntp->PUPPImet(), 0., Ntp->PUPPImetphi(), 0.);
 
-  TLorentzVector taup4, mup4, metp4;
-  taup4.SetPtEtaPhiE(Ntp->tauPt(), Ntp->tauEta(), Ntp->tauPhi(), Ntp->tauE());
-  mup4.SetPtEtaPhiE(Ntp->muPt(), Ntp->muEta(), Ntp->muPhi(), Ntp->muE());
-  metp4.SetPtEtaPhiE(Ntp->PUPPImet(), 0., Ntp->PUPPImetphi(), 0.);
+ //_FF->Initialize(taup4, mup4, metp4, Ntp->tauDM(), Ntp->Njets(), Ntp->dijetMass(), Ntp->muMETmt(), Ntp->muIso(), Ntp->tauIPsignificance(), Ntp->isOSpair(), Ntp->isIso());
+ //std::map<std::string, double> FFmap = _FF->GetFakeFactors(Selection::Get_SysType());
+ if(!Ntp->isData() && Ntp->isIso() && Ntp->isMediumID()) {
+   
 
- _FF->Initialize(taup4, mup4, metp4, Ntp->tauDM(), Ntp->Njets(), Ntp->dijetMass(), Ntp->muMETmt(), Ntp->muIso, Ntp->tauIPsignificance(), Ntp->isOSpair(), Ntp->isIso());
- std::map<std::string, double> FFmap = _FF->GetFakeFactors(Selection::Get_SysType());
+ }
 
 } //do event
 
@@ -276,5 +422,5 @@ void HCPMuTau::Finish() {
       }
     }
   }
-  Selection::Finish(Channel,CPstate);
+  Selection::Finish(Channel);
 }

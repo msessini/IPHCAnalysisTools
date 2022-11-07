@@ -1,5 +1,5 @@
 #include "Selection.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 
 #include "Tables.h"
 #include "Plots.h"
@@ -21,8 +21,8 @@ Selection::Selection(TString Name_, TString id_) :
 
 Selection::~Selection() {
 	//Check that the correct number of events are run over
-	//SkimConfig SC;
-	//SC.CheckNEvents(types,nevents_noweight_default);
+	SkimConfig SC;
+	SC.CheckNEvents(types,nevents_noweight_default);
 
 	//Check the number of files read
 	Logger(Logger::Info) << Get_Name() << " NGoodFile= " << NGoodFiles << " NBadFiles=" << NBadFiles << std::endl;
@@ -50,7 +50,7 @@ void Selection::ConfigureHistograms() {
 	}
 }
 
-void Selection::LoadResults(std::vector<TString> files, char* Channel, char* CPstate) {
+void Selection::LoadResults(std::vector<TString> files, char* Channel) {
 	if (!isStored) {
 		ConfigureHistograms();
 	}
@@ -70,7 +70,7 @@ void Selection::LoadResults(std::vector<TString> files, char* Channel, char* CPs
 				}
 				closedir(dp);
 			}
-			TString ID = Get_Name() + "_" + string(Channel) + "_" + string(CPstate) +".root";
+			TString ID = Get_Name() + "_" + string(Channel) +".root";
 			for (unsigned int i = 0; i < filelist.size(); i++) {
 				if (filelist.at(i).Contains(ID)) {
 					file += filelist.at(i);
@@ -196,7 +196,7 @@ bool Selection::AnalysisCuts(int t, double w, double wobjs) {
 	return false;
 }
 
-void Selection::Finish(char* Channel, char* CPstate) {
+void Selection::Finish(char* Channel) {
 	if (Npassed.size() != Npassed_noweight.size()) {
 		Logger(Logger::Error) << "Histograms not Configured. Please fix your code!!!! Running Selection::ConfigureHistograms()" << std::endl;
 		Selection::ConfigureHistograms();
@@ -215,8 +215,7 @@ void Selection::Finish(char* Channel, char* CPstate) {
 	if (mode == ANALYSIS)
 		fName += "ANALYSIS_";
 	fName += Name+"_";
-        fName += string(Channel)+"_";
-        fName += string(CPstate);
+        fName += string(Channel);
 
 	Save(fName);      // Save file with unweighted events - required for combining code
 
@@ -228,7 +227,7 @@ void Selection::Finish(char* Channel, char* CPstate) {
 	}
 
 	// For local jobs produce pdf file
-	/*if (runtype != GRID) {
+	if (runtype != GRID) {
 		Tables T(Name);
 		//Check that the correct number of events are run over and make Table
 		SC.CheckNEvents(types, nevents_noweight_default);
@@ -249,10 +248,10 @@ void Selection::Finish(char* Channel, char* CPstate) {
 		}
 		Save(fName + "_LumiScaled");      // Save file with Lumi-scaled events - required for combining code
 		histsAreScaled = true;
-
-		///Now make the plots
+	}
+		/*///Now make the plots
 		Logger(Logger::Info) << "Printing Plots " << std::endl;
-		system("rm EPS/*.eps");
+		//system("rm EPS/ *.eps");
 		Plots P;
 		P.Plot1D(Nminus1, colour, legend);
 		for (unsigned int i = 0; i < Nminus1.size(); i++) {

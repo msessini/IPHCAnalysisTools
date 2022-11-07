@@ -3,9 +3,9 @@ include make.inc
 ### Defining Compiling variables              ###
 #################################################
 #-Wno-parentheses
-CXX           = c++ -Wno-deprecated -Wall -std=c++11
+CXX           = c++ -Wno-deprecated -Wall -std=c++17
 #-m32  -Wno-deprecated
-LD            = g++ -Wno-deprecated -Wall -std=c++11
+LD            = g++ -Wno-deprecated -Wall -std=c++17
 #-m32  -Wno-deprecated 
 INSTALL	      = /usr/bin/install
 SHELL = /bin/sh
@@ -14,8 +14,8 @@ SHELL = /bin/sh
 ###                              ###
 ####################################
 
-SHAREDLIBFLAGS =-L./CommonUtils/lib -lTauNtuple -L./DataFormats/lib -lDataFormats  -L./CommonUtils/lib -lClassicSVfit  -L./CommonUtils/lib -lTDCILib 
-SHAREDCXXFLAGS =-I./CommonUtils -I./DataFormats
+SHAREDLIBFLAGS =
+SHAREDCXXFLAGS =-I./CommonUtils 
 SUBDIRS = CommonUtils/
 
 TAUSPINERFLAG = 
@@ -36,30 +36,19 @@ TARGETS       =	Ntuple_Controller \
 		Selection_Base \
 		Selection_Factory \
 		Selection \
+		Example \
 		Tables \
 		Plots \
-		DoubleEventRemoval \
-		PDG_Var \
 		Tools \
 		SkimConfig \
+		TauDecay \
+		DataMCType \
+		PDGInfo \
 		HistoConfig \
-		Example \
-		TauSolver \
-		TauSpinerInterface \
-		ReferenceScaleFactors \
-		DataMCCorrections \
-		PUReweight \
-		ScaleFactor \
-		tauTrigSFreader \
-		UncertaintyValue \
-		PileUp \
-		RecoilCorrector \
-		MEtSys \
-		TauIDSFTool \
-		BDTClassification \
                 FakeFactors \
-		ImpactParameter
-		#IpCorrection
+		DoubleEventRemoval \
+		ImpactParameter \
+		Logger
 
 CINTTARGETS = 
 
@@ -180,51 +169,25 @@ $(OBJS): %.o : %.cxx
 
 .PHONY: clean cleanall cleandf all dataformats install sharedlib 
 
-install: dataformats Analysis.exe
+install: Analysis.exe
 
-
-dataformats: 
-	@cd DataFormats; gmake install; cd ../
 
 clean:
 	@rm i386_linux/*.o
 	@rm Analysis.exe
-
-cleandf:
-	@cd DataFormats; gmake clean; cd ../
 
 cleanall:
 	@for subdir in $(SUBDIRS); do \
 		echo "Making all in $$subdir"; \
 		cd $$subdir && $(MAKE) -f Makefile.standalone clean && cd ../../; \
 	done
-	@cd DataFormats; gmake clean; cd ../
 	@rm i386_linux/*.o
 	@rm Analysis.exe
 
-all: sharedlib dataformats install
+all: install
 
 sharedlib:
 	@cd CommonUtils/TauPolSoftware/TauDecaysInterface/; make; cp bin/libTDCILib.so ../../lib; cd ../../../;
-	@for subdir in $(SUBDIRS); do \
-		echo "Making all in $$subdir"; \
-		if [ $$subdir == "TauSpiner/" ]; then \
-			echo with flag; \
-			cd $$subdir && $(MAKE) -f Makefile.standalone $(TAUSPINERFLAG) && cd ../ && pwd; \
-		else \
-			echo without flag ; \
-			cd $$subdir echo $(CXXFLAGS) && $(MAKE) -f Makefile.standalone CXXFLAGS+='$(CXXFLAGS)' ; \
-			pwd; \
-			if [ $$subdir == "CommonUtils/" ]; then \
-				echo $(USE_SVfit); \
-				if [ $(USE_SVfit) -eq 1 ]; then \
-					$(MAKE) -f Makefile.SVfitStandalone CXXFLAGS+='$(CXXFLAGS)' ; \
-					$(MAKE) -f Makefile.SVfitClassic CXXFLAGS+='$(CXXFLAGS)' ; \
-				fi \
-			fi \
-			&& cd ../ && pwd; \
-		fi \
-	done
 	$(install)
 
 

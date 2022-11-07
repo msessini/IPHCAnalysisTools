@@ -1,5 +1,5 @@
 #include "Parameters.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 
 // Static var
 TString Parameters::file = "Tools/Par.dat";

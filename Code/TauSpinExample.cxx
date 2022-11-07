@@ -9,13 +9,12 @@
 #include "TauSpinerInterface.h"
 #include "SimpleFits/FitSoftware/interface/Logger.h"
 
-TauSpinExample::TauSpinExample(TString Name_, TString id_,char* Channel_,char* CPstate_):
+TauSpinExample::TauSpinExample(TString Name_, TString id_,char* Channel_):
   Selection(Name_,id_),
   zsbins(20),
   zsmin(-0.5),
   zsmax(0.5)
 {
-  CPstate = CPstate_;
   Channel = Channel_;
   //  verbose=true;
 }
@@ -271,10 +270,10 @@ void  TauSpinExample::doEvent(){
       Logger(Logger::Warning) << "Not a valid Z0->tau+tau- decay" <<std::endl;
       return;
     }
-    double Spin_WT=Ntp->TauSpinerGet(TauSpinerInterface::Spin,CPstate);
+    double Spin_WT=Ntp->TauSpinerGet(TauSpinerInterface::Spin);
     double UnSpin_WT=1;//Ntp->TauSpinerGet(TauSpinerInterface::UnSpin);
     double FlipSpin_WT=1;//Ntp->TauSpinerGet(TauSpinerInterface::FlipSpin);
-    double hplus=Ntp->TauSpinerGet(TauSpinerInterface::hplus,CPstate);
+    double hplus=Ntp->TauSpinerGet(TauSpinerInterface::hplus);
     double hminus=1-hplus;//Ntp->TauSpinerGet(TauSpinerInterface::hminus);//1-hplus;
     Logger(Logger::Info) << "hplus " << hplus << " hminus " << hminus << std::endl;
     //if(Spin_WT<=0 || 2<=Spin_WT){Spin_WT=0.000001;UnSpin_WT=0.000001;FlipSpin_WT=0.000001;}
@@ -569,7 +568,7 @@ void  TauSpinExample::Finish(){
     pi_ExoverEtau_hminus.at(tdata).SetBinContent(i,fpi_ExoverEtau_hminus.Integral(min,max));
     pi_ExoverEtau_hminus.at(tdata).SetBinError(i,0.00001);
   }
-  Selection::Finish(Channel, CPstate);
+  Selection::Finish(Channel);
 }
 
 

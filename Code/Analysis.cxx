@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <stdlib.h> 
 
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 #include <string.h>
 #include <istream>
 #include <strstream>
@@ -31,7 +31,7 @@
 #include "Plots.h"
 
 int main(int argc, char* argv[]) {
-  cout<<argc<<"  "<<argv[1]<<endl;
+  std::cout<<"HELLO"<<std::endl;
   Logger::Instance()->SetLevel(Logger::Info);
   Logger(Logger::Info) << "\n\n\n================" << std::endl;
   Logger(Logger::Info) << "Program is Starting" << endl;
@@ -124,12 +124,11 @@ int main(int argc, char* argv[]) {
   Selection_Factory SF;
   vector<Selection_Base*> selections;
   char* Channel = argv[1];
-  char* CPstate = argv[2];
   for (unsigned int i = 0; i < UncertType.size(); i++) {
     Logger(Logger::Info) << "Configuring systematic " << UncertType.at(i) << endl;
     for (unsigned int j = 0; j < Analysis.size(); j++) {
       Logger(Logger::Info) << "Configuring Selection " << Analysis.at(j) << endl;
-      selections.push_back(SF.Factory(Analysis.at(j), UncertType.at(i), Channel, CPstate, mode, runtype, Lumi));
+      selections.push_back(SF.Factory(Analysis.at(j), UncertType.at(i), Channel, mode, runtype, Lumi));
     }
   }
   Logger(Logger::Info) << "Selection modules Setup NSelection= " << selections.size() << endl;
@@ -263,21 +262,20 @@ for(unsigned int j =0; j<selections.size(); j++){
   // Reconstruct Analysis from Stored Histograms
   else if (mode == Selection_Base::RECONSTRUCT) {
     char* Channel = argv[1];
-    char* CPstate = argv[2];
     Logger(Logger::Info) << "Reconstructing histograms: Loading files" << endl;
     for (unsigned int j = 0; j < selections.size(); j++) {
-      selections[j]->LoadResults(Files,Channel,CPstate);
+      selections[j]->LoadResults(Files,Channel);
     }
     Logger(Logger::Info) << "Loading Files Complete" << std::endl;
     if (runtype == Selection_Base::Local) {
       Selection_Factory SF;
       for (unsigned int j = 0; j < selections.size(); j++) {
-	if (selections.at(j)->Get_SysType() == "Nominal") {
+	if (selections.at(j)->Get_SysType() == "default") {
 	  for (unsigned int i = 0; i < UncertList.size(); i++) {
 	    TString n = selections.at(j)->Get_Name();
 	    Logger(Logger::Info) << "Adding Systematic Uncertainty " << UncertType.at(i) << endl;
-	    Selection_Base *s = SF.Factory(selections.at(j)->Get_Analysis(), UncertList.at(i), Channel, CPstate, mode, runtype, Lumi);
-	    s->LoadResults(Files,Channel,CPstate);
+	    Selection_Base *s = SF.Factory(selections.at(j)->Get_Analysis(), UncertList.at(i), Channel, mode, runtype, Lumi);
+	    s->LoadResults(Files,Channel);
 	    selections[j]->EvaluateSystematics(s, 1.0);
 	    delete s;
 	  }

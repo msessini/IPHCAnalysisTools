@@ -1,5 +1,5 @@
 #include "Selection_Base.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 
 Selection_Base::Selection_Base(TString Name_, TString id_):  
   GeV(1000)

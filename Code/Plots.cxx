@@ -1,5 +1,5 @@
 #include "Plots.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 
 #include "THStack.h"
 #include "TLegend.h"
@@ -111,7 +111,7 @@ void Plots::Plot1D(std::vector<std::vector<TH1D> > histo, std::vector<int> colou
 			Logger(Logger::Debug) << "Setup plot " << histo.at(i_plot).at(0).GetTitle() << std::endl;
 
 			// set colours and legends of histograms
-			for (int i_hist = histo.at(i_plot).size() - 1; i_hist >= 0; i_hist--) {
+			for (unsigned int i_hist = histo.at(i_plot).size() - 1; i_hist >= 0; i_hist--) {
 				// don't draw histogram if colour is set to -999
 				if( colour.at(i_hist) == -999 ) continue;
 

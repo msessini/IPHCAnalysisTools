@@ -23,6 +23,21 @@ FakeFactors::FakeFactors(Int_t theYear, TH2D* ff_fracs_qcd, TH2D* ff_fracs_wjets
             ff_ws_->function("ff_mt_medium_mvadmbins_qcd")->functor(ff_ws_->argSet("pt,mvadm,ipsig,njets,m_pt,os,met_var_qcd,m_iso,pass_single")));
   fns_["ff_lt_medium_mvadmbins_wjets"] = std::shared_ptr<RooFunctor>(
             ff_ws_->function("ff_mt_medium_mvadmbins_wjets")->functor(ff_ws_->argSet("pt,mvadm,ipsig,njets,m_pt,met_var_w,mt,pass_single,mvis,WpT")));
+
+  // load MVA scroes reader for fractions
+  reader_ = new TMVA::Reader();
+  reader_->AddVariable("pt_tt", &pt_tt_);
+  reader_->AddVariable("pt_1", &pt_1_);
+  reader_->AddVariable("pt_2", &pt_2_);
+  reader_->AddVariable("met", &met_);
+  reader_->AddVariable("m_vis", &m_vis_);
+  reader_->AddVariable("n_jets", &n_jets_);
+  reader_->AddVariable("mjj", &mjj_);
+  reader_->AddVariable("mva_dm_2", &mva_dm_2_);
+  reader_->AddVariable("mt_1", &mt_1_);
+  xml_file="/opt/sbg/cms/safe1/cms/msessini/IPHCAnalysisTools/Code/CommonFiles/FakeFactors/fractions_2018_mt.xml";
+  reader_->BookMVA("BDT method", xml_file);
+
 }
 
 void FakeFactors::Initialize(TLorentzVector taup4, TLorentzVector mup4, TLorentzVector metp4, int tauDM, int Njets, double dijetMass, double muMETmt, double muIso, float ipsig, bool isOS, bool isIso) {
@@ -50,7 +65,7 @@ void FakeFactors::Initialize(TLorentzVector taup4, TLorentzVector mup4, TLorentz
   if(mup4.Pt() < singlemupt) pass_single = 0.;
   //
   // load MVA scroes reader for fractions
-  reader_ = new TMVA::Reader();
+  /*reader_ = new TMVA::Reader();
   reader_->AddVariable("pt_tt", &pt_tt_);
   reader_->AddVariable("pt_1", &pt_1_);
   reader_->AddVariable("pt_2", &pt_2_);
@@ -61,7 +76,7 @@ void FakeFactors::Initialize(TLorentzVector taup4, TLorentzVector mup4, TLorentz
   reader_->AddVariable("mva_dm_2", &mva_dm_2_);
   reader_->AddVariable("mt_1", &mt_1_);
   xml_file="/opt/sbg/cms/safe1/cms/msessini/IPHCAnalysisTools/Code/CommonFiles/FakeFactors/fractions_2018_mt.xml";
-  reader_->BookMVA("BDT method", xml_file);
+  reader_->BookMVA("BDT method", xml_file);*/
   //
   std::vector<float> scores = reader_->EvaluateMulticlass("BDT method");
   double qcd_score = scores[1];
@@ -101,11 +116,12 @@ std::map<std::string, double> FakeFactors::GetFakeFactors(TString sysType) {
   fake_factors_["ff_nominal_qcd"] = fns_["ff_lt_medium_mvadmbins_qcd"]->eval(args_qcd_.data()); 
   fake_factors_["ff_nominal_w"] = fns_["ff_lt_medium_mvadmbins_wjets"]->eval(args_w_.data());
   //
-  if(sysType == "Nominal") {
+  if(sysType == "default") {
     for(auto s : systs_mvadm_) {
       if(s == "") continue;
       fake_factors_["ff"+s] = fns_["ff_lt_medium_mvadmbins"+s]->eval(args_.data());
     }
+
   }
   return fake_factors_;
 }

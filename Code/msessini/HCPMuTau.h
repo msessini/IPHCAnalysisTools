@@ -6,32 +6,14 @@
 #include "TString.h"
 #include "boost/functional/hash.hpp"
 //#include "SVFitStorage.h"
-#include "SimpleFits/FitSoftware/interface/PDGInfo.h"
 #include "TVector3.h"
 //#include "TFile.h"
 #include "TLorentzVector.h"
 #include "TMath.h"
-#include "TauDataFormat/TauNtuple/interface/DataMCType.h"
-#include "SimpleFits/FitSoftware/interface/TrackParticle.h"
-#include "SimpleFits/FitSoftware/interface/LorentzVectorParticle.h"
-#include "SimpleFits/FitSoftware/interface/MultiProngTauSolver.h"
-#include "SimpleFits/FitSoftware/interface/ErrorMatrixPropagator.h"
-#include "SimpleFits/FitSoftware/interface/TauA1NuConstrainedFitter.h"
-#include "SimpleFits/FitSoftware/interface/DiTauConstrainedFitter.h"
-#include "SimpleFits/FitSoftware/interface/GlobalEventFit.h"
-#include "ReferenceScaleFactors.h"
-#include "ScaleFactor.h"
 #include "Objects.h"
 //#include "PUReweight.h"
-#include "tauTrigSFreader.h"
-#include "DataMCCorrections.h"
-#include "TauAnalysis/ClassicSVfit/interface/ClassicSVfit.h"
-#include "TauAnalysis/ClassicSVfit/interface/MeasuredTauLepton.h"
-#include "TauAnalysis/ClassicSVfit/interface/svFitHistogramAdapter.h"
-#include "RecoilCorrector.h"
-#include "MEtSys.h"
-#include "BDTClassification.h"
 #include "FakeFactors.h"
+#include <TMVA/Reader.h>
 
 #include "RooWorkspace.h"
 #include "RooFunctor.h"
@@ -40,7 +22,7 @@
 class HCPMuTau : public Selection {
 
  public:
-  HCPMuTau(TString Name_, TString id_, char* Channel_, char* CPstate_);
+  HCPMuTau(TString Name_, TString id_, char* Channel_);
   virtual ~HCPMuTau();
 
   virtual void  Configure();
@@ -65,9 +47,7 @@ class HCPMuTau : public Selection {
  protected:
   virtual void doEvent();
   virtual void Store_ExtraDist();
-  ReferenceScaleFactors *RSF;
   char* Channel;
-  char* CPstate;
   int TriggerOkDummy, selVertexDummy, selMuon_IsoDummy, selMuon_AntiIsoDummy, selTauDummy, ChargeSumDummy;
   double MTDummy, MvisDummy, TauFLSigmaDummy;
 
@@ -79,7 +59,6 @@ class HCPMuTau : public Selection {
   //DataMCCorrections DataMC_Corr;
   //tauTrigSFreader tauTrgSF;
   //Int_t year;
-  BDTClassification *BDT;
   
   //ClassicSVfit svfitAlgo1;
   //ClassicSVfit svfitAlgo2;
@@ -98,8 +77,32 @@ class HCPMuTau : public Selection {
  private:
   // Selection Variables and Histos
   
-  std::vector<TH1D> polarimetricAcopAngle;
-  
+  std::vector<TH1D> polarimetricAcopAngleEven;
+  std::vector<TH1D> polarimetricAcopAngleOdd;
+  std::vector<TH1D> polarimetricAcopAngleMM;
+  std::vector<TH1D> AcopAngleEven;
+  std::vector<TH1D> AcopAngleOdd;
+  std::vector<TH1D> AcopAngleMM;
+  std::vector<TH1D> genpolarimetricAcopAngleEven;
+  std::vector<TH1D> genpolarimetricAcopAngleOdd;
+  std::vector<TH1D> genpolarimetricAcopAngleMM;
+  std::vector<TH1D> genAcopAngleEven;
+  std::vector<TH1D> genAcopAngleOdd;
+  std::vector<TH1D> genAcopAngleMM;
+  std::vector<TH1D> pullPVx;
+  std::vector<TH1D> pullPVy;
+  std::vector<TH1D> pullPVz;
+  std::vector<TH1D> pullTauSVx;
+  std::vector<TH1D> pullTauSVy;
+  std::vector<TH1D> pullTauSVz;
+  std::vector<TH1D> pullTauE;
+  std::vector<TH1D> pullTauPt;
+  std::vector<TH1D> pullTauPhi;
+  std::vector<TH1D> pullTauEta;
+  std::vector<TH1D> pullMuonE;
+  std::vector<TH1D> pullMuonPt;
+  std::vector<TH1D> pullMuonPhi;
+  std::vector<TH1D> pullMuonEta;  
 };
 
 #endif

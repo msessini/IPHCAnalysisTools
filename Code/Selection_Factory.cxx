@@ -1,5 +1,5 @@
 #include "Selection_Factory.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 
 #include "Example.h"
 #include "TauSpinExample.h"
@@ -29,11 +29,6 @@
 
 #ifdef USE_gbourgat
 
-//#include "gbourgat/HTauTau.h"
-#include "gbourgat/HCPTauTau.h"
-#include "gbourgat/HCPMuTau.h"
-#include "gbourgat/HCPPiTau.h"
-
 #endif
 
 #ifdef USE_cgrimault
@@ -42,7 +37,6 @@
 
 #ifdef USE_msessini
 
-#include "msessini/HCPTauTau.h"
 #include "msessini/HCPMuTau.h"
 
 #endif
@@ -53,14 +47,14 @@ Selection_Factory::Selection_Factory(){
 Selection_Factory::~Selection_Factory(){
 }
 
-Selection_Base* Selection_Factory::Factory(TString Analysis, TString UncertType, char* Channel, char* CPstate, int mode, int runtype, double lumi){
+Selection_Base* Selection_Factory::Factory(TString Analysis, TString UncertType, char* Channel, int mode, int runtype, double lumi){
   Selection_Base* s;
   Analysis.ToLower();
 
   // ensuring code will compile independently of user code
   // WARNING: be aware of the consequences of "Contains". Make sure that Class "foo" is put after "foobar".
-  if(Analysis.Contains("example"))s=new Example(Analysis,UncertType,Channel,CPstate);
-  //else if(Analysis.Contains("tauspin"))s=new TauSpinExample(Analysis,UncertType,Channel,CPstate);
+  if(Analysis.Contains("example"))s=new Example(Analysis,UncertType,Channel);
+  //else if(Analysis.Contains("tauspin"))s=new TauSpinExample(Analysis,UncertType,Channel);
 #ifdef USE_cherepanov
   /*else if(Analysis.Contains("mytest"))s=new MyTest(Analysis,UncertType);
   else if(Analysis.Contains("ztauhtauh"))s=new ZTauHTauH(Analysis,UncertType);
@@ -100,15 +94,15 @@ Selection_Base* Selection_Factory::Factory(TString Analysis, TString UncertType,
 
 #ifdef USE_msessini
 
-  //else if(Analysis.Contains("hcptautau"))s=new HCPTauTau(Analysis,UncertType,Channel,CPstate);
-  else if(Analysis.Contains("hcpmutau"))s=new HCPMuTau(Analysis,UncertType,Channel,CPstate);
+  //else if(Analysis.Contains("hcptautau"))s=new HCPTauTau(Analysis,UncertType,Channel);
+  else if(Analysis.Contains("hcpmutau"))s=new HCPMuTau(Analysis,UncertType,Channel);
 
 
 #endif
 
   else{
 	Logger(Logger::Error)<< "Invalid Analysis type \"" << Analysis << "\". Using default <Example.h> " << std::endl;
-    s=new Example(Analysis,UncertType,Channel,CPstate);
+    s=new Example(Analysis,UncertType,Channel);
   }
   s->SetMode(mode);
   s->SetRunType(runtype);

@@ -14,13 +14,6 @@
 
 // Header file for the classes stored in the TTree if any.
 #include <vector>
-#include <vector>
-#include <vector>
-#include <vector>
-#include <vector>
-#include <vector>
-#include <vector>
-#include <vector>
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -36,27 +29,54 @@ class NtupleReader {
   int _tauIndex;
   int _tauGenMatch;
   float _tauDM;
-  Double_t _tauPt;
-  Double_t _tauEta;
-  Double_t _tauPhi;
-  Double_t _tauE;
+  float _tauPt;
+  float _tauEta;
+  float _tauPhi;
+  float _tauE;
+  float _GEFtauPt;
+  float _GEFtauEta;
+  float _GEFtauPhi;
+  float _GEFtauE;
+  float _tauSVx;
+  float _tauSVy;
+  float _tauSVz;
   float _tauIPx;
   float _tauIPy;
   float _tauIPz;
   float _tauIPsignificance;
   int _muIndex;
   int _muGenMatch;
-  Double_t _muPt;
-  Double_t _muEta;
-  Double_t _muPhi;
-  Double_t _muE;
+  float _muPt;
+  float _muEta;
+  float _muPhi;
+  float _muE;
   double _muIso;
   float _muIPx;
   float _muIPy;
   float _muIPz;
   float _muIPsignificance;
+  float _genTaupx;
+  float _genTaupy;
+  float _genTaupz;
+  float _genTauE;
+  float _genTauSVx;
+  float _genTauSVy;
+  float _genTauSVz;
+  float _genMuonpx;
+  float _genMuonpy;
+  float _genMuonpz;
+  float _genMuonE;
+  float _genMuonIPx;
+  float _genMuonIPy;
+  float _genMuonIPz;
+  float _genPVx;
+  float _genPVy;
+  float _genPVz;
+  double _gendpPhiCP;
+  double _genpvPhiCP;
   bool _isOSpair;
   bool _isIso;
+  bool _isMediumID;
   double _pairvisMass;
   int _Njets;
   int _Nbjets;
@@ -72,7 +92,6 @@ class NtupleReader {
   float _PUPPImetphi;
   float _PUPPIMETCov00;
   float _PUPPIMETCov10;
-  float _PUPPIMETCov01;
   float _PUPPIMETCov11;
   double _pvPhiCP;
   double _dpPhiCP;
@@ -148,6 +167,13 @@ class NtupleReader {
   TBranch *b_tauEta;
   TBranch *b_tauPhi;
   TBranch *b_tauE;
+  TBranch *b_GEFtauE;
+  TBranch *b_GEFtauPt;
+  TBranch *b_GEFtauPhi;
+  TBranch *b_GEFtauEta;
+  TBranch *b_tauSVx;
+  TBranch *b_tauSVy;
+  TBranch *b_tauSVz;
   TBranch *b_muIndex;
   TBranch *b_muGenMatch;
   TBranch *b_muPt;
@@ -159,8 +185,28 @@ class NtupleReader {
   TBranch *b_muIPy;
   TBranch *b_muIPz;
   TBranch *b_muIPsignificance;
+  TBranch *b_genTaupx;
+  TBranch *b_genTaupy;
+  TBranch *b_genTaupz;
+  TBranch *b_genTauE;
+  TBranch *b_genTauSVx;
+  TBranch *b_genTauSVy;
+  TBranch *b_genTauSVz;
+  TBranch *b_genMuonpx;
+  TBranch *b_genMuonpy;
+  TBranch *b_genMuonpz;
+  TBranch *b_genMuonE;
+  TBranch *b_genMuonIPx;
+  TBranch *b_genMuonIPy;
+  TBranch *b_genMuonIPz;
+  TBranch *b_genPVx;
+  TBranch *b_genPVy;
+  TBranch *b_genPVz;
+  TBranch *b_gendpPhiCP;
+  TBranch *b_genpvPhiCP;
   TBranch *b_isOSpair;
   TBranch *b_isIso;
+  TBranch *b_isMediumID;
   TBranch *b_pairvisMass;
   TBranch *b_Njets;
   TBranch *b_Nbjets;
@@ -176,7 +222,6 @@ class NtupleReader {
   TBranch *b_PUPPImetphi;
   TBranch *b_PUPPIMETCov00;
   TBranch *b_PUPPIMETCov10;
-  TBranch *b_PUPPIMETCov01;
   TBranch *b_PUPPIMETCov11;
   TBranch *b_pvPhiCP;
   TBranch *b_dpPhiCP;
@@ -332,6 +377,13 @@ void NtupleReader::Init(TTree *tree, TString Sys)
   _tauEta = 0;
   _tauPhi = 0;
   _tauE = 0;
+  _GEFtauPt = 0;
+  _GEFtauEta = 0;
+  _GEFtauPhi = 0;
+  _GEFtauE = 0;
+  _tauSVx = 0;
+  _tauSVy = 0;
+  _tauSVz = 0;
   _muIndex = 0;
   _muGenMatch = 0;
   _muPt = 0;
@@ -343,8 +395,28 @@ void NtupleReader::Init(TTree *tree, TString Sys)
   _muIPy = 0;
   _muIPz = 0;
   _muIPsignificance = 0;
+  _genTaupx = 0;
+  _genTaupy = 0;
+  _genTaupz = 0;
+  _genTauE = 0;
+  _genTauSVx = 0;
+  _genTauSVy = 0;
+  _genTauSVz = 0;
+  _genMuonpx = 0;
+  _genMuonpy = 0;
+  _genMuonpz = 0;
+  _genMuonE = 0;
+  _genMuonIPx = 0;
+  _genMuonIPy = 0;
+  _genMuonIPz = 0;
+  _genPVx = 0;
+  _genPVy = 0;
+  _genPVz = 0;
+  _gendpPhiCP = 0;
+  _genpvPhiCP = 0;
   _isOSpair = 0;
   _isIso = 0;
+  _isMediumID = 0;
   _pairvisMass = 0;
   _Njets = 0;
   _Nbjets = 0;
@@ -360,7 +432,6 @@ void NtupleReader::Init(TTree *tree, TString Sys)
   _PUPPImetphi = 0;
   _PUPPIMETCov00 = 0;
   _PUPPIMETCov10 = 0;
-  _PUPPIMETCov01 = 0;
   _PUPPIMETCov11 = 0;
   _pvPhiCP = 0;
   _dpPhiCP = 0;
@@ -444,6 +515,13 @@ void NtupleReader::Init(TTree *tree, TString Sys)
   fChain->SetBranchAddress("tauEta", &_tauEta, &b_tauEta);
   fChain->SetBranchAddress("tauPhi", &_tauPhi, &b_tauPhi);
   fChain->SetBranchAddress("tauE", &_tauE, &b_tauE);
+  fChain->SetBranchAddress("GEFtauE", &_GEFtauE, &b_GEFtauE);
+  fChain->SetBranchAddress("GEFtauPt", &_GEFtauPt, &b_GEFtauPt);
+  fChain->SetBranchAddress("GEFtauPhi", &_GEFtauPhi, &b_GEFtauPhi);
+  fChain->SetBranchAddress("GEFtauEta", &_GEFtauEta, &b_GEFtauEta);
+  fChain->SetBranchAddress("tauSVx", &_tauSVx, &b_tauSVx);
+  fChain->SetBranchAddress("tauSVy", &_tauSVy, &b_tauSVy);
+  fChain->SetBranchAddress("tauSVz", &_tauSVz, &b_tauSVz);
   fChain->SetBranchAddress("tauDM", &_tauDM, &b_tauDM);
   fChain->SetBranchAddress("muIndex", &_muIndex, &b_muIndex);
   fChain->SetBranchAddress("muGenMatch", &_muGenMatch, &b_muGenMatch);
@@ -454,6 +532,7 @@ void NtupleReader::Init(TTree *tree, TString Sys)
   fChain->SetBranchAddress("muIso", &_muIso, &b_muIso);
   fChain->SetBranchAddress("isOSpair", &_isOSpair, &b_isOSpair);
   fChain->SetBranchAddress("isIso", &_isIso, &b_isIso);
+  fChain->SetBranchAddress("isMediumID", &_isMediumID, &b_isMediumID);
   fChain->SetBranchAddress("pairvisMass", &_pairvisMass, &b_pairvisMass);
   fChain->SetBranchAddress("Njets", &_Njets, &b_Njets);
   fChain->SetBranchAddress("leadingjetPt", &_leadingjetPt, &b_leadingjetPt);
@@ -467,7 +546,6 @@ void NtupleReader::Init(TTree *tree, TString Sys)
   fChain->SetBranchAddress("PUPPImet", &_PUPPImet, &b_PUPPImet);
   fChain->SetBranchAddress("PUPPImetphi", &_PUPPImetphi, &b_PUPPImetphi);
   fChain->SetBranchAddress("PUPPIMETCov00", &_PUPPIMETCov00, &b_PUPPIMETCov00);
-  fChain->SetBranchAddress("PUPPIMETCov01", &_PUPPIMETCov01, &b_PUPPIMETCov01);
   fChain->SetBranchAddress("PUPPIMETCov10", &_PUPPIMETCov10, &b_PUPPIMETCov10);
   fChain->SetBranchAddress("PUPPIMETCov11", &_PUPPIMETCov11, &b_PUPPIMETCov11);
   fChain->SetBranchAddress("pvPhiCP", &_pvPhiCP, &b_pvPhiCP);
@@ -500,7 +578,7 @@ void NtupleReader::Init(TTree *tree, TString Sys)
   fChain->SetBranchAddress("wBtag", &_wBtag, &b_wBtag);
   fChain->SetBranchAddress("wMC", &_wMC, &b_wMC);
   fChain->SetBranchAddress("wSignal", &_wSignal, &b_wSignal);
-  if(Sys == "Nominal") {
+  if(Sys == "default") {
     fChain->SetBranchAddress("wPrefiringUp", &_wPrefiringUp, &b_wPrefiringUp);
     fChain->SetBranchAddress("wPrefiringDown", &_wPrefiringDown, &b_wPrefiringDown);
     fChain->SetBranchAddress("wIDvsJetUp", &_wIDvsJetUp, &b_wIDvsJetUp);
@@ -536,8 +614,23 @@ void NtupleReader::Init(TTree *tree, TString Sys)
     fChain->SetBranchAddress("pvCov01", &_pvCov01, &b_pvCov01);
     fChain->SetBranchAddress("pvCov02", &_pvCov02, &b_pvCov02);
     fChain->SetBranchAddress("pvCov12", &_pvCov12, &b_pvCov12);
-  }
-  
+    fChain->SetBranchAddress("genTaupx", &_genTaupx, &b_genTaupx);
+    fChain->SetBranchAddress("genTaupy", &_genTaupy, &b_genTaupy);
+    fChain->SetBranchAddress("genTaupz", &_genTaupz, &b_genTaupz);
+    fChain->SetBranchAddress("genTauE", &_genTauE, &b_genTauE);
+    fChain->SetBranchAddress("genTauSVx", &_genTauSVx, &b_genTauSVx);
+    fChain->SetBranchAddress("genTauSVy", &_genTauSVy, &b_genTauSVy);
+    fChain->SetBranchAddress("genTauSVz", &_genTauSVz, &b_genTauSVz);
+    fChain->SetBranchAddress("genMuonpx", &_genMuonpx, &b_genMuonpx);
+    fChain->SetBranchAddress("genMuonpy", &_genMuonpy, &b_genMuonpy);
+    fChain->SetBranchAddress("genMuonpz", &_genMuonpz, &b_genMuonpz);
+    fChain->SetBranchAddress("genMuonE", &_genMuonE, &b_genMuonE);
+    fChain->SetBranchAddress("genPVx", &_genPVx, &b_genPVx);
+    fChain->SetBranchAddress("genPVy", &_genPVy, &b_genPVy);
+    fChain->SetBranchAddress("genPVz", &_genPVz, &b_genPVz);
+    fChain->SetBranchAddress("gendpPhiCP", &_gendpPhiCP, &b_gendpPhiCP);
+    fChain->SetBranchAddress("genpvPhiCP", &_genpvPhiCP, &b_genpvPhiCP);
+  } 
   Notify();
 }
 

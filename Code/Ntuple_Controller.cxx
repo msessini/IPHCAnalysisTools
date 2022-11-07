@@ -3,16 +3,11 @@
 
 #include "Ntuple_Controller.h"
 #include "Tools.h"
-#include "PDG_Var.h"
 #include "TF1.h"
 #include "Parameters.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 #include <tuple>
 
-// External code
-#include "TauDataFormat/TauNtuple/interface/DataMCType.h"
-#include "SimpleFits/FitSoftware/interface/PDGInfo.h"
- 
 ///////////////////////////////////////////////////////////////////////
 //
 // Constructor
@@ -90,7 +85,7 @@ Ntuple_Controller::Ntuple_Controller(std::vector<TString> RootFiles, TString Sys
   //tree->SetBranchStatus("daughters_byIsolationMVA*old*",0);
   //tree->SetBranchStatus("trigger_name",0);
   Logger(Logger::Info) << "Number of Events in Ntuple: " << chain->GetEntries() << std::endl;
-  Ntp=new NtupleReader(tree);
+  Ntp=new NtupleReader(tree, SysTree);
   nbytes=0; 
   nb=0;
   Logger(Logger::Info) << "Ntuple Configured" << std::endl;
@@ -343,122 +338,3 @@ Long64_t Ntuple_Controller::GetMCID() {
 }
 
 
-
-// obtain, or create and store, SVFit results from/on dCache
-#ifdef USE_SVfit
-SVFitObject* Ntuple_Controller::getSVFitResult_MuTauh(SVFitStorage& svFitStor, TString metType, unsigned muIdx, unsigned tauIdx, unsigned rerunEvery /* = 5000 */, TString suffix /* ="" */, double scaleMu /* =1 */, double scaleTau /* =1 */) {
-	 // configure svfitstorage on first call
-	if ( !svFitStor.isConfigured() ) svFitStor.Configure(GetInputDatasetName(), suffix);
-	// get SVFit result from cache
-	SVFitObject* svfObj = svFitStor.GetEvent(RunNumber(), LuminosityBlock(), EventNumber());
-	// if obtained object is not valid, create and store it
-	if (!svfObj->isValid()) {
-		runAndSaveSVFit_MuTauh(svfObj, svFitStor, metType, muIdx, tauIdx, scaleMu, scaleTau);
-	}
-	else{
-		// calculate every N'th event and compare with what is stored
-		if( (EventNumber() % rerunEvery) == 123){
-			SVFitObject* newSvfObj = new SVFitObject();
-			runAndSaveSVFit_MuTauh(newSvfObj, svFitStor, metType, muIdx, tauIdx, scaleMu, scaleTau, false); // will not be saved in output files
-
-			if (*svfObj == *newSvfObj){
-				Logger(Logger::Info) << "Recalculation of SVFit object gave same result." << std::endl;
-			}
-			else {
-				Logger(Logger::Warning) << "Recalculation of SVFit object gave DIFFERENT result!!" <<
-				"\n\told: mass = " << svfObj->get_mass() << " +/- " << svfObj->get_massUncert() << ", pt = " << svfObj->get_pt() << " +/- " << svfObj->get_ptUncert() <<
-				"\n\tnew: mass = " << newSvfObj->get_mass() << " +/- " << newSvfObj->get_massUncert() << ", pt = " << newSvfObj->get_pt() << " +/- " << newSvfObj->get_ptUncert() <<
-				"\n\tSmall discrepancies could be caused by fitting details. It's up to you whether to ignore them." << std::endl;
-			}
-			delete newSvfObj;
-		}
-	}
-	return svfObj;
-}
-
-SVFitObject* Ntuple_Controller::getSVFitResult_TauhTauh(SVFitStorage& svFitStor, TString metType, unsigned tauIdx1, unsigned tauIdx2, unsigned rerunEvery /* = 5000 */, TString suffix /* ="" */, double scaleTau1 /* =1 */, double scaleTau2 /* =1 */) {
-	 // configure svfitstorage on first call
-	if ( !svFitStor.isConfigured() ) svFitStor.Configure(GetInputDatasetName(), suffix);
-	// get SVFit result from cache
-	SVFitObject* svfObj = svFitStor.GetEvent(RunNumber(), LuminosityBlock(), EventNumber());
-	// if obtained object is not valid, create and store it
-	if (!svfObj->isValid()) {
-		runAndSaveSVFit_TauhTauh(svfObj, svFitStor, metType, tauIdx1, tauIdx2, scaleTau1, scaleTau2);
-	}
-	else{
-		// calculate every N'th event and compare with what is stored
-		if( (EventNumber() % rerunEvery) == 123){
-			SVFitObject* newSvfObj = new SVFitObject();
-			runAndSaveSVFit_TauhTauh(newSvfObj, svFitStor, metType, tauIdx1, tauIdx2, scaleTau1, scaleTau2, false); // will not be saved in output files
-
-			if (*svfObj == *newSvfObj){
-				Logger(Logger::Info) << "Recalculation of SVFit object gave same result." << std::endl;
-			}
-			else {
-				Logger(Logger::Warning) << "Recalculation of SVFit object gave DIFFERENT result!!" <<
-				"\n\told: mass = " << svfObj->get_mass() << " +/- " << svfObj->get_massUncert() << ", pt = " << svfObj->get_pt() << " +/- " << svfObj->get_ptUncert() <<
-				"\n\tnew: mass = " << newSvfObj->get_mass() << " +/- " << newSvfObj->get_massUncert() << ", pt = " << newSvfObj->get_pt() << " +/- " << newSvfObj->get_ptUncert() <<
-				"\n\tSmall discrepancies could be caused by fitting details. It's up to you whether to ignore them." << std::endl;
-			}
-			delete newSvfObj;
-		}
-	}
-	return svfObj;
-}
-
-SVFitObject* Ntuple_Controller::getSVFitResult_MuTau3p(SVFitStorage& svFitStor, TString metType, unsigned muIdx, TLorentzVector tauLV, LorentzVectorParticle neutrino, TString suffix /* ="" */, double scaleMu /* =1 */, double scaleTau /* =1 */) {
-	 // configure svfitstorage on first call
-	if ( !svFitStor.isConfigured() ) svFitStor.Configure(GetInputDatasetName(), suffix);
-	// get SVFit result from cache
-	SVFitObject* svfObj = svFitStor.GetEvent(RunNumber(), LuminosityBlock(), EventNumber());
-	// if obtained object is not valid, create and store it
-	if (!svfObj->isValid()) {
-		runAndSaveSVFit_MuTau3p(svfObj, svFitStor, metType, muIdx, tauLV, neutrino, scaleMu, scaleTau);
-	}
-	return svfObj;
-}
-
-// create SVFitObject from standard muon and standard tau_h
-void Ntuple_Controller::runAndSaveSVFit_MuTauh(SVFitObject* svfObj, SVFitStorage& svFitStor, const TString& metType, unsigned muIdx, unsigned tauIdx, double scaleMu, double scaleTau, bool save /*= true*/) {
-	objects::MET met(this, metType);
-	SVfitProvider svfProv(this, met, "Mu", muIdx, "Tau", tauIdx, 1, scaleMu, scaleTau);
-	*svfObj = svfProv.runAndMakeObject();
-	if (svfObj->isValid()) {
-		// store only if object is valid
-		if (save) svFitStor.SaveEvent(RunNumber(), LuminosityBlock(), EventNumber(), svfObj);
-	} else {
-		Logger(Logger::Error) << "Unable to create a valid SVFit object." << std::endl;
-	}
-}
- 
-// create SVFitObject from standard tau_h and standard tau_h
-void Ntuple_Controller::runAndSaveSVFit_TauhTauh(SVFitObject* svfObj, SVFitStorage& svFitStor, const TString& metType, unsigned tauIdx1, unsigned tauIdx2, double scaleTau1, double scaleTau2, bool save /*= true*/) {
-	objects::MET met(this, metType);
-	SVfitProvider svfProv(this, met, "Tau", tauIdx1, "Tau", tauIdx2, 1, scaleTau1, scaleTau2);
-	*svfObj = svfProv.runAndMakeObject();
-	if (svfObj->isValid()) {
-		// store only if object is valid
-		if (save) svFitStor.SaveEvent(RunNumber(), LuminosityBlock(), EventNumber(), svfObj);
-	} else {
-		Logger(Logger::Error) << "Unable to create a valid SVFit object." << std::endl;
-	}
-}
-
-
-// create SVFitObject from standard muon and fully reconstructed 3prong tau
-void Ntuple_Controller::runAndSaveSVFit_MuTau3p(SVFitObject* svfObj, SVFitStorage& svFitStor, const TString& metType, unsigned muIdx, TLorentzVector tauLV, LorentzVectorParticle neutrino, double scaleMu, double scaleTau, bool save /*= true*/){
-	objects::MET met(this, metType);
-	met.subtractNeutrino(neutrino);
-	SVfitProvider svfProv(this, met, "Mu", muIdx, tauLV, 1, scaleMu, scaleTau);
-	*svfObj = svfProv.runAndMakeObject();
-	if (svfObj->isValid()) {
-		// store only if object is valid
-		if (save) svFitStor.SaveEvent(RunNumber(), LuminosityBlock(), EventNumber(), svfObj);
-	} else {
-		Logger(Logger::Error) << "Unable to create a valid SVFit object." << std::endl;
-	}
-}
-
-
-
-#endif // USE_SVfit

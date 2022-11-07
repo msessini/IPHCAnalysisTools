@@ -16,8 +16,8 @@
 #include <math.h>
 
 #include "HistoConfig.h"
-#include "TauDataFormat/TauNtuple/interface/DataMCType.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "DataMCType.h"
+#include "Logger.h"
 
 std::vector<Long64_t> SkimConfig::SkimIDs;
 std::vector<float> SkimConfig::NEvents;

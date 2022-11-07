@@ -1,5 +1,5 @@
 #include "HistoConfig.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 
 #include <cstdlib>
 #include <algorithm>                                     
