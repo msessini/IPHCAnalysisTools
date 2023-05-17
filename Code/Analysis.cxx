@@ -31,7 +31,6 @@
 #include "Plots.h"
 
 int main(int argc, char* argv[]) {
-  std::cout<<"HELLO"<<std::endl;
   Logger::Instance()->SetLevel(Logger::Info);
   Logger(Logger::Info) << "\n\n\n================" << std::endl;
   Logger(Logger::Info) << "Program is Starting" << endl;
@@ -190,7 +189,7 @@ for(unsigned int j =0; j<selections.size(); j++){
     Int_t nentries = Ntp.Get_Entries();
     std::vector<TString> ListOfFilesRead;
     std::vector<int> EventsReadFromFile;
-    int RunNumber(-999);
+    unsigned int RunNumber(999);
     int num = 1000;
     Logger(Logger::Info) << "Will run over " << nentries << " events" << endl;
     int i = 0;
@@ -214,8 +213,8 @@ for(unsigned int j =0; j<selections.size(); j++){
       }
       Ntp.Get_Event(i);
       if (Ntp.isData()) {
-	if (!DER.CheckDoubleEvents(Ntp.RunNumber(), Ntp.EventNumber()))
-	  continue;
+	//if (!DER.CheckDoubleEvents(Ntp.RunNumber(), Ntp.EventNumber()))
+	  //continue;
 	if (RunNumber != Ntp.RunNumber()) {
 	  RunNumber = Ntp.RunNumber();
 	  Logger(Logger::Debug) << "RunNumber: " << RunNumber << endl;

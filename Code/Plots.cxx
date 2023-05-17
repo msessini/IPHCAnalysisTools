@@ -72,7 +72,6 @@ void Plots::Plot1D(std::vector<std::vector<TH1D> > histo, std::vector<int> colou
 
 		// check that histos and colors exist
 		if (histo.at(i_plot).size() > 0 && histo.at(i_plot).size() == colour.size()) {
-
 			// === basic settings ===
 			// legend
 			TLegend leg(0.25, 0.72, 0.9, 0.925);
@@ -106,12 +105,11 @@ void Plots::Plot1D(std::vector<std::vector<TH1D> > histo, std::vector<int> colou
 			// first histogram is expected to be data, and drawn as black dots
 			histo.at(i_plot).at(0).SetLineColor(colour.at(0));
 			histo.at(i_plot).at(0).SetMarkerColor(colour.at(0));
-
 			// === settings for individual histograms ===
 			Logger(Logger::Debug) << "Setup plot " << histo.at(i_plot).at(0).GetTitle() << std::endl;
 
 			// set colours and legends of histograms
-			for (unsigned int i_hist = histo.at(i_plot).size() - 1; i_hist >= 0; i_hist--) {
+			for (int i_hist = histo.at(i_plot).size() - 1; i_hist >= 0; i_hist--) {
 				// don't draw histogram if colour is set to -999
 				if( colour.at(i_hist) == -999 ) continue;
 
@@ -132,7 +130,6 @@ void Plots::Plot1D(std::vector<std::vector<TH1D> > histo, std::vector<int> colou
 					isNewHist = false;
 				}
 			}
-
 			// calculate data and MC integrals and add legends entries
 			double combinedIntegral(0); // sum of integrals of combined histograms
 			for (unsigned int i_hist = 0; i_hist < histo.at(i_plot).size(); i_hist++) {

@@ -14,7 +14,6 @@
 
 Selection::Selection(TString Name_, TString id_) :
 		Selection_Base(Name_, id_), HConfig(), NGoodFiles(0), NBadFiles(0), histsAreScaled(false), isStored(false), data(0) {
-	std::cout<<"////////////"<<id_<<std::endl;
 	if (Name_)
 		ListofBadFiles.clear();
 }
@@ -241,15 +240,15 @@ void Selection::Finish(char* Channel) {
 			printf("%8d %10d : %7.1f * %9.4f / %10.0f = %6f", i, HConfig.GetID(i), Lumi, CrossSectionandAcceptance.at(i), Npassed.at(i).GetBinContent(0),
 					Lumi * CrossSectionandAcceptance.at(i) / Npassed.at(i).GetBinContent(0));
 			if (CrossSectionandAcceptance.at(i) > 0) {
-				ScaleAllHistOfType(i, Lumi * CrossSectionandAcceptance.at(i) / Npassed.at(i).GetBinContent(0));
+				ScaleAllHistOfType(i, Lumi * CrossSectionandAcceptance.at(i)/ Npassed.at(i).GetBinContent(0));
 				printf("\n");
 			} else
 				printf("  --> will not be scaled \n");
 		}
 		Save(fName + "_LumiScaled");      // Save file with Lumi-scaled events - required for combining code
 		histsAreScaled = true;
-	}
-		/*///Now make the plots
+	
+		///Now make the plots
 		Logger(Logger::Info) << "Printing Plots " << std::endl;
 		//system("rm EPS/ *.eps");
 		Plots P;
@@ -287,7 +286,7 @@ void Selection::Finish(char* Channel) {
 		T.AddPlots(title);
 		T.GeneratePDF();
 		Logger(Logger::Info) << "Plots and Tables Complete" << std::endl;
-	}*/
+	}
 
 }
 

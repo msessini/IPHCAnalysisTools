@@ -360,6 +360,7 @@ class Ntuple_Controller{
   const TString& GetJetCorrections() const {return jetCorrection;}
 
   // Information from input Ntuple path name
+  TString GetInputNtuplePath();
   TString GetInputDatasetName();
   TString GetInputPublishDataName();
   int getSampleHiggsMass();
@@ -368,6 +369,15 @@ class Ntuple_Controller{
   // resonance mass
   int getHiggsSampleMassFromGenInfo();
   double getResonanceMassFromGenInfo(bool useZ0 = true, bool useHiggs0 = true, bool useW = true);
+  //
+  void FillHist(unsigned int t, double angle, std::pair<float, int> max_pair, double w, std::vector<TH2D> *hgs=nullptr, std::vector<TH2D> *ztt=nullptr, std::vector<TH2D> *fkj=nullptr, bool isData=false) {
+    if(isData == true) t = 1;
+    //
+    if(max_pair.second == 0) hgs->at(t).Fill(angle,max_pair.first,w);
+    else if(max_pair.second == 1) ztt->at(t).Fill(angle,max_pair.first,w);
+    else if(max_pair.second == 2) fkj->at(t).Fill(angle,max_pair.first,w);
+    else return;
+  }
 
   // Physics Variable Get Functions
   Long64_t GetMCID();
@@ -377,6 +387,7 @@ class Ntuple_Controller{
   Int_t Lumi()		    {return Ntp->_lumi;}
   Int_t Year()		    {return Ntp->_theYear;}
   bool isData()		    {return Ntp->_isData;}
+  //bool isEmbed()	    {return Ntp->_isEmbed;}
   int tauIndex()	    {return Ntp->_tauIndex;}
   int tauGenMatch()	    {return Ntp->_tauGenMatch;}	
   float tauDM()	            {return Ntp->_tauDM;}
@@ -425,17 +436,21 @@ class Ntuple_Controller{
   bool isOSpair()	    {return Ntp->_isOSpair;}
   bool isIso()		    {return Ntp->_isIso;}
   bool isMediumID()	    {return Ntp->_isMediumID;}
+  bool isTightJetID()       {return Ntp->_isTightJetID;}
+  bool extraIsoMu()         {return Ntp->_extraIsoMu;}
+  bool trgIsoMu()	    {return Ntp->_trgIsoMu;}
+  bool trgXMuTau()          {return Ntp->_trgXMuTau;}
   double pairvisMass()      {return Ntp->_pairvisMass;}
   int Njets()		    {return Ntp->_Njets;}
-  int Nbjets()		    {return Ntp->_Nbjets;}
+  int Nbtags()		    {return Ntp->_Nbtags;}
   double leadingjetPt()	    {return Ntp->_leadingjetPt;}
-  double trailingjetPt()    {return Ntp->_trailingjetPt;}
+  double subleadingjetPt()  {return Ntp->_subleadingjetPt;}
   double dijetMass()   	    {return Ntp->_dijetMass;}
   double dijetPt()	    {return Ntp->_dijetPt;}
   double dijetdeltaEta()    {return Ntp->_dijetdeltaEta;}
   double ditauPt()	    {return Ntp->_ditauPt;}
-  double ditauMass()	    {return Ntp->_ditauMass;}
   float muMETmt()	    {return Ntp->_muMETmt;}
+  double fastMTTmass()	    {return Ntp->_fastMTTmass;}
   float PUPPImet()	    {return Ntp->_PUPPImet;}
   float PUPPImetphi() 	    {return Ntp->_PUPPImetphi;}
   float PUPPIMETCovXX()	    {return Ntp->_PUPPIMETCov00;}
@@ -481,6 +496,7 @@ class Ntuple_Controller{
   double wScaleDown()	    {return Ntp->_wScaleDown;}
   double wMC()	  	    {return Ntp->_wMC;}
   double wSignal()	    {return Ntp->_wSignal;}
+  double wTot() 	    {return Ntp->_wTot;}
   float pvx()	 	    {return Ntp->_pvx;}
   float pvy()		    {return Ntp->_pvy;}
   float pvz()		    {return Ntp->_pvz;}
@@ -495,7 +511,6 @@ class Ntuple_Controller{
   int Npartons()	    {return Ntp->_Npartons;}
   bool isZ()		    {return Ntp->_isZ;}
   bool isW()		    {return Ntp->_isW;}
-  bool isH()		    {return Ntp->_isH;}
   bool isSignal()	    {return Ntp->_isSignal;}
   bool isQCD()		    {return Ntp->_isQCD;}
   bool isVV()		    {return Ntp->_isVV;}

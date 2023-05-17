@@ -48,6 +48,7 @@ TARGETS       =	Ntuple_Controller \
                 FakeFactors \
 		DoubleEventRemoval \
 		ImpactParameter \
+		BDTClassification \
 		Logger
 
 CINTTARGETS = 

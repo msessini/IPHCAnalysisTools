@@ -589,12 +589,14 @@ if( $ARGV[0] eq "--Local" ){
 	$max=1;
 	foreach $DS (@DataSets){
 	    #if((($l==0 && ($DS =~ m/Data/)) || ($l==1 && !($DS =~ m/Data/))) || (($l==0 && ($DS =~ m/data/)) || ($l==1 && !($DS =~ m/data/)))){
-	    if((($l==0 && ($DS =~ m/Data/)) || ($l==1 && !($DS =~ m/Data/)))){
-		#	print "true 1   l = $l\n";
+	    if((($l==0 && ($DS =~ m/SingleMuon/)) || ($l==1 && !($DS =~ m/SingleMuon/)))){
 		if($l==0){
 		    #	print "true 2   l = $l\n";
 		    $max=$maxdata;
 		    #$max=2;
+		    if($DS == m/SingleMuon_A/ || $DS == m/SingleMuon_D/) {
+		    	$max=$maxdata*0.5;
+ 		    }
 		}
 		else{
 		    #	print "true 3   l = $l\n";
@@ -603,13 +605,16 @@ if( $ARGV[0] eq "--Local" ){
 			#	print "true 4";
 			$max=$maxemb;
 		    }
+                    if($DS =~ m/EmbedD/){
+                        $max=$maxemb*0.5;
+                    }
 		}
 		
 		if($DS =~ m/Filtered/)
 		{
 		    #$max=12;
 		    #$max=5;
-		    $max=3;
+		    $max=30;
 		}
 
 		#2016

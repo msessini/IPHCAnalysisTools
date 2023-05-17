@@ -25,6 +25,8 @@
 
 #ifdef USE_lebihan
 
+#include "lebihan/HCPMuTau.h"
+
 #endif
 
 #ifdef USE_gbourgat
@@ -73,9 +75,9 @@ Selection_Base* Selection_Factory::Factory(TString Analysis, TString UncertType,
 //   else if(Analysis.Contains("bla"))s=new Bla(Analysis,UncertType);
 // #endif
 
-// #ifdef USE_lebihan
-//   else if(Analysis.Contains("bla"))s=new Bla(Analysis,UncertType);
-// #endif
+#ifdef USE_lebihan
+  else if(Analysis.Contains("hcpmutau"))s=new HCPMuTau(Analysis,UncertType,Channel);
+#endif
 
 // #ifdef USE_cgrimault
 //   else if(Analysis.Contains("bla"))s=new Bla(Analysis,UncertType);
