@@ -249,7 +249,7 @@ void Selection::Finish(char* Channel) {
 		histsAreScaled = true;
 	
 		///Now make the plots
-		Logger(Logger::Info) << "Printing Plots " << std::endl;
+		/*Logger(Logger::Info) << "Printing Plots " << std::endl;
 		//system("rm EPS/ *.eps");
 		Plots P;
 		P.Plot1D(Nminus1, colour, legend);
@@ -285,7 +285,7 @@ void Selection::Finish(char* Channel) {
 		T.MakeEffTable(Npassed, title, Lumi, CrossSectionandAcceptance);
 		T.AddPlots(title);
 		T.GeneratePDF();
-		Logger(Logger::Info) << "Plots and Tables Complete" << std::endl;
+		Logger(Logger::Info) << "Plots and Tables Complete" << std::endl;*/
 	}
 
 }

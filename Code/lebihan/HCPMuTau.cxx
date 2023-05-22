@@ -25,35 +25,35 @@ HCPMuTau::HCPMuTau(TString Name_, TString id_, char* Channel_):
   ChargeSumDummy = -999;
   selMuon_IsoDummy = 999.;
 
-  TFile *f_fracs=TFile::Open("/home-pbs/msessini/Test/workdirtest3MuTauggfSep_22_2022/Code/CommonFiles/FakeFactors/mva_fract_mt_2018.root", "READ");
+  TFile *f_fracs=TFile::Open(((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/mva_fract_mt_2018.root").c_str(), "READ");
   ff_fracs_qcd_ = (TH2D*)f_fracs->Get("QCD");
   ff_fracs_wjets_ = (TH2D*)f_fracs->Get("W");
   ff_fracs_qcd_->SetDirectory(0);
   ff_fracs_wjets_->SetDirectory(0);
   f_fracs->Close();
 
-  TFile *f_fracs_ss=TFile::Open("/home-pbs/msessini/Test/workdirtest3MuTauggfSep_22_2022/Code/CommonFiles/FakeFactors/mva_fract_mt_2018_ss.root", "READ");
+  TFile *f_fracs_ss=TFile::Open(((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/mva_fract_mt_2018_ss.root").c_str(), "READ");
   ff_fracs_qcd_ss_ = (TH2D*)f_fracs_ss->Get("QCD");
   ff_fracs_wjets_ss_ = (TH2D*)f_fracs_ss->Get("W");
   ff_fracs_qcd_ss_->SetDirectory(0);
   ff_fracs_wjets_ss_->SetDirectory(0);
   f_fracs_ss->Close();
 
-  TFile *f_fracs_aiso=TFile::Open("/home-pbs/msessini/Test/workdirtest3MuTauggfSep_22_2022/Code/CommonFiles/FakeFactors/mva_fract_mt_2018_aiso.root", "READ");
+  TFile *f_fracs_aiso=TFile::Open(((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/mva_fract_mt_2018_aiso.root").c_str(), "READ");
   ff_fracs_qcd_aiso_ = (TH2D*)f_fracs_aiso->Get("QCD");
   ff_fracs_wjets_aiso_ = (TH2D*)f_fracs_aiso->Get("W");
   ff_fracs_qcd_aiso_->SetDirectory(0);
   ff_fracs_wjets_aiso_->SetDirectory(0);
   f_fracs_aiso->Close();
 
-  TFile *f_fracs_highmt=TFile::Open("/home-pbs/msessini/Test/workdirtest3MuTauggfSep_22_2022/Code/CommonFiles/FakeFactors/mva_fract_mt_2018_highmt.root", "READ");
+  TFile *f_fracs_highmt=TFile::Open(((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/mva_fract_mt_2018_highmt.root").c_str(), "READ");
   ff_fracs_qcd_highmt_ = (TH2D*)f_fracs_highmt->Get("QCD");
   ff_fracs_wjets_highmt_ = (TH2D*)f_fracs_highmt->Get("W");
   ff_fracs_qcd_highmt_->SetDirectory(0);
   ff_fracs_wjets_highmt_->SetDirectory(0);
   f_fracs_highmt->Close();
 
-  TFile *f=TFile::Open("/home-pbs/msessini/Test/workdirtest3MuTauggfSep_22_2022/Code/CommonFiles/FakeFactors/fakefactors_ws_mt_lite_2018.root", "READ");
+  TFile *f=TFile::Open(((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/fakefactors_ws_mt_lite_2018.root").c_str(), "READ");
   ff_ws_ = std::shared_ptr<RooWorkspace>((RooWorkspace*)gDirectory->Get("w"));
   f->Close();
 
@@ -4198,7 +4198,7 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
   std::vector<float> scores = {};
   BDT->Execute(Ntp->muPt(),Ntp->tauPt(),Ntp->ditauPt(),Ntp->Njets(),Ntp->leadingjetPt(),Ntp->subleadingjetPt(),Ntp->dijetPt(),Ntp->dijetMass(),Ntp->dijetdeltaEta(),Ntp->pairvisMass(),Ntp->fastMTTmass(),Ntp->muMETmt(),Ntp->PUPPImet(),Ntp->EventNumber(),scores,max_pair);
   //
-  double Angle = Ntp->dpPhiCP();
+  double Angle = Ntp->pvPhiCP();
   //
   value.at(TausIsolation) = isSignalRegion;
   pass.at(TausIsolation) = value.at(TausIsolation);
