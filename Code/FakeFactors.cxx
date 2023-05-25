@@ -35,7 +35,9 @@ FakeFactors::FakeFactors(Int_t theYear, TH2D* ff_fracs_qcd, TH2D* ff_fracs_wjets
   reader_->AddVariable("mjj", &mjj_);
   reader_->AddVariable("mva_dm_2", &mva_dm_2_);
   reader_->AddVariable("mt_1", &mt_1_);
-  xml_file="/home-pbs/msessini/Test/workdirtest3MuTauggfSep_22_2022/Code/CommonFiles/FakeFactors/fractions_2018_mt.xml";
+  if(theYear == 2016) xml_file="/opt/sbg/cms/safe1/cms/msessini/IPHCAnalysisTools/Code/CommonFiles/FakeFactors/fractions_2016_mt.xml";
+  if(theYear == 2017) xml_file="/opt/sbg/cms/safe1/cms/msessini/IPHCAnalysisTools/Code/CommonFiles/FakeFactors/fractions_2017_mt.xml";
+  if(theYear == 2018) xml_file="/opt/sbg/cms/safe1/cms/msessini/IPHCAnalysisTools/Code/CommonFiles/FakeFactors/fractions_2018_mt.xml";
   reader_->BookMVA("BDT method", xml_file);
 
 }
