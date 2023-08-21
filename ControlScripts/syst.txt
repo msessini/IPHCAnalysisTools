@@ -8,6 +8,8 @@ UncertType: METResoUp
 UncertType: METResoDown
 UncertType: METScaleUp
 UncertType: METScaleDown
+UncertType: METUnclusteredUp
+UncertType: METUnclusteredDown
 UncertType: FlavorQCDUp
 UncertType: FlavorQCDDown
 UncertType: RelativeBalUp
