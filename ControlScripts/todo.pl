@@ -614,13 +614,6 @@ if( $ARGV[0] eq "--Local" ){
                         $max=$maxemb*0.5;
                     }
 		}
-		
-		if($DS =~ m/Filtered/)
-		{
-		    #$max=12;
-		    #$max=5;
-		    $max=30;
-		}
 
 		#2016
 

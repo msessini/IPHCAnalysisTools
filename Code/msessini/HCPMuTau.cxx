@@ -54,9 +54,9 @@ HCPMuTau::HCPMuTau(TString Name_, TString id_, char* Channel_):
   f_fracs_highmt->Close();
 
   TFile *f = new TFile();
-  if(theYear == 2016) *f=TFile::Open(((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/fakefactors_ws_mt_lite_2016.root").c_str(), "READ");
-  if(theYear == 2017) *f=TFile::Open(((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/fakefactors_ws_mt_lite_2017.root").c_str(), "READ");
-  if(theYear == 2018) *f=TFile::Open(((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/fakefactors_ws_mt_lite_2018.root").c_str(), "READ");
+  if(theYear == 2016) f=TFile::Open(((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/fakefactors_ws_mt_lite_2016.root").c_str(), "READ");
+  if(theYear == 2017) f=TFile::Open(((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/fakefactors_ws_mt_lite_2017.root").c_str(), "READ");
+  if(theYear == 2018) f=TFile::Open(((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/fakefactors_ws_mt_lite_2018.root").c_str(), "READ");
   ff_ws_ = std::shared_ptr<RooWorkspace>((RooWorkspace*)gDirectory->Get("w"));
   f->Close();
 
@@ -527,6 +527,8 @@ void  HCPMuTau::Configure(){
   phiCPeven_CMS_htt_boson_reso_met_13TeVDown_hgs=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_reso_met_13TeVDown_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVUp_hgs=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVUp_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVDown_hgs=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVDown_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgs=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgs=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   //
   phiCPeven_CMS_scale_t_3prong_13TeVUp_ztt=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_t_3prong_13TeVUp_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_scale_t_3prong_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_t_3prong_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -580,6 +582,8 @@ void  HCPMuTau::Configure(){
   phiCPeven_CMS_htt_boson_reso_met_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_reso_met_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVUp_ztt=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVUp_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVUp_ztt=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVUp_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   ////
   phiCPeven_CMS_scale_t_3prong_13TeVUp_fkj=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_t_3prong_13TeVUp_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_scale_t_3prong_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_t_3prong_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -633,6 +637,8 @@ void  HCPMuTau::Configure(){
   phiCPeven_CMS_htt_boson_reso_met_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_reso_met_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVUp_fkj=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVUp_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkj=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   //PhiCP odd
   phiCPodd_nominal_hgs=HConfig.GetTH2D(Name+"_phiCPodd_nominal_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgs=HConfig.GetTH2D(Name+"_phiCPodd_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -914,6 +920,8 @@ void  HCPMuTau::Configure(){
   phiCPodd_CMS_htt_boson_reso_met_13TeVDown_hgs=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_reso_met_13TeVDown_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVUp_hgs=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVUp_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVDown_hgs=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVDown_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVUp_hgs=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVUp_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVDown_hgs=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVDown_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   ////
   phiCPodd_CMS_scale_t_3prong_13TeVUp_ztt=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_t_3prong_13TeVUp_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_scale_t_3prong_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_t_3prong_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -967,6 +975,8 @@ void  HCPMuTau::Configure(){
   phiCPodd_CMS_htt_boson_reso_met_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_reso_met_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVUp_ztt=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVUp_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVUp_ztt=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVUp_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   ////
   phiCPodd_CMS_scale_t_3prong_13TeVUp_fkj=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_t_3prong_13TeVUp_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_scale_t_3prong_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_t_3prong_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -1020,6 +1030,8 @@ void  HCPMuTau::Configure(){
   phiCPodd_CMS_htt_boson_reso_met_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_reso_met_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVUp_fkj=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVUp_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVUp_fkj=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVUp_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   //PhiCP MM
   phiCPMM_nominal_hgs=HConfig.GetTH2D(Name+"_phiCPMM_nominal_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgs=HConfig.GetTH2D(Name+"_phiCPMM_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -1301,6 +1313,8 @@ void  HCPMuTau::Configure(){
   phiCPMM_CMS_htt_boson_reso_met_13TeVDown_hgs=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_reso_met_13TeVDown_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVUp_hgs=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVUp_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVDown_hgs=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVDown_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPMM_CMS_scale_met_unclustered_13TeVUp_hgs=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVUp_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPMM_CMS_scale_met_unclustered_13TeVDown_hgs=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVDown_hgs","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   ////
   phiCPMM_CMS_scale_t_3prong_13TeVUp_ztt=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_t_3prong_13TeVUp_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_scale_t_3prong_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_t_3prong_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -1354,6 +1368,8 @@ void  HCPMuTau::Configure(){
   phiCPMM_CMS_htt_boson_reso_met_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_reso_met_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVUp_ztt=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVUp_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPMM_CMS_scale_met_unclustered_13TeVUp_ztt=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVUp_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPMM_CMS_scale_met_unclustered_13TeVDown_ztt=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVDown_ztt","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   ////
   phiCPMM_CMS_scale_t_3prong_13TeVUp_fkj=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_t_3prong_13TeVUp_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_scale_t_3prong_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_t_3prong_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -1407,7 +1423,8 @@ void  HCPMuTau::Configure(){
   phiCPMM_CMS_htt_boson_reso_met_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_reso_met_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVUp_fkj=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVUp_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
-
+  phiCPMM_CMS_scale_met_unclustered_13TeVUp_fkj=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVUp_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPMM_CMS_scale_met_unclustered_13TeVDown_fkj=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVDown_fkj","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   //Application Region histograms for QCD substraction
   MuonpTAR=HConfig.GetTH1D(Name+"_MuonpTAR","Transverse momentum of selected muon",30,20,80,"p_{T}(#mu) (GeV)","Events");
   TaupTAR=HConfig.GetTH1D(Name+"_TaupTAR","Visible transverse momentum of selected tau",30,25,85,"p_{T}(#tau) (GeV)","Events");
@@ -1710,6 +1727,8 @@ void  HCPMuTau::Configure(){
   phiCPeven_CMS_htt_boson_reso_met_13TeVDown_hgsAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_reso_met_13TeVDown_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVUp_hgsAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVUp_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVDown_hgsAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVDown_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgsAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgsAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   ////
   phiCPeven_CMS_scale_t_3prong_13TeVUp_zttAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_t_3prong_13TeVUp_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_scale_t_3prong_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_t_3prong_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -1763,6 +1782,8 @@ void  HCPMuTau::Configure(){
   phiCPeven_CMS_htt_boson_reso_met_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_reso_met_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVUp_zttAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVUp_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVUp_zttAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVUp_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   ////
   phiCPeven_CMS_scale_t_3prong_13TeVUp_fkjAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_t_3prong_13TeVUp_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_scale_t_3prong_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_t_3prong_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -1816,6 +1837,8 @@ void  HCPMuTau::Configure(){
   phiCPeven_CMS_htt_boson_reso_met_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_reso_met_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVUp_fkjAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVUp_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkjAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   //PhiCP odd
   phiCPodd_nominal_hgsAR=HConfig.GetTH2D(Name+"_phiCPodd_nominal_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgsAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -2097,6 +2120,8 @@ void  HCPMuTau::Configure(){
   phiCPodd_CMS_htt_boson_reso_met_13TeVDown_hgsAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_reso_met_13TeVDown_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVUp_hgsAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVUp_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVDown_hgsAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVDown_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVUp_hgsAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVUp_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVDown_hgsAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVDown_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   ////
   phiCPodd_CMS_scale_t_3prong_13TeVUp_zttAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_t_3prong_13TeVUp_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_scale_t_3prong_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_t_3prong_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -2150,6 +2175,8 @@ void  HCPMuTau::Configure(){
   phiCPodd_CMS_htt_boson_reso_met_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_reso_met_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVUp_zttAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVUp_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVUp_zttAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVUp_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   ////
   phiCPodd_CMS_scale_t_3prong_13TeVUp_fkjAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_t_3prong_13TeVUp_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_scale_t_3prong_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_t_3prong_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -2203,6 +2230,8 @@ void  HCPMuTau::Configure(){
   phiCPodd_CMS_htt_boson_reso_met_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_reso_met_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVUp_fkjAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVUp_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVUp_fkjAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVUp_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPodd_CMS_scale_met_unclustered_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPodd_CMS_scale_met_unclustered_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   //PhiCP MM
   phiCPMM_nominal_hgsAR=HConfig.GetTH2D(Name+"_phiCPMM_nominal_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgsAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -2484,6 +2513,8 @@ void  HCPMuTau::Configure(){
   phiCPMM_CMS_htt_boson_reso_met_13TeVDown_hgsAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_reso_met_13TeVDown_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVUp_hgsAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVUp_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVDown_hgsAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVDown_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPMM_CMS_scale_met_unclustered_13TeVUp_hgsAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVUp_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPMM_CMS_scale_met_unclustered_13TeVDown_hgsAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVDown_hgsAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   ////
   phiCPMM_CMS_scale_t_3prong_13TeVUp_zttAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_t_3prong_13TeVUp_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_scale_t_3prong_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_t_3prong_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -2537,6 +2568,8 @@ void  HCPMuTau::Configure(){
   phiCPMM_CMS_htt_boson_reso_met_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_reso_met_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVUp_zttAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVUp_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPMM_CMS_scale_met_unclustered_13TeVUp_zttAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVUp_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPMM_CMS_scale_met_unclustered_13TeVDown_zttAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVDown_zttAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   ////
   phiCPMM_CMS_scale_t_3prong_13TeVUp_fkjAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_t_3prong_13TeVUp_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_scale_t_3prong_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_t_3prong_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
@@ -2590,6 +2623,8 @@ void  HCPMuTau::Configure(){
   phiCPMM_CMS_htt_boson_reso_met_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_reso_met_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVUp_fkjAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVUp_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
   phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPMM_CMS_scale_met_unclustered_13TeVUp_fkjAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVUp_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
+  phiCPMM_CMS_scale_met_unclustered_13TeVDown_fkjAR=HConfig.GetTH2D(Name+"_phiCPMM_CMS_scale_met_unclustered_13TeVDown_fkjAR","#phi_{CP}",60,0,2*TMath::Pi(),20,0,1,"#phi_{CP} (rad)","BDT score");
 
   Selection::ConfigureHistograms();   //   do not remove
   HConfig.GetHistoInfo(types,CrossSectionandAcceptance,legend,colour);  // do not remove
@@ -3103,6 +3138,16 @@ void  HCPMuTau::Store_ExtraDist(){
     Extradist2d.push_back(&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_ztt);
     Extradist2d.push_back(&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkj);
   }
+  if(Selection::Get_SysType() == "METUnclusteredUp") {
+    Extradist2d.push_back(&phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgs);
+    Extradist2d.push_back(&phiCPeven_CMS_scale_met_unclustered_13TeVUp_ztt);
+    Extradist2d.push_back(&phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkj);
+  }
+  if(Selection::Get_SysType() == "METUnclusteredDown") {
+    Extradist2d.push_back(&phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgs);
+    Extradist2d.push_back(&phiCPeven_CMS_scale_met_unclustered_13TeVDown_ztt);
+    Extradist2d.push_back(&phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkj);
+  }
   //
   if(Selection::Get_SysType() == "default") {
     Extradist2d.push_back(&phiCPodd_nominal_hgs);
@@ -3572,6 +3617,16 @@ void  HCPMuTau::Store_ExtraDist(){
     Extradist2d.push_back(&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_hgs);
     Extradist2d.push_back(&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_ztt);
     Extradist2d.push_back(&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkj);
+  }
+  if(Selection::Get_SysType() == "METUnclusteredUp") {
+    Extradist2d.push_back(&phiCPodd_CMS_scale_met_unclustered_13TeVUp_hgs);
+    Extradist2d.push_back(&phiCPodd_CMS_scale_met_unclustered_13TeVUp_ztt);
+    Extradist2d.push_back(&phiCPodd_CMS_scale_met_unclustered_13TeVUp_fkj);
+  }
+  if(Selection::Get_SysType() == "METUnclusteredDown") {
+    Extradist2d.push_back(&phiCPodd_CMS_scale_met_unclustered_13TeVDown_hgs);
+    Extradist2d.push_back(&phiCPodd_CMS_scale_met_unclustered_13TeVDown_ztt);
+    Extradist2d.push_back(&phiCPodd_CMS_scale_met_unclustered_13TeVDown_fkj);
   }
   //
   if(Selection::Get_SysType() == "default") {
@@ -4043,12 +4098,21 @@ void  HCPMuTau::Store_ExtraDist(){
     Extradist2d.push_back(&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_ztt);
     Extradist2d.push_back(&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkj);
   }
+  if(Selection::Get_SysType() == "METUnclusteredUp") {
+    Extradist2d.push_back(&phiCPMM_CMS_scale_met_unclustered_13TeVUp_hgs);
+    Extradist2d.push_back(&phiCPMM_CMS_scale_met_unclustered_13TeVUp_ztt);
+    Extradist2d.push_back(&phiCPMM_CMS_scale_met_unclustered_13TeVUp_fkj);
+  }
+  if(Selection::Get_SysType() == "METUnclusteredDown") {
+    Extradist2d.push_back(&phiCPMM_CMS_scale_met_unclustered_13TeVDown_hgs);
+    Extradist2d.push_back(&phiCPMM_CMS_scale_met_unclustered_13TeVDown_ztt);
+    Extradist2d.push_back(&phiCPMM_CMS_scale_met_unclustered_13TeVDown_fkj);
+  }
 }
 
 void  HCPMuTau::doEvent()  { //  Method called on every event
 
   if(Ntp->pvx() == -99 && Ntp->pvy() == -99 && Ntp->pvz() == -99) return; 
-  //if(Ntp->tauDM() != 10) return;
   //
   unsigned int t;
   int id(Ntp->GetMCID());  //read event ID of a sample
@@ -4070,7 +4134,7 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
   bool isWEWK = (id==201 || id==202);
   bool isSignalRegion = Ntp->isOSpair() && Ntp->isIso() && Ntp->isTightJetID() && Ntp->Nbtags() == 0 && Ntp->isMediumID();
   bool isApplicationRegion = Ntp->isOSpair() && Ntp->isIso() && Ntp->isTightJetID() && Ntp->Nbtags() == 0 && !Ntp->isMediumID();
-  bool isA1MU = (Ntp->tauDM() == 10);
+  bool isA1MU = (Ntp->tauDM() == 10 && Ntp->muIPsignificance() >= 1.5);
   //
   int NJets = Ntp->Njets();
   //
@@ -4096,6 +4160,12 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
   double wZpT       = Ntp->wZpT();
   double wToppT     = Ntp->wToppT();
   double wSignal    = Ntp->wSignal();
+  //
+  if(theYear == 2016) { //some bugs...
+    if(id == 24) wMC = 1.;
+    if(Ntp->isSignal()) w *= (1./wSignal);
+    if(id == 35 && w>1000) w = 0.;
+  }
   //
   double wTrgUp =1.;
   double wTrgDown = 1.;
@@ -4134,21 +4204,59 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
   }
 
   //Stitching
-  if(Ntp->isZ()){
-    if(isDY10to50 && id==30) w*=28.2040833505999;
-    else if (isDY10to50 && id!=30) w*=-9999;
-    if(Ntp->Npartons()==0||Ntp->Npartons() >= 5) w*=3.62105387778545;
-    if(Ntp->Npartons()==1) w*=0.69924705836082;
-    if(Ntp->Npartons()==2) w*=0.791046490589383;
-    if(Ntp->Npartons()==3) w*=0.978992685464496;
-    if(Ntp->Npartons()==4) w*=0.821659745356239;
+  if(theYear == 2016) {
+    if(Ntp->isZ()){
+      if(isDY10to50 && id==30) w*=19.0080307;
+      else if (isDY10to50 && id!=30) w*=-9999;
+      if(Ntp->Npartons()==0||Ntp->Npartons() >= 5) w*=1.49005321266736;
+      if(Ntp->Npartons()==1) w*=0.47521301562902;
+      if(Ntp->Npartons()==2) w*=0.492313539105283;
+      if(Ntp->Npartons()==3) w*=0.504730998787436;
+      if(Ntp->Npartons()==4) w*=0.414018612660014;
+    }
+    if(Ntp->isW()){
+      if(Ntp->Npartons()==0||Ntp->Npartons() >= 5) w*=25.3889395535057;
+      if(Ntp->Npartons()==1) w*=6.82217925376281;
+      if(Ntp->Npartons()==2) w*=2.09118705989359;
+      if(Ntp->Npartons()==3) w*=0.686191177275517;
+      if(Ntp->Npartons()==4) w*=0.691068406413718;
+    }
   }
-  if(Ntp->isW()){
-    if(Ntp->Npartons()==0||Ntp->Npartons() >= 5) w*=51.714857425559;
-    if(Ntp->Npartons()==1) w*=10.8715284468658;
-    if(Ntp->Npartons()==2) w*=8.26944354355374;
-    if(Ntp->Npartons()==3) w*=4.39072366992094;
-    if(Ntp->Npartons()==4) w*=3.28821099006665;
+  if(theYear == 2017) {
+    if(Ntp->isZ()){
+      if(isDY10to50 && id==30) w*=19.5191962215717;
+      else if (isDY10to50 && id!=30) w*=-9999;
+      if(Ntp->Npartons()==0||Ntp->Npartons() >= 5) w*=2.5973962888025;
+      if(Ntp->Npartons()==1) w*=0.453927720730712;
+      if(Ntp->Npartons()==2) w*=0.922892174009934;
+      if(Ntp->Npartons()==3) w*=0.5938168058852;
+      if(Ntp->Npartons()==4) w*=0.408277745068798;
+    }
+    if(Ntp->isW()){
+      if(Ntp->Npartons()==0||Ntp->Npartons() >= 5) w*=4.96803789167669;
+      if(Ntp->Npartons()==1) w*=4.96803789167669;
+      if(Ntp->Npartons()==2) w*=14.8987957676995;
+      if(Ntp->Npartons()==3) w*=2.32379673645138;
+      if(Ntp->Npartons()==4) w*=2.14597542644866;
+    }
+  }
+  if(theYear == 2018) {
+    if(Ntp->isZ()){
+      if(isDY10to50 && id==30) w*=28.2040833505999;
+      else if (isDY10to50 && id!=30) w*=-9999;
+      if(Ntp->Npartons()==0||Ntp->Npartons() >= 5) w*=3.62105387778545;
+      if(Ntp->Npartons()==1) w*=0.69924705836082;
+      if(Ntp->Npartons()==2) w*=0.791046490589383;
+      if(Ntp->Npartons()==3) w*=0.978992685464496;
+      if(Ntp->Npartons()==4) w*=0.821659745356239;
+    }
+    if(Ntp->isW()){
+      if(Ntp->Npartons()==0||Ntp->Npartons() >= 5) w*=51.714857425559;
+      if(Ntp->Npartons()==1) w*=10.8715284468658;
+      if(Ntp->Npartons()==2) w*=8.26944354355374;
+      if(Ntp->Npartons()==3) w*=4.39072366992094;
+      if(Ntp->Npartons()==4) w*=3.28821099006665;
+    }
   }
   if(id==35) {
     if(theYear == 2018) w*=1.0415;
@@ -4201,7 +4309,7 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
   std::vector<float> scores = {};
   BDT->Execute(Ntp->muPt(),Ntp->tauPt(),Ntp->ditauPt(),Ntp->Njets(),Ntp->leadingjetPt(),Ntp->subleadingjetPt(),Ntp->dijetPt(),Ntp->dijetMass(),Ntp->dijetdeltaEta(),Ntp->pairvisMass(),Ntp->fastMTTmass(),Ntp->muMETmt(),Ntp->PUPPImet(),Ntp->EventNumber(),scores,max_pair);
   //
-  double Angle = Ntp->pvPhiCP();
+  double Angle = Ntp->dpPhiCP();
   //
   value.at(TausIsolation) = isSignalRegion;
   pass.at(TausIsolation) = value.at(TausIsolation);
@@ -4389,6 +4497,8 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
         if(Selection::Get_SysType() == "METResoDown") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPeven_CMS_htt_boson_reso_met_13TeVDown_hgs,&phiCPeven_CMS_htt_boson_reso_met_13TeVDown_ztt,&phiCPeven_CMS_htt_boson_reso_met_13TeVDown_fkj,true);
         if(Selection::Get_SysType() == "METScaleUp") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPeven_CMS_htt_boson_scale_met_13TeVUp_hgs,&phiCPeven_CMS_htt_boson_scale_met_13TeVUp_ztt,&phiCPeven_CMS_htt_boson_scale_met_13TeVUp_fkj,true);
         if(Selection::Get_SysType() == "METScaleDown") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_hgs,&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_ztt,&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkj,true);
+        if(Selection::Get_SysType() == "METUnclusteredUp") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgs,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_ztt,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkj,true);
+        if(Selection::Get_SysType() == "METUnclusteredDown") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgs,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_ztt,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkj,true);
 	//
 	if(Selection::Get_SysType() == "default") {
           Ntp->FillHist(t,Angle,max_pair,FF,&phiCPodd_nominal_hgs,&phiCPodd_nominal_ztt,&phiCPodd_nominal_fkj,true);
@@ -4545,6 +4655,8 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
         if(Selection::Get_SysType() == "METResoDown") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPodd_CMS_htt_boson_reso_met_13TeVDown_hgs,&phiCPodd_CMS_htt_boson_reso_met_13TeVDown_ztt,&phiCPodd_CMS_htt_boson_reso_met_13TeVDown_fkj,true);
         if(Selection::Get_SysType() == "METScaleUp") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPodd_CMS_htt_boson_scale_met_13TeVUp_hgs,&phiCPodd_CMS_htt_boson_scale_met_13TeVUp_ztt,&phiCPodd_CMS_htt_boson_scale_met_13TeVUp_fkj,true);
         if(Selection::Get_SysType() == "METScaleDown") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_hgs,&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_ztt,&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkj,true);
+        if(Selection::Get_SysType() == "METUnclusteredUp") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPodd_CMS_scale_met_unclustered_13TeVUp_hgs,&phiCPodd_CMS_scale_met_unclustered_13TeVUp_ztt,&phiCPodd_CMS_scale_met_unclustered_13TeVUp_fkj,true);
+        if(Selection::Get_SysType() == "METUnclusteredDown") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPodd_CMS_scale_met_unclustered_13TeVDown_hgs,&phiCPodd_CMS_scale_met_unclustered_13TeVDown_ztt,&phiCPodd_CMS_scale_met_unclustered_13TeVDown_fkj,true);
 	//
 	if(Selection::Get_SysType() == "default") {
           Ntp->FillHist(t,Angle,max_pair,FF,&phiCPMM_nominal_hgs,&phiCPMM_nominal_ztt,&phiCPMM_nominal_fkj,true);
@@ -4701,6 +4813,8 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
         if(Selection::Get_SysType() == "METResoDown") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPMM_CMS_htt_boson_reso_met_13TeVDown_hgs,&phiCPMM_CMS_htt_boson_reso_met_13TeVDown_ztt,&phiCPMM_CMS_htt_boson_reso_met_13TeVDown_fkj,true);
         if(Selection::Get_SysType() == "METScaleUp") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPMM_CMS_htt_boson_scale_met_13TeVUp_hgs,&phiCPMM_CMS_htt_boson_scale_met_13TeVUp_ztt,&phiCPMM_CMS_htt_boson_scale_met_13TeVUp_fkj,true);
         if(Selection::Get_SysType() == "METScaleDown") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_hgs,&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_ztt,&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkj,true);
+        if(Selection::Get_SysType() == "METUnclusteredUp") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPMM_CMS_scale_met_unclustered_13TeVUp_hgs,&phiCPMM_CMS_scale_met_unclustered_13TeVUp_ztt,&phiCPMM_CMS_scale_met_unclustered_13TeVUp_fkj,true);
+        if(Selection::Get_SysType() == "METUnclusteredDown") Ntp->FillHist(t,Angle,max_pair,FF,&phiCPMM_CMS_scale_met_unclustered_13TeVDown_hgs,&phiCPMM_CMS_scale_met_unclustered_13TeVDown_ztt,&phiCPMM_CMS_scale_met_unclustered_13TeVDown_fkj,true);
       }
     }
     if(!Ntp->isData()) {
@@ -4891,6 +5005,8 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
         if(Selection::Get_SysType() == "METResoDown") Ntp->FillHist(t,Angle,max_pair,wEven*FF,&phiCPeven_CMS_htt_boson_reso_met_13TeVDown_hgsAR,&phiCPeven_CMS_htt_boson_reso_met_13TeVDown_zttAR,&phiCPeven_CMS_htt_boson_reso_met_13TeVDown_fkjAR,false);
         if(Selection::Get_SysType() == "METScaleUp") Ntp->FillHist(t,Angle,max_pair,wEven*FF,&phiCPeven_CMS_htt_boson_scale_met_13TeVUp_hgsAR,&phiCPeven_CMS_htt_boson_scale_met_13TeVUp_zttAR,&phiCPeven_CMS_htt_boson_scale_met_13TeVUp_fkjAR,false);
         if(Selection::Get_SysType() == "METScaleDown") Ntp->FillHist(t,Angle,max_pair,wEven*FF,&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_hgsAR,&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_zttAR,&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkjAR,false);
+        if(Selection::Get_SysType() == "METUnclusteredUp") Ntp->FillHist(t,Angle,max_pair,wEven*FF,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgsAR,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_zttAR,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkjAR,false);
+        if(Selection::Get_SysType() == "METUnclusteredDown") Ntp->FillHist(t,Angle,max_pair,wEven*FF,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgsAR,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_zttAR,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkjAR,false);
 	//
 	if(Selection::Get_SysType() == "default") {
           Ntp->FillHist(t,Angle,max_pair,wOdd*FF,&phiCPodd_nominal_hgsAR,&phiCPodd_nominal_zttAR,&phiCPodd_nominal_fkjAR,false);
@@ -5047,6 +5163,8 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
         if(Selection::Get_SysType() == "METResoDown") Ntp->FillHist(t,Angle,max_pair,wOdd*FF,&phiCPodd_CMS_htt_boson_reso_met_13TeVDown_hgsAR,&phiCPodd_CMS_htt_boson_reso_met_13TeVDown_zttAR,&phiCPodd_CMS_htt_boson_reso_met_13TeVDown_fkjAR,false);
         if(Selection::Get_SysType() == "METScaleUp") Ntp->FillHist(t,Angle,max_pair,wOdd*FF,&phiCPodd_CMS_htt_boson_scale_met_13TeVUp_hgsAR,&phiCPodd_CMS_htt_boson_scale_met_13TeVUp_zttAR,&phiCPodd_CMS_htt_boson_scale_met_13TeVUp_fkjAR,false);
         if(Selection::Get_SysType() == "METScaleDown") Ntp->FillHist(t,Angle,max_pair,wOdd*FF,&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_hgsAR,&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_zttAR,&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkjAR,false);
+        if(Selection::Get_SysType() == "METUnclusteredUp") Ntp->FillHist(t,Angle,max_pair,wOdd*FF,&phiCPodd_CMS_scale_met_unclustered_13TeVUp_hgsAR,&phiCPodd_CMS_scale_met_unclustered_13TeVUp_zttAR,&phiCPodd_CMS_scale_met_unclustered_13TeVUp_fkjAR,false);
+        if(Selection::Get_SysType() == "METUnclusteredDown") Ntp->FillHist(t,Angle,max_pair,wOdd*FF,&phiCPodd_CMS_scale_met_unclustered_13TeVDown_hgsAR,&phiCPodd_CMS_scale_met_unclustered_13TeVDown_zttAR,&phiCPodd_CMS_scale_met_unclustered_13TeVDown_fkjAR,false);
 	//
 	if(Selection::Get_SysType() == "default") {
           Ntp->FillHist(t,Angle,max_pair,wMM*FF,&phiCPMM_nominal_hgsAR,&phiCPMM_nominal_zttAR,&phiCPMM_nominal_fkjAR,false);
@@ -5203,6 +5321,8 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
         if(Selection::Get_SysType() == "METResoDown") Ntp->FillHist(t,Angle,max_pair,wMM*FF,&phiCPMM_CMS_htt_boson_reso_met_13TeVDown_hgsAR,&phiCPMM_CMS_htt_boson_reso_met_13TeVDown_zttAR,&phiCPMM_CMS_htt_boson_reso_met_13TeVDown_fkjAR,false);
         if(Selection::Get_SysType() == "METScaleUp") Ntp->FillHist(t,Angle,max_pair,wMM*FF,&phiCPMM_CMS_htt_boson_scale_met_13TeVUp_hgsAR,&phiCPMM_CMS_htt_boson_scale_met_13TeVUp_zttAR,&phiCPMM_CMS_htt_boson_scale_met_13TeVUp_fkjAR,false);
         if(Selection::Get_SysType() == "METScaleDown") Ntp->FillHist(t,Angle,max_pair,wMM*FF,&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_hgsAR,&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_zttAR,&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkjAR,false);
+        if(Selection::Get_SysType() == "METUnclusteredUp") Ntp->FillHist(t,Angle,max_pair,wMM*FF,&phiCPMM_CMS_scale_met_unclustered_13TeVUp_hgsAR,&phiCPMM_CMS_scale_met_unclustered_13TeVUp_zttAR,&phiCPMM_CMS_scale_met_unclustered_13TeVUp_fkjAR,false);
+        if(Selection::Get_SysType() == "METUnclusteredDown") Ntp->FillHist(t,Angle,max_pair,wMM*FF,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgsAR,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_zttAR,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkjAR,false);
       }
     }
   }
@@ -5220,16 +5340,16 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
     FastMTTditauMass.at(t).Fill(Ntp->fastMTTmass(),w);
     PUPPImet.at(t).Fill(Ntp->PUPPImet(),w);
     MuMETmt.at(t).Fill(Ntp->muMETmt(),w);
-    ResMuonPt.at(t).Fill((genmup4.Pt() - mup4.Pt())/genmup4.Pt());
-    ResMuonEta.at(t).Fill((genmup4.Eta() - mup4.Eta())/genmup4.Eta());
-    ResTauPt.at(t).Fill((gentaup4.Pt() - taup4.Pt())/gentaup4.Pt());
-    ResTauEta.at(t).Fill((gentaup4.Eta() - taup4.Eta())/gentaup4.Eta());
-    ResPVx.at(t).Fill((Ntp->genPVx() - Ntp->pvx())/Ntp->genPVx());
-    ResPVy.at(t).Fill((Ntp->genPVy() - Ntp->pvy())/Ntp->genPVy());
-    ResPVz.at(t).Fill((Ntp->genPVz() - Ntp->pvz())/Ntp->genPVz());
-    ResSVx.at(t).Fill((Ntp->genTauSVx() - Ntp->tauSVx())/Ntp->genTauSVx());
-    ResSVy.at(t).Fill((Ntp->genTauSVy() - Ntp->tauSVy())/Ntp->genTauSVy());
-    ResSVz.at(t).Fill((Ntp->genTauSVz() - Ntp->tauSVz())/Ntp->genTauSVz());
+    ResMuonPt.at(t).Fill((genmup4.Pt() - mup4.Pt())/genmup4.Pt(),w);
+    ResMuonEta.at(t).Fill((genmup4.Eta() - mup4.Eta())/genmup4.Eta(),w);
+    ResTauPt.at(t).Fill((gentaup4.Pt() - taup4.Pt())/gentaup4.Pt(),w);
+    ResTauEta.at(t).Fill((gentaup4.Eta() - taup4.Eta())/gentaup4.Eta(),w);
+    ResPVx.at(t).Fill((Ntp->genPVx() - Ntp->pvx())/Ntp->genPVx(),w);
+    ResPVy.at(t).Fill((Ntp->genPVy() - Ntp->pvy())/Ntp->genPVy(),w);
+    ResPVz.at(t).Fill((Ntp->genPVz() - Ntp->pvz())/Ntp->genPVz(),w);
+    ResSVx.at(t).Fill((Ntp->genTauSVx() - Ntp->tauSVx())/Ntp->genTauSVx(),w);
+    ResSVy.at(t).Fill((Ntp->genTauSVy() - Ntp->tauSVy())/Ntp->genTauSVy(),w);
+    ResSVz.at(t).Fill((Ntp->genTauSVz() - Ntp->tauSVz())/Ntp->genTauSVz(),w);
     if(max_pair.second == 0) {
       BDTscoreHiggs.at(t).Fill(max_pair.first,w);
       if(isA1MU) BDTscoreA1MUHiggs.at(t).Fill(max_pair.first,w);
@@ -5415,6 +5535,8 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
       if(Selection::Get_SysType() == "METResoDown") Ntp->FillHist(t,Angle,max_pair,wEven,&phiCPeven_CMS_htt_boson_reso_met_13TeVDown_hgs,&phiCPeven_CMS_htt_boson_reso_met_13TeVDown_ztt,&phiCPeven_CMS_htt_boson_reso_met_13TeVDown_fkj,false);
       if(Selection::Get_SysType() == "METScaleUp") Ntp->FillHist(t,Angle,max_pair,wEven,&phiCPeven_CMS_htt_boson_scale_met_13TeVUp_hgs,&phiCPeven_CMS_htt_boson_scale_met_13TeVUp_ztt,&phiCPeven_CMS_htt_boson_scale_met_13TeVUp_fkj,false);
       if(Selection::Get_SysType() == "METScaleDown") Ntp->FillHist(t,Angle,max_pair,wEven,&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_hgs,&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_ztt,&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkj,false);
+      if(Selection::Get_SysType() == "METUnclusteredUp") Ntp->FillHist(t,Angle,max_pair,wEven,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgs,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_ztt,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkj,false);
+      if(Selection::Get_SysType() == "METUnclusteredDown") Ntp->FillHist(t,Angle,max_pair,wEven,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgs,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_ztt,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkj,false);
       //
       if(Selection::Get_SysType() == "default") {
         Ntp->FillHist(t,Angle,max_pair,wOdd,&phiCPodd_nominal_hgs,&phiCPodd_nominal_ztt,&phiCPodd_nominal_fkj,false);
@@ -5571,6 +5693,8 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
       if(Selection::Get_SysType() == "METResoDown") Ntp->FillHist(t,Angle,max_pair,wOdd,&phiCPodd_CMS_htt_boson_reso_met_13TeVDown_hgs,&phiCPodd_CMS_htt_boson_reso_met_13TeVDown_ztt,&phiCPodd_CMS_htt_boson_reso_met_13TeVDown_fkj,false);
       if(Selection::Get_SysType() == "METScaleUp") Ntp->FillHist(t,Angle,max_pair,wOdd,&phiCPodd_CMS_htt_boson_scale_met_13TeVUp_hgs,&phiCPodd_CMS_htt_boson_scale_met_13TeVUp_ztt,&phiCPodd_CMS_htt_boson_scale_met_13TeVUp_fkj,false);
       if(Selection::Get_SysType() == "METScaleDown") Ntp->FillHist(t,Angle,max_pair,wOdd,&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_hgs,&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_ztt,&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkj,false);
+      if(Selection::Get_SysType() == "METUnclusteredUp") Ntp->FillHist(t,Angle,max_pair,wOdd,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgs,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_ztt,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkj,false);
+      if(Selection::Get_SysType() == "METUnclusteredDown") Ntp->FillHist(t,Angle,max_pair,wOdd,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgs,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_ztt,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkj,false);
       //
       if(Selection::Get_SysType() == "default") {
         Ntp->FillHist(t,Angle,max_pair,wMM,&phiCPMM_nominal_hgs,&phiCPMM_nominal_ztt,&phiCPMM_nominal_fkj,false);
@@ -5727,6 +5851,8 @@ void  HCPMuTau::doEvent()  { //  Method called on every event
       if(Selection::Get_SysType() == "METResoDown") Ntp->FillHist(t,Angle,max_pair,wMM,&phiCPMM_CMS_htt_boson_reso_met_13TeVDown_hgs,&phiCPMM_CMS_htt_boson_reso_met_13TeVDown_ztt,&phiCPMM_CMS_htt_boson_reso_met_13TeVDown_fkj,false);
       if(Selection::Get_SysType() == "METScaleUp") Ntp->FillHist(t,Angle,max_pair,wMM,&phiCPMM_CMS_htt_boson_scale_met_13TeVUp_hgs,&phiCPMM_CMS_htt_boson_scale_met_13TeVUp_ztt,&phiCPMM_CMS_htt_boson_scale_met_13TeVUp_fkj,false);
       if(Selection::Get_SysType() == "METScaleDown") Ntp->FillHist(t,Angle,max_pair,wMM,&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_hgs,&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_ztt,&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkj,false);
+      if(Selection::Get_SysType() == "METUnclusteredUp") Ntp->FillHist(t,Angle,max_pair,wMM,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgs,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_ztt,&phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkj,false);
+      if(Selection::Get_SysType() == "METUnclusteredDown") Ntp->FillHist(t,Angle,max_pair,wMM,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgs,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_ztt,&phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkj,false);
     }
   }
 } //do event
@@ -6295,6 +6421,16 @@ void HCPMuTau::Finish() {
           phiCPeven_CMS_htt_boson_scale_met_13TeVDown_ztt.at(1).Add(&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_zttAR.at(i),-norm);
           phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkj.at(1).Add(&phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkjAR.at(i),-norm);
         }
+        if(Selection::Get_SysType() == "METUnclusteredUp") {
+          phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgs.at(1).Add(&phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgsAR.at(i),-norm);
+          phiCPeven_CMS_scale_met_unclustered_13TeVUp_ztt.at(1).Add(&phiCPeven_CMS_scale_met_unclustered_13TeVUp_zttAR.at(i),-norm);
+          phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkj.at(1).Add(&phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkjAR.at(i),-norm);
+        }
+        if(Selection::Get_SysType() == "METUnclusteredDown") {
+          phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgs.at(1).Add(&phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgsAR.at(i),-norm);
+          phiCPeven_CMS_scale_met_unclustered_13TeVDown_ztt.at(1).Add(&phiCPeven_CMS_scale_met_unclustered_13TeVDown_zttAR.at(i),-norm);
+          phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkj.at(1).Add(&phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkjAR.at(i),-norm);
+        }
 	//
 	if(Selection::Get_SysType() == "default") {
 	  phiCPodd_nominal_hgs.at(1).Add(&phiCPodd_nominal_hgsAR.at(i),-norm);
@@ -6805,6 +6941,16 @@ void HCPMuTau::Finish() {
           phiCPodd_CMS_htt_boson_scale_met_13TeVDown_ztt.at(1).Add(&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_zttAR.at(i),-norm);
           phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkj.at(1).Add(&phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkjAR.at(i),-norm);
         }
+        if(Selection::Get_SysType() == "METUnclusteredUp") {
+          phiCPodd_CMS_scale_met_unclustered_13TeVUp_hgs.at(1).Add(&phiCPodd_CMS_scale_met_unclustered_13TeVUp_hgsAR.at(i),-norm);
+          phiCPodd_CMS_scale_met_unclustered_13TeVUp_ztt.at(1).Add(&phiCPodd_CMS_scale_met_unclustered_13TeVUp_zttAR.at(i),-norm);
+          phiCPodd_CMS_scale_met_unclustered_13TeVUp_fkj.at(1).Add(&phiCPodd_CMS_scale_met_unclustered_13TeVUp_fkjAR.at(i),-norm);
+        }
+        if(Selection::Get_SysType() == "METUnclusteredDown") {
+          phiCPodd_CMS_scale_met_unclustered_13TeVDown_hgs.at(1).Add(&phiCPodd_CMS_scale_met_unclustered_13TeVDown_hgsAR.at(i),-norm);
+          phiCPodd_CMS_scale_met_unclustered_13TeVDown_ztt.at(1).Add(&phiCPodd_CMS_scale_met_unclustered_13TeVDown_zttAR.at(i),-norm);
+          phiCPodd_CMS_scale_met_unclustered_13TeVDown_fkj.at(1).Add(&phiCPodd_CMS_scale_met_unclustered_13TeVDown_fkjAR.at(i),-norm);
+        }
 	//
 	if(Selection::Get_SysType() == "default") {
 	  phiCPMM_nominal_hgs.at(1).Add(&phiCPMM_nominal_hgsAR.at(i),-norm);
@@ -7314,6 +7460,16 @@ void HCPMuTau::Finish() {
           phiCPMM_CMS_htt_boson_scale_met_13TeVDown_hgs.at(1).Add(&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_hgsAR.at(i),-norm);
           phiCPMM_CMS_htt_boson_scale_met_13TeVDown_ztt.at(1).Add(&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_zttAR.at(i),-norm);
           phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkj.at(1).Add(&phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkjAR.at(i),-norm);
+        }
+        if(Selection::Get_SysType() == "METUnclusteredUp") {
+          phiCPMM_CMS_scale_met_unclustered_13TeVUp_hgs.at(1).Add(&phiCPMM_CMS_scale_met_unclustered_13TeVUp_hgsAR.at(i),-norm);
+          phiCPMM_CMS_scale_met_unclustered_13TeVUp_ztt.at(1).Add(&phiCPMM_CMS_scale_met_unclustered_13TeVUp_zttAR.at(i),-norm);
+          phiCPMM_CMS_scale_met_unclustered_13TeVUp_fkj.at(1).Add(&phiCPMM_CMS_scale_met_unclustered_13TeVUp_fkjAR.at(i),-norm);
+        }
+        if(Selection::Get_SysType() == "METUnclusteredDown") {
+          phiCPMM_CMS_scale_met_unclustered_13TeVDown_hgs.at(1).Add(&phiCPMM_CMS_scale_met_unclustered_13TeVDown_hgsAR.at(i),-norm);
+          phiCPMM_CMS_scale_met_unclustered_13TeVDown_ztt.at(1).Add(&phiCPMM_CMS_scale_met_unclustered_13TeVDown_zttAR.at(i),-norm);
+          phiCPMM_CMS_scale_met_unclustered_13TeVDown_fkj.at(1).Add(&phiCPMM_CMS_scale_met_unclustered_13TeVDown_fkjAR.at(i),-norm);
         }
         std::cout << "end " << std::endl;
       }

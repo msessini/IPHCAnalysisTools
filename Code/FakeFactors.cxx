@@ -35,9 +35,9 @@ FakeFactors::FakeFactors(Int_t theYear, TH2D* ff_fracs_qcd, TH2D* ff_fracs_wjets
   reader_->AddVariable("mjj", &mjj_);
   reader_->AddVariable("mva_dm_2", &mva_dm_2_);
   reader_->AddVariable("mt_1", &mt_1_);
-  if(theYear == 2016) xml_file="/opt/sbg/cms/safe1/cms/msessini/IPHCAnalysisTools/Code/CommonFiles/FakeFactors/fractions_2016_mt.xml";
-  if(theYear == 2017) xml_file="/opt/sbg/cms/safe1/cms/msessini/IPHCAnalysisTools/Code/CommonFiles/FakeFactors/fractions_2017_mt.xml";
-  if(theYear == 2018) xml_file="/opt/sbg/cms/safe1/cms/msessini/IPHCAnalysisTools/Code/CommonFiles/FakeFactors/fractions_2018_mt.xml";
+  if(theYear == 2016) xml_file=((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/fractions_2016_mt.xml").c_str();
+  if(theYear == 2017) xml_file=((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/fractions_2017_mt.xml").c_str();
+  if(theYear == 2018) xml_file=((std::string)std::getenv("workdir")+"Code/CommonFiles/FakeFactors/fractions_2018_mt.xml").c_str();
   reader_->BookMVA("BDT method", xml_file);
 
 }
@@ -65,20 +65,6 @@ void FakeFactors::Initialize(TLorentzVector taup4, TLorentzVector mup4, TLorentz
   if(year_ == "2016") singlemupt = 23.;
   double pass_single = 1.;
   if(mup4.Pt() < singlemupt) pass_single = 0.;
-  //
-  // load MVA scroes reader for fractions
-  /*reader_ = new TMVA::Reader();
-  reader_->AddVariable("pt_tt", &pt_tt_);
-  reader_->AddVariable("pt_1", &pt_1_);
-  reader_->AddVariable("pt_2", &pt_2_);
-  reader_->AddVariable("met", &met_);
-  reader_->AddVariable("m_vis", &m_vis_);
-  reader_->AddVariable("n_jets", &n_jets_);
-  reader_->AddVariable("mjj", &mjj_);
-  reader_->AddVariable("mva_dm_2", &mva_dm_2_);
-  reader_->AddVariable("mt_1", &mt_1_);
-  xml_file="/opt/sbg/cms/safe1/cms/msessini/IPHCAnalysisTools/Code/CommonFiles/FakeFactors/fractions_2018_mt.xml";
-  reader_->BookMVA("BDT method", xml_file);*/
   //
   std::vector<float> scores = reader_->EvaluateMulticlass("BDT method");
   double qcd_score = scores[1];

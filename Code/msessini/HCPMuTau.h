@@ -54,7 +54,7 @@ class HCPMuTau : public Selection {
 
   int Charge;
   //int theYear = Ntp->Year();
-  int theYear = 2018;
+  int theYear = 2016;
   
   TString InputNtuplePath = Ntp->GetInputNtuplePath();
   bool isDY10to50 = (InputNtuplePath.Contains("10to50"));
@@ -401,6 +401,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPeven_CMS_htt_boson_reso_met_13TeVDown_hgs;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVUp_hgs;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVDown_hgs;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgs;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgs;
   //
   std::vector<TH2D> phiCPeven_CMS_scale_t_3prong_13TeVUp_ztt;
   std::vector<TH2D> phiCPeven_CMS_scale_t_3prong_13TeVDown_ztt;
@@ -454,6 +456,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPeven_CMS_htt_boson_reso_met_13TeVDown_ztt;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVUp_ztt;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVDown_ztt;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVUp_ztt;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVDown_ztt;
   //
   std::vector<TH2D> phiCPeven_CMS_scale_t_3prong_13TeVUp_fkj;
   std::vector<TH2D> phiCPeven_CMS_scale_t_3prong_13TeVDown_fkj;
@@ -507,6 +511,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPeven_CMS_htt_boson_reso_met_13TeVDown_fkj;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVUp_fkj;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkj;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkj;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkj;
   //
   std::vector<TH2D> phiCPodd_nominal_hgs;
   std::vector<TH2D> phiCPodd_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgs;
@@ -788,6 +794,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPodd_CMS_htt_boson_reso_met_13TeVDown_hgs;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVUp_hgs;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVDown_hgs;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVUp_hgs;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVDown_hgs;
   //
   std::vector<TH2D> phiCPodd_CMS_scale_t_3prong_13TeVUp_ztt;
   std::vector<TH2D> phiCPodd_CMS_scale_t_3prong_13TeVDown_ztt;
@@ -841,6 +849,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPodd_CMS_htt_boson_reso_met_13TeVDown_ztt;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVUp_ztt;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVDown_ztt;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVUp_ztt;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVDown_ztt;
   //
   std::vector<TH2D> phiCPodd_CMS_scale_t_3prong_13TeVUp_fkj;
   std::vector<TH2D> phiCPodd_CMS_scale_t_3prong_13TeVDown_fkj;
@@ -894,6 +904,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPodd_CMS_htt_boson_reso_met_13TeVDown_fkj;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVUp_fkj;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkj;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVUp_fkj;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVDown_fkj;
   //
   std::vector<TH2D> phiCPMM_nominal_hgs;
   std::vector<TH2D> phiCPMM_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgs;
@@ -1175,6 +1187,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPMM_CMS_htt_boson_reso_met_13TeVDown_hgs;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVUp_hgs;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVDown_hgs;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVUp_hgs;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVDown_hgs;
   //
   std::vector<TH2D> phiCPMM_CMS_scale_t_3prong_13TeVUp_ztt;
   std::vector<TH2D> phiCPMM_CMS_scale_t_3prong_13TeVDown_ztt;
@@ -1228,6 +1242,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPMM_CMS_htt_boson_reso_met_13TeVDown_ztt;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVUp_ztt;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVDown_ztt;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVUp_ztt;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVDown_ztt;
   //
   std::vector<TH2D> phiCPMM_CMS_scale_t_3prong_13TeVUp_fkj;
   std::vector<TH2D> phiCPMM_CMS_scale_t_3prong_13TeVDown_fkj;
@@ -1281,6 +1297,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPMM_CMS_htt_boson_reso_met_13TeVDown_fkj;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVUp_fkj;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkj;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVUp_fkj;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVDown_fkj;
 
   //Application Region
   std::vector<TH1D> MuonpTAR;     
@@ -1583,6 +1601,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPeven_CMS_htt_boson_reso_met_13TeVDown_hgsAR;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVUp_hgsAR;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVDown_hgsAR;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVUp_hgsAR;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVDown_hgsAR;
   //
   std::vector<TH2D> phiCPeven_CMS_scale_t_3prong_13TeVUp_zttAR;
   std::vector<TH2D> phiCPeven_CMS_scale_t_3prong_13TeVDown_zttAR;
@@ -1636,6 +1656,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPeven_CMS_htt_boson_reso_met_13TeVDown_zttAR;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVUp_zttAR;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVDown_zttAR;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVUp_zttAR;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVDown_zttAR;
   //
   std::vector<TH2D> phiCPeven_CMS_scale_t_3prong_13TeVUp_fkjAR;
   std::vector<TH2D> phiCPeven_CMS_scale_t_3prong_13TeVDown_fkjAR;
@@ -1689,6 +1711,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPeven_CMS_htt_boson_reso_met_13TeVDown_fkjAR;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVUp_fkjAR;
   std::vector<TH2D> phiCPeven_CMS_htt_boson_scale_met_13TeVDown_fkjAR;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVUp_fkjAR;
+  std::vector<TH2D> phiCPeven_CMS_scale_met_unclustered_13TeVDown_fkjAR;
   //
   std::vector<TH2D> phiCPodd_nominal_hgsAR;
   std::vector<TH2D> phiCPodd_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgsAR;
@@ -1970,6 +1994,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPodd_CMS_htt_boson_reso_met_13TeVDown_hgsAR;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVUp_hgsAR;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVDown_hgsAR;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVUp_hgsAR;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVDown_hgsAR;
   //
   std::vector<TH2D> phiCPodd_CMS_scale_t_3prong_13TeVUp_zttAR;
   std::vector<TH2D> phiCPodd_CMS_scale_t_3prong_13TeVDown_zttAR;
@@ -2023,6 +2049,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPodd_CMS_htt_boson_reso_met_13TeVDown_zttAR;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVUp_zttAR;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVDown_zttAR;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVUp_zttAR;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVDown_zttAR;
   //
   std::vector<TH2D> phiCPodd_CMS_scale_t_3prong_13TeVUp_fkjAR;
   std::vector<TH2D> phiCPodd_CMS_scale_t_3prong_13TeVDown_fkjAR;
@@ -2076,6 +2104,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPodd_CMS_htt_boson_reso_met_13TeVDown_fkjAR;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVUp_fkjAR;
   std::vector<TH2D> phiCPodd_CMS_htt_boson_scale_met_13TeVDown_fkjAR;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVUp_fkjAR;
+  std::vector<TH2D> phiCPodd_CMS_scale_met_unclustered_13TeVDown_fkjAR;
   //
   std::vector<TH2D> phiCPMM_nominal_hgsAR;
   std::vector<TH2D> phiCPMM_CMS_eff_Xtrigger_mt_MVADM10_13TeVUp_hgsAR;
@@ -2357,6 +2387,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPMM_CMS_htt_boson_reso_met_13TeVDown_hgsAR;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVUp_hgsAR;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVDown_hgsAR;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVUp_hgsAR;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVDown_hgsAR;
   //
   std::vector<TH2D> phiCPMM_CMS_scale_t_3prong_13TeVUp_zttAR;
   std::vector<TH2D> phiCPMM_CMS_scale_t_3prong_13TeVDown_zttAR;
@@ -2410,6 +2442,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPMM_CMS_htt_boson_reso_met_13TeVDown_zttAR;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVUp_zttAR;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVDown_zttAR;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVUp_zttAR;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVDown_zttAR;
   //
   std::vector<TH2D> phiCPMM_CMS_scale_t_3prong_13TeVUp_fkjAR;
   std::vector<TH2D> phiCPMM_CMS_scale_t_3prong_13TeVDown_fkjAR;
@@ -2463,6 +2497,8 @@ class HCPMuTau : public Selection {
   std::vector<TH2D> phiCPMM_CMS_htt_boson_reso_met_13TeVDown_fkjAR;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVUp_fkjAR;
   std::vector<TH2D> phiCPMM_CMS_htt_boson_scale_met_13TeVDown_fkjAR;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVUp_fkjAR;
+  std::vector<TH2D> phiCPMM_CMS_scale_met_unclustered_13TeVDown_fkjAR;
 };
 
 #endif
