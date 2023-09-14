@@ -563,6 +563,7 @@ if( $ARGV[0] eq "--Local" ){
     system(sprintf("echo \'python ./PlotTools/Oscillation/oscillation.py --evenFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Even.root --oddFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Odd.root --channel \"\${1}\" --year \"\${2}\" --process all\' >> $OutputDir/workdir$set/runAnalysis"));
 
     # cp useful scripts
+    system(sprintf("cp merge.sh $OutputDir/workdir$set/;"));
     system(sprintf("cp syst.sh $OutputDir/workdir$set/;"));
     system(sprintf("cp syst.txt $OutputDir/workdir$set/;"));
     system(sprintf("cp changeQueue.sh $OutputDir/workdir$set/;"));

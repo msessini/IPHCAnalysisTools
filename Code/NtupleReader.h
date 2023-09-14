@@ -78,7 +78,6 @@ class NtupleReader {
   bool _isIso;
   bool _isMediumID;
   bool _isTightJetID;
-  bool _extraIsoMu;
   bool _trgIsoMu;
   bool _trgXMuTau;
   double _pairvisMass;
@@ -213,7 +212,6 @@ class NtupleReader {
   TBranch *b_isIso;
   TBranch *b_isMediumID;
   TBranch *b_isTightJetID;
-  TBranch *b_extraIsoMu;
   TBranch *b_trgIsoMu;
   TBranch *b_trgXMuTau;
   TBranch *b_pairvisMass;
@@ -428,7 +426,6 @@ void NtupleReader::Init(TTree *tree, TString Sys)
   _isIso = 0;
   _isMediumID = 0;
   _isTightJetID = 0;
-  _extraIsoMu = 0;
   _trgIsoMu = 0;
   _trgXMuTau = 0;
   _pairvisMass = 0;
@@ -549,7 +546,6 @@ void NtupleReader::Init(TTree *tree, TString Sys)
   fChain->SetBranchAddress("isIso", &_isIso, &b_isIso);
   fChain->SetBranchAddress("isMediumID", &_isMediumID, &b_isMediumID);
   fChain->SetBranchAddress("isTightJetID", &_isTightJetID, &b_isTightJetID);
-  fChain->SetBranchAddress("extraIsoMu", &_extraIsoMu, &b_extraIsoMu);
   fChain->SetBranchAddress("trgIsoMu", &_trgIsoMu, &b_trgIsoMu);
   fChain->SetBranchAddress("trgXMuTau", &_trgXMuTau, &b_trgXMuTau);
   fChain->SetBranchAddress("pairvisMass", &_pairvisMass, &b_pairvisMass);
@@ -598,6 +594,19 @@ void NtupleReader::Init(TTree *tree, TString Sys)
   fChain->SetBranchAddress("wMC", &_wMC, &b_wMC);
   fChain->SetBranchAddress("wSignal", &_wSignal, &b_wSignal);
   fChain->SetBranchAddress("wTot", &_wTot, &b_wTot);
+  fChain->SetBranchAddress("muIPx", &_muIPx, &b_muIPx);
+  fChain->SetBranchAddress("muIPy", &_muIPy, &b_muIPy);
+  fChain->SetBranchAddress("muIPz", &_muIPz, &b_muIPz);
+  fChain->SetBranchAddress("muIPsignificance", &_muIPsignificance, &b_muIPsignificance);
+  fChain->SetBranchAddress("pvx", &_pvx, &b_pvx);
+  fChain->SetBranchAddress("pvy", &_pvy, &b_pvy);
+  fChain->SetBranchAddress("pvz", &_pvz, &b_pvz);
+  fChain->SetBranchAddress("pvCov00", &_pvCov00, &b_pvCov00);
+  fChain->SetBranchAddress("pvCov11", &_pvCov11, &b_pvCov11);
+  fChain->SetBranchAddress("pvCov22", &_pvCov22, &b_pvCov22);
+  fChain->SetBranchAddress("pvCov01", &_pvCov01, &b_pvCov01);
+  fChain->SetBranchAddress("pvCov02", &_pvCov02, &b_pvCov02);
+  fChain->SetBranchAddress("pvCov12", &_pvCov12, &b_pvCov12);
   if(Sys == "default") {
     fChain->SetBranchAddress("wPrefiringUp", &_wPrefiringUp, &b_wPrefiringUp);
     fChain->SetBranchAddress("wPrefiringDown", &_wPrefiringDown, &b_wPrefiringDown);
@@ -621,19 +630,6 @@ void NtupleReader::Init(TTree *tree, TString Sys)
     fChain->SetBranchAddress("wPSFSRDown", &_wPSFSRDown, &b_wPSFSRDown);
     fChain->SetBranchAddress("wScaleUp", &_wScaleUp, &b_wScaleUp);
     fChain->SetBranchAddress("wScaleDown", &_wScaleDown, &b_wScaleDown);
-    fChain->SetBranchAddress("muIPx", &_muIPx, &b_muIPx);
-    fChain->SetBranchAddress("muIPy", &_muIPy, &b_muIPy);
-    fChain->SetBranchAddress("muIPz", &_muIPz, &b_muIPz);
-    fChain->SetBranchAddress("muIPsignificance", &_muIPsignificance, &b_muIPsignificance);
-    fChain->SetBranchAddress("pvx", &_pvx, &b_pvx);
-    fChain->SetBranchAddress("pvy", &_pvy, &b_pvy);
-    fChain->SetBranchAddress("pvz", &_pvz, &b_pvz);
-    fChain->SetBranchAddress("pvCov00", &_pvCov00, &b_pvCov00);
-    fChain->SetBranchAddress("pvCov11", &_pvCov11, &b_pvCov11);
-    fChain->SetBranchAddress("pvCov22", &_pvCov22, &b_pvCov22);
-    fChain->SetBranchAddress("pvCov01", &_pvCov01, &b_pvCov01);
-    fChain->SetBranchAddress("pvCov02", &_pvCov02, &b_pvCov02);
-    fChain->SetBranchAddress("pvCov12", &_pvCov12, &b_pvCov12);
     fChain->SetBranchAddress("genTaupx", &_genTaupx, &b_genTaupx);
     fChain->SetBranchAddress("genTaupy", &_genTaupy, &b_genTaupy);
     fChain->SetBranchAddress("genTaupz", &_genTaupz, &b_genTaupz);

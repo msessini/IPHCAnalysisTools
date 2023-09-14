@@ -379,6 +379,16 @@ class Ntuple_Controller{
     else return;
   }
 
+  void FillHist(unsigned int t, double angle, std::pair<float, int> max_pair, double w, std::vector<TH2D> *hgs=nullptr, std::vector<TH1D> *ztt=nullptr, std::vector<TH1D> *fkj=nullptr, bool isData=false) {
+    if(isData == true) t = 1;
+    //
+    if(max_pair.second == 0) hgs->at(t).Fill(angle,max_pair.first,w);
+    else if(max_pair.second == 1) ztt->at(t).Fill(max_pair.first,w);
+    else if(max_pair.second == 2) fkj->at(t).Fill(max_pair.first,w);
+    else return;
+  }
+
+
   // Physics Variable Get Functions
   Long64_t GetMCID();
   // Event Variables
@@ -437,7 +447,6 @@ class Ntuple_Controller{
   bool isIso()		    {return Ntp->_isIso;}
   bool isMediumID()	    {return Ntp->_isMediumID;}
   bool isTightJetID()       {return Ntp->_isTightJetID;}
-  bool extraIsoMu()         {return Ntp->_extraIsoMu;}
   bool trgIsoMu()	    {return Ntp->_trgIsoMu;}
   bool trgXMuTau()          {return Ntp->_trgXMuTau;}
   double pairvisMass()      {return Ntp->_pairvisMass;}
