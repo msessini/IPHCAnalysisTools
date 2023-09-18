@@ -3540,7 +3540,6 @@ void  HCPMuTau::Store_ExtraDist(){
     Extradist1d.push_back(&phiCPeven_CMS_PreFire_13TeVUp_fkj);
     Extradist1d.push_back(&phiCPeven_CMS_PreFire_13TeVDown_fkj);
     }
-  }
   // Special case for TES and FakeES : Need to fill (!DM && !genMatch) from default to complete with (DM && genMatch) from TESUp/Down
   if(Selection::Get_SysType() == "TESUp" || Selection::Get_SysType() == "default") {
     Extradist2d.push_back(&phiCPeven_CMS_scale_t_1prong_13TeVUp_hgs);
