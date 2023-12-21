@@ -1,5 +1,5 @@
 #include "HistoConfig.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 
 #include <cstdlib>
 #include <algorithm>                                     
@@ -96,7 +96,7 @@ HistoConfig::~HistoConfig(){
 
 //utility Functions
 bool HistoConfig::GetHisto(bool isdata,Long64_t id,unsigned int &histo){
-  if(isdata && id!=36){
+  if(isdata && id!=35){
     id=1;
   }
   for(unsigned int i=0; i<ID.size(); i++){

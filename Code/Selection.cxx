@@ -1,5 +1,5 @@
 #include "Selection.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 
 #include "Tables.h"
 #include "Plots.h"
@@ -20,8 +20,8 @@ Selection::Selection(TString Name_, TString id_) :
 
 Selection::~Selection() {
 	//Check that the correct number of events are run over
-	//SkimConfig SC;
-	//SC.CheckNEvents(types,nevents_noweight_default);
+	SkimConfig SC;
+	SC.CheckNEvents(types,nevents_noweight_default);
 
 	//Check the number of files read
 	Logger(Logger::Info) << Get_Name() << " NGoodFile= " << NGoodFiles << " NBadFiles=" << NBadFiles << std::endl;
@@ -49,7 +49,7 @@ void Selection::ConfigureHistograms() {
 	}
 }
 
-void Selection::LoadResults(std::vector<TString> files, char* Channel, char* CPstate) {
+void Selection::LoadResults(std::vector<TString> files, char* Channel) {
 	if (!isStored) {
 		ConfigureHistograms();
 	}
@@ -69,7 +69,7 @@ void Selection::LoadResults(std::vector<TString> files, char* Channel, char* CPs
 				}
 				closedir(dp);
 			}
-			TString ID = Get_Name() + "_" + string(Channel) + "_" + string(CPstate) +".root";
+			TString ID = Get_Name() + "_" + string(Channel) +".root";
 			for (unsigned int i = 0; i < filelist.size(); i++) {
 				if (filelist.at(i).Contains(ID)) {
 					file += filelist.at(i);
@@ -195,7 +195,7 @@ bool Selection::AnalysisCuts(int t, double w, double wobjs) {
 	return false;
 }
 
-void Selection::Finish(char* Channel, char* CPstate) {
+void Selection::Finish(char* Channel) {
 	if (Npassed.size() != Npassed_noweight.size()) {
 		Logger(Logger::Error) << "Histograms not Configured. Please fix your code!!!! Running Selection::ConfigureHistograms()" << std::endl;
 		Selection::ConfigureHistograms();
@@ -214,8 +214,7 @@ void Selection::Finish(char* Channel, char* CPstate) {
 	if (mode == ANALYSIS)
 		fName += "ANALYSIS_";
 	fName += Name+"_";
-        fName += string(Channel)+"_";
-        fName += string(CPstate);
+        fName += string(Channel);
 
 	Save(fName);      // Save file with unweighted events - required for combining code
 
@@ -241,17 +240,17 @@ void Selection::Finish(char* Channel, char* CPstate) {
 			printf("%8d %10d : %7.1f * %9.4f / %10.0f = %6f", i, HConfig.GetID(i), Lumi, CrossSectionandAcceptance.at(i), Npassed.at(i).GetBinContent(0),
 					Lumi * CrossSectionandAcceptance.at(i) / Npassed.at(i).GetBinContent(0));
 			if (CrossSectionandAcceptance.at(i) > 0) {
-				ScaleAllHistOfType(i, Lumi * CrossSectionandAcceptance.at(i) / Npassed.at(i).GetBinContent(0));
+				ScaleAllHistOfType(i, Lumi * CrossSectionandAcceptance.at(i)/ Npassed.at(i).GetBinContent(0));
 				printf("\n");
 			} else
 				printf("  --> will not be scaled \n");
 		}
 		Save(fName + "_LumiScaled");      // Save file with Lumi-scaled events - required for combining code
 		histsAreScaled = true;
-
+	
 		///Now make the plots
-		Logger(Logger::Info) << "Printing Plots " << std::endl;
-		system("rm EPS/*.eps");
+		/*Logger(Logger::Info) << "Printing Plots " << std::endl;
+		//system("rm EPS/ *.eps");
 		Plots P;
 		P.Plot1D(Nminus1, colour, legend);
 		for (unsigned int i = 0; i < Nminus1.size(); i++) {
@@ -286,7 +285,7 @@ void Selection::Finish(char* Channel, char* CPstate) {
 		T.MakeEffTable(Npassed, title, Lumi, CrossSectionandAcceptance);
 		T.AddPlots(title);
 		T.GeneratePDF();
-		Logger(Logger::Info) << "Plots and Tables Complete" << std::endl;
+		Logger(Logger::Info) << "Plots and Tables Complete" << std::endl;*/
 	}
 
 }

@@ -509,16 +509,6 @@ if( $ARGV[0] eq "--Local" ){
     system(sprintf("mkdir $OutputDir/workdir$set/EPS "));
     system(sprintf("ln -s $OutputDir/workdir$set/Code/InputData $OutputDir/workdir$set/InputData "));
     
-    # generate first setup script
-    system(sprintf("touch $OutputDir/workdir$set/firstsetup"));
-    system(sprintf("chmod 744 $OutputDir/workdir$set/firstsetup"));
-    system(sprintf("echo \"#! /bin/bash\" >> $OutputDir/workdir$set/firstsetup "));
-    system(sprintf("echo \"sed -i 's;+= TauSpiner/;+=;g' $OutputDir/workdir$set/Code/Makefile\" >> $OutputDir/workdir$set/firstsetup "));
-    system(sprintf("echo \"cd $OutputDir/workdir$set/Code/DataFormats\" >> $OutputDir/workdir$set/firstsetup "));
-    system(sprintf("echo \"mv MyDict_rdict.pcm lib/. \" >> $OutputDir/workdir$set/firstsetup "));
-    system(sprintf("echo \"cd $OutputDir/workdir$set/ \" >> $OutputDir/workdir$set/firstsetup"));
-    system(sprintf("echo \"rm firstsetup\" >> $OutputDir/workdir$set/firstsetup"));
-
     # generate compile script 
     system(sprintf("touch $OutputDir/workdir$set/compile"));
     system(sprintf("chmod 744 $OutputDir/workdir$set/compile")); 
@@ -527,9 +517,6 @@ if( $ARGV[0] eq "--Local" ){
     system(sprintf("echo \"source config \\\$\@ \"   >> $OutputDir/workdir$set/compile "));
     system(sprintf("echo \"gmake all\" >> $OutputDir/workdir$set/compile "));
     system(sprintf("echo \"cd $OutputDir/workdir$set/ \" >> $OutputDir/workdir$set/compile"));
-    system(sprintf("echo \"if test -f 'firstsetup'; then\" >> $OutputDir/workdir$set/compile"));
-    system(sprintf("echo \"  source firstsetup\" >> $OutputDir/workdir$set/compile"));
-    system(sprintf("echo \"fi\" >> $OutputDir/workdir$set/compile"));
 
     # Generate Combine script 
     system(sprintf("touch $OutputDir/workdir$set/Combine"));
@@ -538,7 +525,7 @@ if( $ARGV[0] eq "--Local" ){
     system(sprintf("echo \"export workdir=\\\"$OutputDir/workdir$set/\\\"\" >> $OutputDir/workdir$set/Combine"));
     system(sprintf("echo \"cd $OutputDir/workdir$set/Code/; source config \" >> $OutputDir/workdir$set/Combine"));
     system(sprintf("echo \"cd $OutputDir/workdir$set/ \" >> $OutputDir/workdir$set/Combine")) ; 
-    system(sprintf("echo \'$OutputDir/workdir$set/Code/Analysis.exe \"\${1}\" \"\${2}\" \' >> $OutputDir/workdir$set/Combine")) ;
+    system(sprintf("echo \'$OutputDir/workdir$set/Code/Analysis.exe \"\${1}\" \' >> $OutputDir/workdir$set/Combine")) ;
 
     # Generate Combine Input
     system(sprintf("cp $InputFile $OutputDir/workdir$set/Input.txt "));
@@ -556,25 +543,30 @@ if( $ARGV[0] eq "--Local" ){
     system(sprintf("cd $OutputDir/workdir$set/; ./subs '{DIR}'  $RemoteScrathDir$UserID/  $OutputDir/workdir$set/set_env; "));
   
     # Generate runAnalysis script
-    system(sprintf("touch $OutputDir/runAnalysis"));
-    system(sprintf("chmod 744 $OutputDir/runAnalysis"));
-    system(sprintf("echo \"#!/bin/bash\" >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \"date\" >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \'source Submit \"\${1}\" Even\' >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \"sleep 10\" >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \'source Submit \"\${1}\" Odd\' >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \"sleep 10\" >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \"qstat -u $UserID\" >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \'while [ -n \"\$(qstat -u $UserID)\" ]; do\' >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \'  echo \"\$(qstat -u $UserID)\"\' >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \"  date\" >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \"sleep 2m\" >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \"done\" >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \'./Combine \"\${1}\" Even\' >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \'./Combine \"\${2}\" Odd\' >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \'python ./PlotTools/Oscillation/oscillation.py --evenFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Even.root --oddFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Odd.root --channel \"\${1}\" --year \"\${2}\" --process ggfH\' >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \'python ./PlotTools/Oscillation/oscillation.py --evenFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Even.root --oddFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Odd.root --channel \"\${1}\" --year \"\${2}\" --process vbfH\' >> $OutputDir/runAnalysis"));
-    system(sprintf("echo \'python ./PlotTools/Oscillation/oscillation.py --evenFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Even.root --oddFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Odd.root --channel \"\${1}\" --year \"\${2}\" --process all\' >> $OutputDir/runAnalysis"));
+    system(sprintf("touch $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("chmod 744 $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \"#!/bin/bash\" >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \"date\" >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \'source Submit \"\${1}\" Even\' >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \"sleep 10\" >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \'source Submit \"\${1}\" Odd\' >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \"sleep 10\" >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \'while [ -n \"\$(qstat -u $UserID)\" ]; do\' >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \'  echo \"\$(qstat -u $UserID)\"\' >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \"  date\" >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \"  sleep 2m\" >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \"done\" >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \'./Combine \"\${1}\" Even\' >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \'./Combine \"\${2}\" Odd\' >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \'python ./PlotTools/Oscillation/oscillation.py --evenFile LOCAL_COMBINED_hcptautau_default_\"\${2}\"_Even.root --oddFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Odd.root --channel \"\${1}\" --year \"\${2}\" --process ggfH\' >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \'python ./PlotTools/Oscillation/oscillation.py --evenFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Even.root --oddFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Odd.root --channel \"\${1}\" --year \"\${2}\" --process vbfH\' >> $OutputDir/workdir$set/runAnalysis"));
+    system(sprintf("echo \'python ./PlotTools/Oscillation/oscillation.py --evenFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Even.root --oddFile LOCAL_COMBINED_hcptautau_default_\"\${1}\"_Odd.root --channel \"\${1}\" --year \"\${2}\" --process all\' >> $OutputDir/workdir$set/runAnalysis"));
+
+    # cp useful scripts
+    system(sprintf("cp merge.sh $OutputDir/workdir$set/;"));
+    system(sprintf("cp syst.sh $OutputDir/workdir$set/;"));
+    system(sprintf("cp syst.txt $OutputDir/workdir$set/;"));
+    system(sprintf("cp changeQueue.sh $OutputDir/workdir$set/;"));
 
 
     # Setup Condor Combine scripts
@@ -603,12 +595,14 @@ if( $ARGV[0] eq "--Local" ){
 	$max=1;
 	foreach $DS (@DataSets){
 	    #if((($l==0 && ($DS =~ m/Data/)) || ($l==1 && !($DS =~ m/Data/))) || (($l==0 && ($DS =~ m/data/)) || ($l==1 && !($DS =~ m/data/)))){
-	    if((($l==0 && ($DS =~ m/Data/)) || ($l==1 && !($DS =~ m/Data/)))){
-		#	print "true 1   l = $l\n";
+	    if((($l==0 && ($DS =~ m/SingleMuon/)) || ($l==1 && !($DS =~ m/SingleMuon/)))){
 		if($l==0){
 		    #	print "true 2   l = $l\n";
 		    $max=$maxdata;
 		    #$max=2;
+		    if($DS == m/SingleMuon_A/ || $DS == m/SingleMuon_D/) {
+		    	$max=$maxdata*0.5;
+ 		    }
 		}
 		else{
 		    #	print "true 3   l = $l\n";
@@ -617,13 +611,9 @@ if( $ARGV[0] eq "--Local" ){
 			#	print "true 4";
 			$max=$maxemb;
 		    }
-		}
-		
-		if($DS =~ m/Filtered/)
-		{
-		    #$max=12;
-		    #$max=5;
-		    $max=3;
+                    if($DS =~ m/EmbedD/){
+                        $max=$maxemb*0.5;
+                    }
 		}
 
 		#2016
@@ -745,7 +735,7 @@ if( $ARGV[0] eq "--Local" ){
 			# Add Set information to Combining scripts and Input.txt
 			system(sprintf("echo \"File: $OutputDir/workdir$set/Set_$B/ \" >>  $OutputDir/workdir$set/Input.txt ")) ;
 			system(sprintf("echo \"cd $OutputDir/workdir$set/Set_$B \" >> $OutputDir/workdir$set/Submit")) ;
-			system(sprintf("echo \'source  Qsub_Set_$B \"\${1}\" \"\${2}\"\' >> $OutputDir/workdir$set/Submit")) ;
+			system(sprintf("echo \'source  Qsub_Set_$B \"\${1}\"\' >> $OutputDir/workdir$set/Submit")) ;
 
 
 			# Create and configure Set_$B dir
@@ -766,7 +756,7 @@ if( $ARGV[0] eq "--Local" ){
 			system(sprintf("echo \"mkdir $RemoteDir/workdir$set-Set_$B  \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
 			system(sprintf("echo \"cp -r *    $RemoteDir/workdir$set-Set_$B  \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
 			system(sprintf("echo \"cd  $RemoteDir/workdir$set-Set_$B  \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
-			system(sprintf("echo \'$OutputDir/workdir$set/Code/Analysis.exe \"\${1}\" \"\${2}\" 2>&1 | tee >(sed -r \"s/\\x1B\\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g\" > Set_$B.output) \' >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
+			system(sprintf("echo \'$OutputDir/workdir$set/Code/Analysis.exe \"\${1}\" 2>&1 | tee >(sed -r \"s/\\x1B\\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g\" > Set_$B.output) \' >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
 			system(sprintf("echo \"cp -r *  $OutputDir/workdir$set/Set_$B/ \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
 			system(sprintf("echo \"source $OutputDir/workdir$set/Set_$B/Set_$B-clean.sh \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));
 			system(sprintf("echo \"rm -r   $RemoteDir/workdir$set-Set_$B  \" >> $OutputDir/workdir$set/Set_$B/Set_$B.sh"));	

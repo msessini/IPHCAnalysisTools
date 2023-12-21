@@ -4,18 +4,16 @@
 #include "Selection.h"
 #include <vector>
 #include "TString.h"
-#include "SVFitStorage.h"
 
 class Example : public Selection {
 
  public:
-  Example(TString Name_, TString id_,char* Channel_, char* CPstate_);
+  Example(TString Name_, TString id_,char* Channel_);
   virtual ~Example();
 
   virtual void  Configure();
   virtual void  Finish();
   char* Channel;
-  char* CPstate;
   enum cuts {TriggerOk=0,PrimeVtx,NCuts};
 
  protected:

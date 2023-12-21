@@ -3,14 +3,12 @@
 #include <cstdlib>
 #include "HistoConfig.h"
 #include <iostream>
-#include "SVFitObject.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 
-Example::Example(TString Name_, TString id_,char* Channel_, char* CPstate_):
+Example::Example(TString Name_, TString id_,char* Channel_):
   Selection(Name_,id_)
 {
 Channel = Channel_;
-CPstate = CPstate_;
 }
 
 Example::~Example(){
@@ -79,23 +77,23 @@ void  Example::Store_ExtraDist(){
 }
 
 void  Example::doEvent(){
-  unsigned int t;
-  int id(Ntp->GetMCID());
-  if(!HConfig.GetHisto(Ntp->isData(),id,t)){ Logger(Logger::Error) << "failed to find id" <<std::endl; return;}
+  unsigned int t=0;
+  //int id(Ntp->GetMCID());
+  //if(!HConfig.GetHisto(Ntp->isData(),id,t)){ Logger(Logger::Error) << "failed to find id" <<std::endl; return;}
   
   // Apply Selection
 
 
-  value.at(PrimeVtx)=Ntp->NVtx();
+  //value.at(PrimeVtx)=Ntp->NVtx();
   pass.at(PrimeVtx)=(value.at(PrimeVtx)>=cut.at(PrimeVtx));
   
   value.at(TriggerOk)=(Ntp->EventNumber()%1000)==1;
   pass.at(TriggerOk)=true;
   
   double wobs=1;
-  double w;
-  if(!Ntp->isData()){/*w = Ntp->PUReweight(Ntp->year())*/;}
-  else{w=1;}
+  double w=1;
+  //if(!Ntp->isData()){/*w = Ntp->PUReweight(Ntp->year())*/;}
+  //else{w=1;}
 
 
 
@@ -118,7 +116,7 @@ void  Example::doEvent(){
 
 
 void  Example::Finish(){
-  Selection::Finish(Channel,CPstate);
+  Selection::Finish(Channel);
 }
 
 

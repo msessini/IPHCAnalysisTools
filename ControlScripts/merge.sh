@@ -1,0 +1,37 @@
+#!/bin/bash
+
+hadd default.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_default_A1MU_LumiScaled.root
+hadd TESUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_TESUp_A1MU_LumiScaled.root
+hadd TESDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_TESDown_A1MU_LumiScaled.root
+hadd MESUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_MESUp_A1MU_LumiScaled.root
+hadd MESDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_MESDown_A1MU_LumiScaled.root
+hadd JERUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_JERUp_A1MU_LumiScaled.root
+hadd JERDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_JERDown_A1MU_LumiScaled.root
+hadd AbsoluteUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_AbsoluteUp_A1MU_LumiScaled.root
+hadd AbsoluteDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_AbsoluteDown_A1MU_LumiScaled.root
+hadd Absolute_YEARUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_Absolute_YEARUp_A1MU_LumiScaled.root
+hadd Absolute_YEARDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_Absolute_YEARDown_A1MU_LumiScaled.root
+hadd BBEC1Up.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_BBEC1Up_A1MU_LumiScaled.root
+hadd BBEC1Down.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_BBEC1Down_A1MU_LumiScaled.root
+hadd BBEC1_YEARUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_BBEC1_YEARUp_A1MU_LumiScaled.root
+hadd BBEC1_YEARDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_BBEC1_YEARDown_A1MU_LumiScaled.root
+hadd EC2Up.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_EC2Up_A1MU_LumiScaled.root
+hadd EC2Down.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_EC2Down_A1MU_LumiScaled.root
+hadd EC2_YEARUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_EC2_YEARUp_A1MU_LumiScaled.root
+hadd EC2_YEARDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_EC2_YEARDown_A1MU_LumiScaled.root
+hadd FlavorQCDUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_FlavorQCDUp_A1MU_LumiScaled.root
+hadd FlavorQCDDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_FlavorQCDDown_A1MU_LumiScaled.root
+hadd RelativeSample_YEARUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_RelativeSample_YEARUp_A1MU_LumiScaled.root
+hadd RelativeSample_YEARDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_RelativeSample_YEARDown_A1MU_LumiScaled.root
+hadd RelativeBalUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_RelativeBalUp_A1MU_LumiScaled.root
+hadd RelativeBalDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_RelativeBalDown_A1MU_LumiScaled.root
+hadd HFUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_HFUp_A1MU_LumiScaled.root
+hadd HFDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_HFDown_A1MU_LumiScaled.root
+hadd HF_YEARUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_HF_YEARUp_A1MU_LumiScaled.root
+hadd HF_YEARDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_HF_YEARDown_A1MU_LumiScaled.root
+hadd METResoUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_METResoUp_A1MU_LumiScaled.root
+hadd METResoDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_METResoDown_A1MU_LumiScaled.root
+hadd METScaleUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_METScaleUp_A1MU_LumiScaled.root
+hadd METScaleDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_METScaleDown_A1MU_LumiScaled.root
+hadd METUnclusteredUp.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_METUnclusteredUp_A1MU_LumiScaled.root
+hadd METUnclusteredDown.root Set_{1..137}/LOCAL_ANALYSIS_hcpmutau_METUnclusteredDown_A1MU_LumiScaled.root

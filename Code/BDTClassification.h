@@ -11,18 +11,19 @@ class BDTClassification{
  private:
   
   //int year_;
-  //double dijetpt_;
-  double jdeta_;
-  double jpt_1_;
-  double svfit_mass_;
-  double m_vis_;
-  double met_;
-  double mjj_;
-  unsigned n_jets_;
-  double pt_1_;
-  // double pt_2_;
-  double pt_tt_;
-  double pt_vis_;
+  float muPt_;
+  float tauPt_;
+  double ditauPt_;
+  int Njets_;
+  double leadingjetPt_;
+  double subleadingjetPt_;
+  double dijetPt_;
+  double dijetMass_;
+  double dijetdeltaEta_;
+  double pairvisMass_;
+  double fastMTTmass_;
+  float muMETmt_;
+  float PUPPImet_;
 
   TMVA::Reader *reader_even_;
   TMVA::Reader *reader_odd_;
@@ -33,27 +34,14 @@ class BDTClassification{
   virtual std::vector<float> read_mva_scores(unsigned isEven, std::vector<float> vars);
   virtual std::pair<float,int> getMaxScoreWithIndex(std::vector<float> vec);
   virtual int PreAnalysis();
-  virtual int Execute(double jdeta,double jpt_1,double m_vis,double met,double mjj,unsigned n_jets,double pt_1, double pt_tt,double pt_vis, double svfit_mass, unsigned long long evt_, std::vector<float> &score, std::pair<float, int> &max_pair);
+  virtual int Execute(float muPt,float tauPt,double ditauPt,int Njets,double leadingjetPt,double subleadingjetPt,double dijetPt,double dijetMass,double dijetdeltaEta,double pairvisMass,double fastMTTmass,float muMETmt,float PUPPImet, unsigned long long evt_,std::vector<float> &score, std::pair<float, int> &max_pair);
 
   //int year_;
   unsigned isEven_;
   float event_;
   unsigned long long evt_;
 
-  /* double dijetpt_; */
-  /* double jdeta_; */
-  /* double jpt_1_; */
-  /* double m_sv_; */
-  /* double m_vis_; */
-  /* double met_; */
-  /* double mjj_; */
-  /* unsigned n_jets_; */
-  /* double pt_1_; */
-  /* double pt_2_; */
-  /* double pt_tt_; */
-  /* double pt_vis_; */
-
-  float var0_, var1_, var2_, var3_, var4_, var5_, var6_, var7_, var8_, var9_;//, var10_, var11_;
+  float var0_, var1_, var2_, var3_, var4_, var5_, var6_, var7_, var8_, var9_, var10_, var11_, var12_;
 
 };
 

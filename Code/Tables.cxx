@@ -1,5 +1,5 @@
 #include "Tables.h"
-#include "SimpleFits/FitSoftware/interface/Logger.h"
+#include "Logger.h"
 
 #include <sys/types.h>
 #include <dirent.h>
